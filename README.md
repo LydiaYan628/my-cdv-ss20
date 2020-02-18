@@ -1,6 +1,6 @@
 ### Critical Data & Visualization Fall 2020
 
-Hi! My name is [your name] and in this repository I will develop [my work](my-work) for [this class](https://github.com/leoneckert/critical-data-and-visualization-spring-2020) that I am taking in the Spring Semester 2020.
+Hi! My name is Lydia Yan and in this repository I will develop [my work](https://github.com/LydiaYan628/CriticalData-Visualization) for [this class](https://github.com/leoneckert/critical-data-and-visualization-spring-2020) that I am taking in the Spring Semester 2020.
 
 
 ###### Notes:
