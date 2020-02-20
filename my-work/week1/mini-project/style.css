@@ -1,0 +1,26 @@
+body{
+  font-family: 'Open Sans Condensed', sans-serif;
+  background-color: lightpink;
+}
+
+h1{
+  font-weight: bold;
+  text-align: center;
+  font-size: 60px;
+  background-color: orange;
+}
+
+h2{
+  font-weight: lighter;
+  font-style: italic;
+  text-align: center;
+  line-height: 15px;
+  color: darkblue;
+}
+
+.bar{
+  height:100px;
+  width:200px;
+  /* background-color: darkred; */
+  margin-bottom: 4px;
+}

@@ -9,7 +9,7 @@ let data= [
         "hotpot": 8,
         "yoghurt": 5
     },
-    { 
+    {
         "timestamp": "2020-02-19T06:01:37.084Z",
         "pizza": 8,
         "chocolate": 8,
