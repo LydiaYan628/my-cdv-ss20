@@ -1,0 +1,27 @@
+### Q1.
+* Let’s separate Bowker’s saying into two parts: “raw data as an oxymoron” and “raw data as a bad idea”.
+
+First, as we have l learned in class, data is never raw, it is always exist cooked. Most of the things exist in this world not as a number but various types of entities. For example, we can say that there are 20 students in this class, 10 boys and 10 girls. People in this class don’t have the name as “Boy-Student-6” or “Girl- student-3”, it is the investigator who sees the characters in each person and categories them. These kinds of judging and categorizing can be considered as “cooking”. The number “10” and “20” are the data which been concluded after all these “cooking procedures”. Data is never raw, it is always a product after means of cooking. Therefore, raw data doesn’t exist, and the saying of raw data is an oxymoron.
+
+On the other hand, if we assume that raw data do exist, then I think it represents the pure numbers without interpretation. As Boyd and Crawford mentioned in “Critical Questions for Big Data”, every big data must come along with a corresponding context, “Taken out of context, Big Data loses its meaning.” (670) In that case, even though there exists raw data, it doesn’t have ant meaning. I think that’s why Bowker called raw data as a bad idea.
+
+### Q2.
+* This quote makes me think of a real-life example that related to its meaning. We all know that Pantone always releases “the color of the year” before the year starts. Pantone states that there is a team called “Pantone Color Institute” which investigates through the whole year, looking for the year’s global daily life situation and decides which color can express the feelings and the attitude more accurately. It seems like they are using data to analyze people’s lifestyles, but actually they are shaping people’s life. Once the color of the year is announced, it doesn’t take long before we see the new makeup product or fashion show runways being filled with that color. And we, as the consumers, are willing to buy them automatically because the media said it’s popular and look, we got data supports. There are more cases in real life just like this. To be more extreme, it can reveal how rumors influence people’s life.
+
+### Q3.
+*
+1. Limitation. The users on Twitter can’t represent every person on the earth. They are only a small group of people and have some common features: they all use Twitter and some of their behavior is unique enough to take them into the survey.
+2. Irrelevance. A user, an account and a person does not mean the same at all. Nor can we see them as a single figure.
+3. Filtered. Doing an investigation on Twitter is just like going to the supermarket but only run through the processed food section. Then you conclude that everything in supermarkets is not fresh nor organic, and supermarkets only sell food. After that, you proudly announce that “don’t go to any supermarkets, unless you want to have processed food and waste your time!” That’s nonsense. Data can represent something but only under certain circumstances, and the results can only be applied to a certain aimed group.
+
+### Q4.
+* If we don’t need to log in or pay for data, then it might be a horrible situation. I want to put the money charging part away and only talk about what if we don’t have to log in for data. Google has a huge amount of users’ information. And if we can check it whatever and whenever we want, then there’s no personal privacy anymore. What’s more, there’s even no need to have the copyright. If I know that my deepest secret can be seen by anyone then I’d rather quit using digital devices. But there’s still CCTVs on the street, so as long as I exist, I am transparent. Then the human civilization may go back to the time when there is no digital connection between people.
+
+To think more fictional, if we don’t have to log in to be accessed to certain data, then what if AI spies into the database? By analyzing the data at an unbelievable speed, I’m sure they can soon figure out ways to manipulate the whole human race.
+
+### Q5.
+* I was at the IMA show last semester and played with a few projects in this course. The first impression of this course is to do surveys, use special analyzing tools and learn more coding techniques to achieve a comprehensible visual surface. But I just found that these are just a really tiny part of the course. Scanning through the course plan, I found that the topics are more critical and philosophical than I thought.
+
+I thought data is everywhere, but the data I thought is not actually “data”, but only become data after the action of “I thought”.
+
+The hardest part of the mini-project this week was not the coding part. For me, it was the beginning, to get inspiration on the theme of the survey. To find out what interests me and worth a investigation. Of course, I hope that I can gain more coding skills and software techniques. But I also want to figure out what truly interested me. Maybe even be able to find the small details in life that can immediately trigger me to examine them closely. 
