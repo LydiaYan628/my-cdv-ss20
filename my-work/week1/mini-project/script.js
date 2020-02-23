@@ -209,7 +209,28 @@ bar.className="bar";
 bar.style.width= datapoint.average*80+"px";
 // bar.style.backgroundColor= "rgb(datapoint.average/10*255,0,datapoint.average/10*255)";
 // console.log("color");
-bar.innerHTML= datapoint.name;
+bar.innerHTML= datapoint.name + " "+ Math.floor((datapoint.average*100)/10)+"%";
+if (datapoint.name=="sleep"){
+  bar.style.backgroundColor="#701502";
+}else if (datapoint.name=="cookingSkills") {
+  bar.style.backgroundColor="#BD391C";
+}else if (datapoint.name=="beauty") {
+  bar.style.backgroundColor="#E2694F";
+}else if (datapoint.name=="somethingAcademical") {
+  bar.style.backgroundColor="#B03218";
+}else if (datapoint.name=="watchedVideos") {
+  bar.style.backgroundColor="#4E1104";
+}else if (datapoint.name=="readBooks") {
+  bar.style.backgroundColor="#C2452A";
+}else if (datapoint.name=="personalArtworks") {
+  bar.style.backgroundColor="#CC4C31";
+}else if (datapoint.name=="weight") {
+  bar.style.backgroundColor="#CC4C31";
+}else if (datapoint.name=="mysteriousThingsHaveNotBeenMentioned") {
+  bar.style.backgroundColor="#BD391C";
+}
+
+// bar.addEventListener("mouseover",barcolorchange);
 // document.getElementByName("name").style.color="white";
 //
 // let barname=bar.innerHTML=datapoint.name;
@@ -218,3 +239,7 @@ bar.innerHTML= datapoint.name;
 
 document.getElementById("box").appendChild(bar);
 }
+
+// function barcolorchange(){
+//   bar.style.backgroundColor="
+// }
