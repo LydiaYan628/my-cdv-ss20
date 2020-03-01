@@ -36,38 +36,38 @@
 
 
 
-//
-// // load the data and do things with the data
-// // Part 2
-// let myData = [4,6,2,8,1];
-// // fake data
-//
-// // part of part 3
-// function xLocation(datapoint){
-//   console.log(datapoint);
-//   // Math.return() will return a random number between 0-1
-//   return datapoint*40; //random number between 0-500
-//
-// }
-//
-// function chooseColor(datapoint){
-//   if (datapoint.name = 1){
-//     return "red"
-//   }else{
-//     return "green"
-//   }
-//
-// }
-//
-// viz.selectAll("circle").data(myData).enter()
-// // 目前页面上什么都没有，但是我们现在select了circle，so this is an empty selection. But I want a element for each data. so D3 bind the "empty selection" to the 5 data points. so D3 create 5 circles for the data in order to make the programmer happy. But now they are just placeholders. enter() is for "enter selection", means 5 elements need to enter the page.
-//   .append("circle")
-//     .attr("cx",xLocation)
-//     .attr("cy",100)
-//     .attr("r",20)
-//     .attr("fill",chooseColor)
-//     // now there are 5 circles on the page at the same location. all attribute perform once for every element
-//     // D3 does the loop for us. we don't need to write the "for" loop for it. NEVER WRITE D3 IN FOR LOOP !!!!!!!! at least this semester.
+
+// load the data and do things with the data
+// Part 2
+let myData = [4,6,2,8,1];
+// fake data
+
+// part of part 3
+function xLocation(datapoint){
+  console.log(datapoint);
+  // Math.return() will return a random number between 0-1
+  return datapoint*40; //random number between 0-500
+
+}
+
+function chooseColor(datapoint){
+  if (datapoint== "1"){
+    return "red";
+  }else{
+    return "green"
+  }
+
+}
+
+viz.selectAll("circle").data(myData).enter()
+// 目前页面上什么都没有，但是我们现在select了circle，so this is an empty selection. But I want a element for each data. so D3 bind the "empty selection" to the 5 data points. so D3 create 5 circles for the data in order to make the programmer happy. But now they are just placeholders. enter() is for "enter selection", means 5 elements need to enter the page.
+  .append("circle")
+    .attr("cx",xLocation)
+    .attr("cy",100)
+    .attr("r",20)
+    .attr("fill",chooseColor)
+    // now there are 5 circles on the page at the same location. all attribute perform once for every element
+    // D3 does the loop for us. we don't need to write the "for" loop for it. NEVER WRITE D3 IN FOR LOOP !!!!!!!! at least this semester.
 
 
 // Part 3
@@ -78,14 +78,14 @@
 
 // Part 4
 
-d3.json("data.json").then(gotData);
-
-
-function gotData(incomingData){
-  console.log(incomingData);
-  viz.selectAll("circle").data(incomingData).enter()
-    .append("circle")
-
-
-
-}
+// d3.json("data.json").then(gotData);
+//
+//
+// function gotData(incomingData){
+//   console.log(incomingData);
+//   viz.selectAll("circle").data(incomingData).enter()
+//     .append("circle")
+//
+//
+//
+// }
