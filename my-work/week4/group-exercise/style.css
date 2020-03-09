@@ -6,3 +6,19 @@ body{
   border: 1px black solid;
   /* background-color: lightblue; */
 }
+
+#ex{
+  position: absolute;
+  width:200px;
+  height: auto;
+  top:200px;
+  left:1200px;
+  /* margin:5px; */
+  border:2px gray solid;
+  padding:3px;
+}
+
+p{
+  font-family: Rockwell;
+  color:gray;
+}

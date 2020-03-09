@@ -2,7 +2,7 @@
     .attr('width', 500)
     .attr('height', 500)
     .style('background-color', 'lavender')
-; 
+;
 // let numHands = 0;
 function transformData(dataToClean){
   //    forEach    filter      map      reduce
@@ -29,6 +29,9 @@ function transformData(dataToClean){
   // return newData
   return newData
 }
+
+
+
 function gotData(incomingData){
   console.log(incomingData);
   // experiment ground
@@ -49,6 +52,9 @@ function gotData(incomingData){
   //   }
   // }
   //
+
+
+
   // japanese lady that helps you throw out old stuff you dont want
   // function filterFunction(element){
   //   if(element.intensityOfTouch > 3){
@@ -62,6 +68,9 @@ function gotData(incomingData){
   console.log("transformedData is", transformedData);
   // console.log("numHands is ", numHands);
   // we should keep functions like this outside gotData
+
+
+
   function filterHands(element){
     if(element.myBodyPart.includes("hand")){
       return true

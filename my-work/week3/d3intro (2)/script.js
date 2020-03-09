@@ -5,7 +5,7 @@ let viz =d3.select("#viz-container")
     .attr("height",400)
     .style("background-color","lavender")
 ;
-
+ 
 function randomX(){
   return Math.random()*600;
 }
