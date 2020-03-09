@@ -6,7 +6,7 @@
 
 The computer won't make its decision according to its user's color, gender, social identity, etc. However, bias can influence a human's decision making process easily, which may cause discriminations. Technical tools will only judge from what the information has been input. It can be sure in making objective decisions.
 
-But accrding to Virjinia Eubanks, people find it cold and heartless when engaging with the technical tools. The judgement made by these tools also lack of the consideration in the moral status in each case. However, morality in an important distinction of human society from others. So, it still has a long way on inputing the moral diagnosis in to its program.
+But accrding to Virginia Eubanks, people find it cold and heartless when engaging with the technical tools. The judgement made by these tools also lack of the consideration in the moral status in each case. However, morality in an important distinction of human society from others. So, it still has a long way on inputing the moral diagnosis in to its program.
 
 
 
