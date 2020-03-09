@@ -19,7 +19,7 @@ This shows the importance of social control. A person can not only be affected n
 **3.What do you understand this to mean?**
 *"systems act as a kind of 'empathy-overwrite'"*
 
-First, for the people who need the social service's help, they are ranking by the severeness of their current status. Therefore, poor people have to rewrite about there crisis in order to get the score higher.
+First, for the people who need the social service's help, they are ranking by the severeness of their current status. Therefore, poor people have to rewrite about there crisis in order to get the score higher. So poor people are trying to emphasize his/her poorness to draw the public service's attention. I have this feeling of people are having a poverty competition, which is pathetic. This reminds me of a Chinese saying "雪上加霜", which means add insult to injury.
 
 Second, people are being judged their potential crisis through their previous records. However, only the ones who use public facilities can be record and the ones who use private means won't. The accessed users are limited therefore the database is also limited.
 
