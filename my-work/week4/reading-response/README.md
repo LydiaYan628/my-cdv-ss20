@@ -1,4 +1,4 @@
-##### Think of contemporary systems/applications in which data is used to predict the future in order to then act upon it. Compile a list of 3 such situations that come to your mind and describe them briefly.
+#### Think of contemporary systems/applications in which data is used to predict the future in order to then act upon it. Compile a list of 3 such situations that come to your mind and describe them briefly.
 
 1. There are applications for health that predict the menstrual cycle for female. By filling in to some forms about the cycle time and the duration, the application wiil inform the user a few days aheah of the up coming period and allow its user to be prepared.
 
@@ -6,7 +6,7 @@
 
 3. Weather forecast. I think this is the most common prediction today we use. By calculating through air pressure, current weather conditions, cloud cover and etc, it will give out the future temperature, humidity, weather, AQI and many more other information about the future weather conditions. In this way, people can decide on there future movements and activities accordingly.
 
-##### Collect your thoughts on the Prediction and its role in the three above sources. Your associations, opinions and ideas may be complemented by reflections on "collective average vs individual fate", "statistic vs. algorithmic prediction" or "social physics" (but don't feel obliged to discuss these). Express yourself in 300-400 words.
+#### Collect your thoughts on the Prediction and its role in the three above sources. Your associations, opinions and ideas may be complemented by reflections on "collective average vs individual fate", "statistic vs. algorithmic prediction" or "social physics" (but don't feel obliged to discuss these). Express yourself in 300-400 words.
 
 For the above three examples that I have listed, I can see that most of the existing predicting system that I have noticed is mostly related to natural science. Through analyzing scientific strategies, I think humans are trying to master the rule of nature. Nature seems like the easiest system to predict. And the origin of predicting nature phenomenon has a long history. The earliest story of weather forecasting that I have heard of is dated back to the three kingdoms period of China, which is about 1800 years ago. However, we can always find ourselves bring umbrellas out on a sunny day, and trapped in the building because of the rain. The nature forecast needs accurate calculation and takes all variables into consideration. The nature system is such a strict system that a slight change will cause a butterfly effect. I don’t think people can fully master what nature is like, there are always things that we don’t know about, hence can’t collect the data or use statistic to predict the future. But these nature analytical algorithm has already brought us so many benefits that we can avoid to suffer from a lot of natural disasters.
 
