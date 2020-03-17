@@ -160,7 +160,7 @@ if(datapoint.who.includes("mom")){
     numGrandma++;
   }
 }
-
+  // sdfaf
 
 // console.log("numMyLeg");
 
