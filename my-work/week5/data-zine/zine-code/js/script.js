@@ -80,6 +80,18 @@ let numGrandma=0;
       //yeah
 
 
+      // count thing because we need the counted elements later
+
+      if(dataToClean[i].who.includes("mom")){
+          numMom++;
+        }else if(dataToClean[i].who.includes("dad")){
+          numDad++;
+        }else if(dataToClean[i].who.includes("grandma")){
+          numGrandma++;
+        }
+
+
+
 
       // console.log(numMyHands);
       newData.push(dataToClean[i]);
@@ -151,15 +163,15 @@ function hNumber(datapoint){
   }
 }
 
-function whoNumber(datapoint){
-if(datapoint.who.includes("mom")){
-    numMom++;
-  }else if(datapoint.who.includes("dad")){
-    numDad++;
-  }else if(datapoint.who.includes("grandma")){
-    numGrandma++;
-  }
-}
+// function whoNumber(datapoint){
+// if(datapoint.who.includes("mom")){
+//     numMom++;
+//   }else if(datapoint.who.includes("dad")){
+//     numDad++;
+//   }else if(datapoint.who.includes("grandma")){
+//     numGrandma++;
+//   }
+// }
   // sdfaf
 
 // console.log("numMyLeg");
@@ -267,7 +279,7 @@ function gotData(incomingData){
 
 
 
-
+    console.log(numMom);
 
 // PART this is the my body data part PART
 viz.selectAll(".touches").data(transformedData).enter()
@@ -293,22 +305,24 @@ viz.selectAll(".touches").data(transformedData).enter()
 // PART this is the who part PART
 // let who=viz.append('image')
 
-  viz.append('image').attr("xlink:href","icon/mom.png")
+  viz.append('image').attr("xlink:href","../icon/mom.png")
   .attr("x",800)
   .attr("y",50)
   .attr("width",160)
   .attr("height",240)
+  // .attr("transform", "scale("+  (numMom/numMom)   +")")
   // .style("border","5px solid black")
 ;
 
-  viz.append('image').attr("xlink:href","icon/dad.png")
+  viz.append('image').attr("xlink:href","../icon/dad.png")
   .attr("x",800)
   .attr("y",350)
   .attr("width",160)
   .attr("height",240)
+  // .attr("transform", "scale("+  (numDad/numMom)   +")")
 ;
 
-  viz.append('image').attr("xlink:href","icon/grandma.png")
+  viz.append('image').attr("xlink:href","../icon/grandma.png")
   .attr("x",800)
   .attr("y",600)
   .attr("width",160)
