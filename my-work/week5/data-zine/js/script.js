@@ -215,11 +215,11 @@ function dateColor(datapoint){
 
 
 // give color to each circle
-function hTouchColor(incomingData){
-    let cleanedData= transformData(incomingData);
-
-}
-
+// function hTouchColor(incomingData){
+//     let cleanedData= transformData(incomingData);
+//
+// }
+//
 
 
 
@@ -270,6 +270,17 @@ function gotData(incomingData){
 
 
 // PART this is the my body data part PART
+viz.selectAll(".touches").data(transformedData).enter()
+  .append("circle")
+    .attr("class","touches")
+    .attr("cx",300)
+    .attr("cy",100)
+    .attr("r",10)
+    .attr("fill","red")
+
+
+
+
 // adding front image on page
     // viz.append("g").html(front)
     //   .attr("x",100)
