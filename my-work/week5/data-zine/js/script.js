@@ -57,6 +57,9 @@ let numHLeg=0;
 let numHHip=0;
 let numHFeet=0;
 
+let numMom =0;
+let numDad=0;
+let numGrandma=0;
 
 // dealing with data
   function transformData(dataToClean){
@@ -73,47 +76,12 @@ let numHFeet=0;
       //split the words with ",", and delete the space between
       dataToClean[i].myBodyPart=dataToClean[i].myBodyPart.replace(/, /g,",").split(",");
       dataToClean[i].hisherBodyPart=dataToClean[i].hisherBodyPart.replace(/, /g,",").split(",");
+      dataToClean[i].who=dataToClean[i].who.replace(/, /g,",").split(",");
       //yeah
 
 
-      //change the numbers of the calculator
-      if(dataToClean[i].myBodyPart.includes("hand")){
-        numMyHands++;
-      }else if(dataToClean[i].myBodyPart.includes("face")){
-        numMyFace++;
-      }else if(dataToClean[i].myBodyPart.includes("hair")){
-        numMyHair++;
-      }else if(dataToClean[i].myBodyPart.includes("shoulder")){
-        numMyShoulder++;
-      }else if(dataToClean[i].myBodyPart.includes("upper body front")){
-        numMyUpperFront++;
-      }else if(dataToClean[i].myBodyPart.includes("upper body back")){
-        numMyUpperBack++;
-      }else if(dataToClean[i].myBodyPart.includes("leg")){
-        numMyLeg++;
-      }else if(dataToClean[i].myBodyPart.includes("hip area")){
-        numMyHip++;
-      }else if(dataToClean[i].myBodyPart.includes("feet")){
-        numMyFeet++;
-      }else if(dataToClean[i].hisherBodyPart.includes("hand")){
-        numHHands++;
-      }else if(dataToClean[i].hisherBodyPart.includes("face")){
-        numHFace++;
-      }else if(dataToClean[i].hisherBodyPart.includes("hair")){
-        numHHair++;
-      }else if(dataToClean[i].hisherBodyPart.includes("shoulder")){
-        numHShoulder++;
-      }else if(dataToClean[i].hisherBodyPart.includes("upper body front")){
-        numHUpperFront++;
-      }else if(dataToClean[i].hisherBodyPart.includes("hip")){
-        numHHip++;
-      }else if(dataToClean[i].hisherBodyPart.includes("leg")){
-        numHLeg++;
-      }else if(dataToClean[i].hisherBodyPart.includes("feet")){
-        numHFeet++;
-      }
 
-
+      // console.log(numMyHands);
       newData.push(dataToClean[i]);
     }
 
@@ -138,7 +106,66 @@ let numHFeet=0;
 //
 //   }
 
-console.log(numMyHands);
+// AREA number area
+function myNumber(cleanedData){
+
+        //change the numbers of the calculator
+        if(datapoint.myBodyPart.includes("hand")){
+          numMyHands++;
+        }else if(datapoint.myBodyPart.includes("face")){
+          numMyFace++;
+        }else if(datapoint.myBodyPart.includes("hair")){
+          numMyHair++;
+        }else if(datapoint.myBodyPart.includes("shoulder")){
+          numMyShoulder++;
+        }else if(datapoint.myBodyPart.includes("upper body front")){
+          numMyUpperFront++;
+        }else if(datapoint.myBodyPart.includes("upper body back")){
+          numMyUpperBack++;
+        }else if(datapoint.myBodyPart.includes("leg")){
+          numMyLeg++;
+        }else if(datapoint.myBodyPart.includes("hip area")){
+          numMyHip++;
+        }else if(datapoint.myBodyPart.includes("feet")){
+          numMyFeet++;
+        }
+}
+
+function hNumber(datapoint){
+ if(datapoint.hisherBodyPart.includes("hand")){
+    numHHands++;
+  }else if(datapoint.hisherBodyPart.includes("face")){
+    numHFace++;
+  }else if(datapoint.hisherBodyPart.includes("hair")){
+    numHHair++;
+  }else if(datapoint.hisherBodyPart.includes("shoulder")){
+    numHShoulder++;
+  }else if(datapoint.hisherBodyPart.includes("upper body front")){
+    numHUpperFront++;
+  }else if(datapoint.hisherBodyPart.includes("hip")){
+    numHHip++;
+  }else if(datapoint.hisherBodyPart.includes("leg")){
+    numHLeg++;
+  }else if(datapoint.hisherBodyPart.includes("feet")){
+    numHFeet++;
+  }
+}
+
+function whoNumber(datapoint){
+if(datapoint.who.includes("mom")){
+    numMom++;
+  }else if(datapoint.who.includes("dad")){
+    numDad++;
+  }else if(datapoint.who.includes("grandma")){
+    numGrandma++;
+  }
+}
+
+
+// console.log("numMyLeg");
+
+
+
 //change the date into mm/dd
 function dateMark(datapoint){
   if (dataToClean.date== "2020-02-23T16:00:00.000Z"){
@@ -253,23 +280,46 @@ function gotData(incomingData){
     //     .attr("y",400)
 
 // PART this is the who part PART
-let who=viz.append('image')
-  .attr()
+// let who=viz.append('image')
+
+  viz.append('image').attr("xlink:href","icon/mom.png")
+  .attr("x",800)
+  .attr("y",50)
+  .attr("width",160)
+  .attr("height",240)
+  // .style("border","5px solid black")
+;
+
+  viz.append('image').attr("xlink:href","icon/dad.png")
+  .attr("x",800)
+  .attr("y",350)
+  .attr("width",160)
+  .attr("height",240)
+;
+
+  viz.append('image').attr("xlink:href","icon/grandma.png")
+  .attr("x",800)
+  .attr("y",600)
+  .attr("width",160)
+  .attr("height",240)
+;
+
+
 
 // PART this is the his/her body part part
-let bigCircle= viz.append("circle")
-  .attr("cx",900)
-  .attr("cy",500)
-  .attr("r",250)
-  .attr("fill","gray")
-
-bigCircle.selectAll(".hTouch").data(transformedData).enter()
-  .append("circle")
-    .attr("class","hTouch")
-    .attr("cx",0)  //.attr("cx",randomXInCircle)
-    .attr("cy",0)//.attr("cy",randomYInCircle)
-    .attr("r",20)
-    .attr("fill",hTouchColor)
+// let bigCircle= viz.append("circle")
+//   .attr("cx",900)
+//   .attr("cy",500)
+//   .attr("r",250)
+//   .attr("fill","gray")
+//
+// bigCircle.selectAll(".hTouch").data(transformedData).enter()
+//   .append("circle")
+//     .attr("class","hTouch")
+//     .attr("cx",0)  //.attr("cx",randomXInCircle)
+//     .attr("cy",0)//.attr("cy",randomYInCircle)
+//     .attr("r",20)
+//     .attr("fill",hTouchColor)
 
 }
 
