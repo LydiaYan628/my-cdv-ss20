@@ -378,8 +378,94 @@ viz.append("text")
   .attr("fill","white")
   .attr("font-size",16)
 ;
+// upperfront
+viz.append("circle")
+    // .attr("class","touches")
+    .attr("cx",220)
+    .attr("cy",285)
+    .attr("r",numMyUpperFront*15)
+    .attr("fill","red")
+    .style("opacity",0.5)
+    ;
+viz.append("text")
+  .text("Upperfront")
+  .attr("x",170)
+  .attr("y",290)
+  .attr("font-family","'Righteous', cursive")
+  .attr("fill","white")
+  .attr("font-size",16)
+;
+// upper back
+viz.append("circle")
+    // .attr("class","touches")
+    .attr("cx",520)
+    .attr("cy",285)
+    .attr("r",numMyUpperBack*15)
+    .attr("fill","red")
+    .style("opacity",0.5)
+    ;
+viz.append("text")
+  .text("Upperback")
+  .attr("x",470)
+  .attr("y",290)
+  .attr("font-family","'Righteous', cursive")
+  .attr("fill","white")
+  .attr("font-size",16)
+;
+// hip AREA
+viz.append("circle")
+    // .attr("class","touches")
+    .attr("cx",510)
+    .attr("cy",425)
+    .attr("r",numMyHip*15)
+    .attr("fill","red")
+    .style("opacity",0.5)
+    ;
+viz.append("text")
+  .text("Hip")
+  .attr("x",500)
+  .attr("y",430)
+  .attr("font-family","'Righteous', cursive")
+  .attr("fill","white")
+  .attr("font-size",16)
+;
+// leg
+viz.append("circle")
+    // .attr("class","touches")
+    .attr("cx",160)
+    .attr("cy",525)
+    .attr("r",numMyLeg*15)
+    .attr("fill","red")
+    .style("opacity",0.5)
+    ;
+viz.append("text")
+  .text("Leg")
+  .attr("x",150)
+  .attr("y",530)
+  .attr("font-family","'Righteous', cursive")
+  .attr("fill","white")
+  .attr("font-size",16)
+;
+// feet
+viz.append("circle")
+    // .attr("class","touches")
+    .attr("cx",140)
+    .attr("cy",745)
+    .attr("r",15)
+    .attr("fill","red")
+    .style("opacity",0.5)
+    ;
+viz.append("text")
+  .text("Feet")
+  .attr("x",120)
+  .attr("y",750)
+  .attr("font-family","'Righteous', cursive")
+  .attr("fill","white")
+  .attr("font-size",16)
+;
 
 
+// console.log(numMyFeet);
 
 
 
