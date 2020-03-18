@@ -90,6 +90,50 @@ let numGrandma=0;
           numGrandma++;
         }
 
+        // // AREA number area
+        // function myNumber(cleanedData){
+
+                //change the numbers of the calculator
+                if(  dataToClean[i].myBodyPart.includes("hand")){
+                  numMyHands++;
+                }else if(  dataToClean[i].myBodyPart.includes("face")){
+                  numMyFace++;
+                }else if(  dataToClean[i].myBodyPart.includes("hair")){
+                  numMyHair++;
+                }else if(  dataToClean[i].myBodyPart.includes("shoulder")){
+                  numMyShoulder++;
+                }else if(  dataToClean[i].myBodyPart.includes("upper body front")){
+                  numMyUpperFront++;
+                }else if(  dataToClean[i].myBodyPart.includes("upper body back")){
+                  numMyUpperBack++;
+                }else if(  dataToClean[i].myBodyPart.includes("leg")){
+                  numMyLeg++;
+                }else if(  dataToClean[i].myBodyPart.includes("hip area")){
+                  numMyHip++;
+                }else if(  dataToClean[i].myBodyPart.includes("feet")){
+                  numMyFeet++;
+                }
+
+
+
+         if(dataToClean[i].hisherBodyPart.includes("hand")){
+            numHHands++;
+          }else if(dataToClean[i].hisherBodyPart.includes("face")){
+            numHFace++;
+          }else if(dataToClean[i].hisherBodyPart.includes("hair")){
+            numHHair++;
+          }else if(dataToClean[i].hisherBodyPart.includes("shoulder")){
+            numHShoulder++;
+          }else if(dataToClean[i].hisherBodyPart.includes("upper body front")){
+            numHUpperFront++;
+          }else if(dataToClean[i].hisherBodyPart.includes("hip")){
+            numHHip++;
+          }else if(dataToClean[i].hisherBodyPart.includes("leg")){
+            numHLeg++;
+          }else if(dataToClean[i].hisherBodyPart.includes("feet")){
+            numHFeet++;
+          }
+
 
 
 
@@ -118,50 +162,6 @@ let numGrandma=0;
 //
 //   }
 
-// AREA number area
-function myNumber(cleanedData){
-
-        //change the numbers of the calculator
-        if(datapoint.myBodyPart.includes("hand")){
-          numMyHands++;
-        }else if(datapoint.myBodyPart.includes("face")){
-          numMyFace++;
-        }else if(datapoint.myBodyPart.includes("hair")){
-          numMyHair++;
-        }else if(datapoint.myBodyPart.includes("shoulder")){
-          numMyShoulder++;
-        }else if(datapoint.myBodyPart.includes("upper body front")){
-          numMyUpperFront++;
-        }else if(datapoint.myBodyPart.includes("upper body back")){
-          numMyUpperBack++;
-        }else if(datapoint.myBodyPart.includes("leg")){
-          numMyLeg++;
-        }else if(datapoint.myBodyPart.includes("hip area")){
-          numMyHip++;
-        }else if(datapoint.myBodyPart.includes("feet")){
-          numMyFeet++;
-        }
-}
-
-function hNumber(datapoint){
- if(datapoint.hisherBodyPart.includes("hand")){
-    numHHands++;
-  }else if(datapoint.hisherBodyPart.includes("face")){
-    numHFace++;
-  }else if(datapoint.hisherBodyPart.includes("hair")){
-    numHHair++;
-  }else if(datapoint.hisherBodyPart.includes("shoulder")){
-    numHShoulder++;
-  }else if(datapoint.hisherBodyPart.includes("upper body front")){
-    numHUpperFront++;
-  }else if(datapoint.hisherBodyPart.includes("hip")){
-    numHHip++;
-  }else if(datapoint.hisherBodyPart.includes("leg")){
-    numHLeg++;
-  }else if(datapoint.hisherBodyPart.includes("feet")){
-    numHFeet++;
-  }
-}
 
 // function whoNumber(datapoint){
 // if(datapoint.who.includes("mom")){
@@ -235,8 +235,32 @@ function dateColor(datapoint){
 
 
 
+// function appendCircle(incomingData){
+//   // console.log(incomingData);
+//   document.body.appendChild()
+// }
 
-
+// function circleX(incomingData){
+//   if(datapoint.myBodyPart.includes("hand")){
+//     numMyHands++;
+//   }else if(datapoint.myBodyPart.includes("face")){
+//     numMyFace++;
+//   }else if(datapoint.myBodyPart.includes("hair")){
+//     numMyHair++;
+//   }else if(datapoint.myBodyPart.includes("shoulder")){
+//     numMyShoulder++;
+//   }else if(datapoint.myBodyPart.includes("upper body front")){
+//     numMyUpperFront++;
+//   }else if(datapoint.myBodyPart.includes("upper body back")){
+//     numMyUpperBack++;
+//   }else if(datapoint.myBodyPart.includes("leg")){
+//     numMyLeg++;
+//   }else if(datapoint.myBodyPart.includes("hip area")){
+//     numMyHip++;
+//   }else if(datapoint.myBodyPart.includes("feet")){
+//     numMyFeet++;
+//   }
+// }
 
 
 
@@ -277,18 +301,90 @@ function gotData(incomingData){
     // let transformedTime= transformTime(incomingData);
     // console.log(transformedTime);
 
-
-
+// console.log(incomingData);
+// console.log(transformedData);
     console.log(numMom);
+console.log(numDad);
+    console.log(numGrandma);
+    console.log("f",numMyHair);
 
-// PART this is the my body data part PART
-viz.selectAll(".touches").data(transformedData).enter()
-  .append("circle")
-    .attr("class","touches")
-    .attr("cx",300)
-    .attr("cy",100)
-    .attr("r",10)
+//PART this is the my body data part PART
+// hand
+viz.append("circle")
+    // .attr("class","touches")
+    .attr("cx",370)
+    .attr("cy",440)
+    .attr("r",numMyHands*15)
     .attr("fill","red")
+    .style("opacity",0.5)
+    ;
+viz.append("text")
+  .text("hand")
+  .attr("x",300)
+  .attr("y",450)
+  .attr("font-family","'Righteous', cursive")
+  .attr("fill","white")
+  .attr("font-size",64)
+;
+
+// face
+viz.append("circle")
+    // .attr("class","touches")
+    .attr("cx",210)
+    .attr("cy",100)
+    .attr("r",numMyFace*15)
+    .attr("fill","red")
+    .style("opacity",0.5)
+    ;
+viz.append("text")
+  .text("face")
+  .attr("x",160)
+  .attr("y",120)
+  .attr("font-family","'Righteous', cursive")
+  .attr("fill","white")
+  .attr("font-size",64)
+;
+// Shoulder
+viz.append("circle")
+    // .attr("class","touches")
+    .attr("cx",420)
+    .attr("cy",220)
+    .attr("r",numMyShoulder*15)
+    .attr("fill","red")
+    .style("opacity",0.5)
+    ;
+viz.append("text")
+  .text("shoulder")
+  .attr("x",350)
+  .attr("y",220)
+  .attr("font-family","'Righteous', cursive")
+  .attr("fill","white")
+  .attr("font-size",40)
+;
+// hair
+viz.append("circle")
+    // .attr("class","touches")
+    .attr("cx",370)
+    .attr("cy",440)
+    .attr("r",numMyHair*15)
+    .attr("fill","red")
+    .style("opacity",0.5)
+    ;
+viz.append("text")
+  .text("hair")
+  .attr("x",300)
+  .attr("y",450)
+  .attr("font-family","'Righteous', cursive")
+  .attr("fill","white")
+  .attr("font-size",16)
+;
+
+
+
+
+
+
+// incomingData.forEach(appendCircle);
 
 
 
@@ -306,27 +402,27 @@ viz.selectAll(".touches").data(transformedData).enter()
 // let who=viz.append('image')
 
   viz.append('image').attr("xlink:href","../icon/mom.png")
-  .attr("x",800)
+  .attr("x",700)
   .attr("y",50)
-  .attr("width",160)
-  .attr("height",240)
+  .attr("width",numMom*16)
+  .attr("height",numMom*24)
   // .attr("transform", "scale("+  (numMom/numMom)   +")")
   // .style("border","5px solid black")
 ;
 
   viz.append('image').attr("xlink:href","../icon/dad.png")
-  .attr("x",800)
-  .attr("y",350)
-  .attr("width",160)
-  .attr("height",240)
+  .attr("x",700)
+  .attr("y",50)
+  .attr("width",numDad*16)
+  .attr("height",numDad*24)
   // .attr("transform", "scale("+  (numDad/numMom)   +")")
 ;
 
   viz.append('image').attr("xlink:href","../icon/grandma.png")
-  .attr("x",800)
-  .attr("y",600)
-  .attr("width",160)
-  .attr("height",240)
+  .attr("x",700)
+  .attr("y",50)
+  .attr("width",numGrandma*16)
+  .attr("height",numGrandma*24)
 ;
 
 
