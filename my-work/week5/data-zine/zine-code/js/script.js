@@ -263,17 +263,17 @@ function dateColor(datapoint){
 // }
 
 
-// bar graph intensity 
+// bar graph intensity
 function getGroupPosition(d,i){
   let x= (1200+i*30);
   let y= 800-50;
   return "translate("+x+","+y+")";
 }
 
-let yScale=d3.scaleLinear().domain([0,10]).range([0,800]);
+let yScale=d3.scaleLinear().domain([0,10]).range([0,750]);
 function getHeight(d,i){
   return yScale(d.intensityOfTouch);
-}""
+}
 
 function getYPosition(d,i){
   return -yScale(d.intensityOfTouch);
@@ -295,14 +295,27 @@ function intensityColor(d,i){
   }else if(d.date=="2020-02-29T16:00:00.000Z"){
     return "rgb(128,75,73)";
   }
-
-
 }
 
+function myMoodX(d,i){
+  let mymoodx=(1250+i*30);
+  return mymoodx;
+}
 
+function myMoodY(d,i){
+  let mymoody = (750-75*d.myMoodAfterTheTouch);
+  return mymoody;
+}
 
+function hMoodX(d,i){
+  let hmoodx=(1250+i*30);
+  return hmoodx;
+}
 
-
+function hMoodY(d,i){
+  let hmoody = (750-75*d.hisherMoodAfterTheTouch);
+  return hmoody;
+}
 
 
 
@@ -575,10 +588,31 @@ let intensity= datagroups.append("rect")
   datagroups.attr("transform",getGroupPosition)
 
 
+  // y axis
+  let yScale=d3.scaleLinear().domain([0,10]).range([750,0])
+
+  let yAxisGroup=viz.append("g").attr("class","yAxis");
+  let yAxis= d3.axisLeft(yScale);
+  yAxisGroup.call(yAxis);
+  // let yAxisYPos=50;
+  yAxisGroup.attr("transform","translate("+1230+",0)");
 
 
+  viz.selectAll(".myMood").data(incomingData).enter()
+    .append("rect")
+    .attr("width",25)
+    .attr("height",10)
+    .attr("fill","green")
+    .attr("x",myMoodX)
+    .attr("y",myMoodY)
 
-
+    viz.selectAll(".hMood").data(incomingData).enter()
+      .append("rect")
+      .attr("width",25)
+      .attr("height",10)
+      .attr("fill","blue")
+      .attr("x",hMoodX)
+      .attr("y",hMoodY)
 
 
 
@@ -595,12 +629,6 @@ let intensity= datagroups.append("rect")
 
 
 }
-
-
-
-
-
-
 
 
 
