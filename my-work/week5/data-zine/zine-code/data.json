@@ -362,7 +362,7 @@
     {
         "timestamp": "2020-03-01T01:23:28.437Z",
         "score": 0,
-        "date": "2020-02-29T16:00:00.000Z",
+        "date": "2020-02-28T16:00:00.000Z",
         "myBodyPart": "shoulder",
         "hisherBodyPart": "hand",
         "intensityOfTouch": 2,
@@ -374,7 +374,7 @@
     {
         "timestamp": "2020-03-01T01:24:03.754Z",
         "score": 0,
-        "date": "2020-02-28T16:00:00.000Z",
+        "date": "2020-02-29T16:00:00.000Z",
         "myBodyPart": "face",
         "hisherBodyPart": "face",
         "intensityOfTouch": 3,

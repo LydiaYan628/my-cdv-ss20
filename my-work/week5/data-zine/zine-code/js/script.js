@@ -263,12 +263,41 @@ function dateColor(datapoint){
 // }
 
 
+// bar graph intensity 
+function getGroupPosition(d,i){
+  let x= (1200+i*30);
+  let y= 800-50;
+  return "translate("+x+","+y+")";
+}
+
+let yScale=d3.scaleLinear().domain([0,10]).range([0,800]);
+function getHeight(d,i){
+  return yScale(d.intensityOfTouch);
+}""
+
+function getYPosition(d,i){
+  return -yScale(d.intensityOfTouch);
+}
+
+function intensityColor(d,i){
+  if (d.date=="2020-02-23T16:00:00.000Z"){
+      return "rgb(255,200,200)";
+  }else if(d.date=="2020-02-24T16:00:00.000Z"){
+    return "rgb(255,158,155)";
+  }else if(d.date=="2020-02-25T16:00:00.000Z"){
+    return "rgb(252,96,91)";
+  }else if(d.date=="2020-02-26T16:00:00.000Z"){
+    return "rgb(196,27,22)";
+  }else if(d.date=="2020-02-27T16:00:00.000Z"){
+    return "rgb(135,16,10)";
+  }else if(d.date=="2020-02-28T16:00:00.000Z"){
+    return "rgb(92,14,11)";
+  }else if(d.date=="2020-02-29T16:00:00.000Z"){
+    return "rgb(128,75,73)";
+  }
 
 
-
-
-
-
+}
 
 
 
@@ -527,6 +556,43 @@ viz.append("text")
 //     .attr("cy",0)//.attr("cy",randomYInCircle)
 //     .attr("r",20)
 //     .attr("fill",hTouchColor)
+
+// AREA chart AREA
+let datagroups= viz.selectAll(".datagroup").data(incomingData).enter()
+  .append("g")
+    .attr("class","datagroup")
+  ;
+
+let intensity= datagroups.append("rect")
+  .attr("class","intensity")
+  .attr("x",50)
+  .attr("y",getYPosition)
+  .attr("width",25)
+  .attr("height",getHeight)
+  .attr("fill",intensityColor)
+  ;
+
+  datagroups.attr("transform",getGroupPosition)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
