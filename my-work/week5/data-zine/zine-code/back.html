@@ -3,13 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>Back</title>
-
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
+    <!-- font-family: 'Righteous', cursive; -->
     <!-- Please leave this following line here -->
     <script type="text/javascript" src="setup/setup.js"></script>
 
     <!-- include the d3 library -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
-
+    <link rel="stylesheet" href="style.css">
   </head>
   <style media="screen">
     #container{
@@ -22,8 +24,112 @@
     <!-- everything you create should be in the following container -->
     <!-- Use D3 to place your svg(s) in it, too -->
     <div id="container">
+<div id="left">
+  <div id="text1">
+    <p>This area represent the frequecy of each of my body part got touched.</p>
+  </div>
+  <div id="touched">
+    <p><br>bodyPart</p>
+  </div>
+  <div id="explainTouched">
+    <p>Position: the body part being touched.</p>
+    <p>Lable: the body part being touched.</p>
+    <p>Radius: the frequency of this body part being touched.</p>
+  </div>
+  <div id="analyzeTouched">
+    <p>Analysis: <br>According to the statistics, my HAND and my FACE were the most touched area, my Feet was the least touched area.</p>
+  </div>
+</div>
+<div id="middle">
+  <div id="text2">
+    <p>This area represent the people who touched me and the frequency of each.</p>
+  </div>
+  <div id="whoImage">
+      <div id="mom" >
+        <img src="../icon/mom.png" alt="mom" class="image">
+        <p class="whoLable">mom</p>
+      </div>
+      <div id="dad" >
+        <img src="../icon/dad.png" alt="dad" class="image">
+        <p class="whoLable">dad</p>
+      </div>
+      <div id="grandma" >
+        <img src="../icon/grandma.png" alt="grangma" class="image">
+        <p class="whoLable">grandma</p>
+      </div>
+  </div>
+  <div id="explainWho">
+    <p>Size: The more a person touched me, the larger the size of his/her image.</p>
+  </div>
+  <div id="analysisWho">
+    <p>Analysis:<br>According to the statistics, my mom touched me the most. My mom's touching frequency is 5 times of my dad's and 30 times of my grandma's.</p>
+  </div>
+</div>
+<div id="right">
+  <div id="text3">
+    <p>This area represent the intensity of each physical contact, the mood of me and the person who touched me after each touch.</p>
+  </div>
+  <div  id="touchdate">
+    <p>Date:</p>
+  </div>
+  <div class="intensityRect" id="intensity23">
+    <p>Feb.23</p>
+  </div>
+  <div class="intensityRect" id="intensity24">
+    <p>Feb.24</p>
+  </div>
+  <div class="intensityRect" id="intensity25">
+    <p>Feb.25</p>
+  </div>
+  <div class="intensityRect" id="intensity26">
+    <p>Feb.26</p>
+  </div>
+  <div class="intensityRect" id="intensity27">
+    <p>Feb.27</p>
+  </div>
+  <div class="intensityRect" id="intensity28">
+    <p>Feb.28</p>
+  </div>
+  <div class="intensityRect" id="intensity29">
+    <p>Feb.29</p>
+  </div>
+  <div class="mood" id="myMood">
+
+  </div>
+  <div class="moodText" id="myMoodText">
+    <p>My mood after touch</p>
+  </div>
+  <div class="mood" id="hMood">
+
+  </div>
+  <div class="moodText" id="hMoodText">
+    <p>His/her mood after touch</p>
+  </div>
+  <div id="axis">
+    <p><b>X-Axis:</b> Timeline
+    <br><b>Y-Axis:</b>
+      <br>For intensity bar graph -- 0-10 represent my sensible intensity from barely felt it to extremely hurt.
+      <br>For mood level block -- 0-10 represent mood from negative to positive.</p>
+  </div>
+  <div id="analysisAxis">
+    <p>Analysis:<br>According to the statistics, the frequency of touches occur was about 5 per day. The intencity of touches varies. My mood was mostly stable around average, but my parents' moods were more positive than mine after the physical contact.</p>
+  </div>
 
 
+</div>
+<div id="bottom">
+  <div id="process">
+    <h3><b>Process:</b></h3>
+    <p>1. Select the topic.
+    <br>2. Set up the collecting features.
+    <br>Feature: ①Date ②My Body Part ③His/Her Body Part ④Intensity of Touch ⑤Who ⑥Purpose (Not reveal in the visualization) ⑦My Mood After the Touch ⑧His/Her Mood After the Touch
+    <br>3. Collect Data using Google Forms.
+    <br>4. Draw out the template.
+    <br>5. Design the format.
+    <br>6. Visualize the collected data.
+    <br>7. Explain and analyze.</p>
+  </div>
+</div>
     </div>
 
 
