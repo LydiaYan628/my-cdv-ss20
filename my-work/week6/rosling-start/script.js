@@ -104,14 +104,53 @@ function gotData(incomingData){
 
     // bind currentYearData to elements
 
+    let datagroups=vizGroup.selectAll(".datagroup").data(currentYearData);
+
 
 
     // take care of entering elements
+    let enteringElements=datagroups.enter()
+      .append("g")
+      .attr("class","datagroup")
+      ;
+
+      enteringElements.append("circle")
+      .attr("r",function(d,i){
+        let r=rScale(d.pop);
+        return r;
+      })
+      .attr("fill",function(d,i){
+        if(d.continent=="Asia"){
+          return "red";
+        }else if(d.continent=="Europe"){
+          return "blue";
+        }else if(d.continent=="Africa"){
+          return "green";
+        }else if(d.continent=="Americas"){
+          return "lightgreen";
+        }
+      })
+
+      enteringElements.append("text")
+        .text(function(d,i){
+          return d.Country;
+        })
+        .attr("x",5)
+        .attr("y",5)
+        .attr("font-size","12px")
+        .attr("fill","green")
+
+      function getGroupLocation(d,i){
+        let x=xScale(d.fert);
+        let y=yScale(d.life);
+        return "translate("+x+","+y+")";
+      }
 
 
+        enteringElements.transition().attr("transform",getGroupLocation);
 
     // take care of updating elements
-
+    datagroups.transition().duration(300).attr("transform",getGroupLocation);
 
 
 
@@ -147,7 +186,7 @@ function gotData(incomingData){
     currentYear = dates[currentYearIndex];
     year.text(currentYear)
     drawViz();
-  }, 1000);
+  }, 120);
 
 
 
