@@ -13,4 +13,4 @@ I want to create a "media palace" that shows the occupation of each technology p
 ### 3. [TV Shows and Movies listed on Netflix](https://www.kaggle.com/shivamb/netflix-shows)
 This dataset shows the TV series and movies avaliable on Netflix in 2019. The data collected the type, country, rating，release year, etc.
 
-Maybe I will make use of the logo, and fill it out by different areas to show the occupation of each catagory. 
+Maybe I will make use of the logo, and fill it out by different areas to show the occupation of each catagory. Also, it would be interesting if I can see the type preference of each country using this dataset.
