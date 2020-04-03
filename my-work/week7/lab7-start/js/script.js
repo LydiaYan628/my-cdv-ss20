@@ -21,6 +21,8 @@ let viz = d3.select("#container")
 ;
 
 
+
+
 // X SCALE
 // we use a band scale
 //
@@ -51,18 +53,47 @@ let xAxis = d3.axisBottom(xScale)
 // this is a tricky one.... by default the axis would show the scales domain (the unique keys)
 // ...in our case we want emojis to show. This situation hardly comes up,
 // that's why I just wrote this one-liner for you:
-xAxis.tickFormat(d=>{return data.filter(dd=>dd.key==d)[0].name;});
+xAxis.tickFormat(d=> {return data.filter(dd=>dd.key==d)[0].name;});
+// xAxis.tickFormat(restyleTick);
+//
+//
+//
+// function restyleTick(tickValue){
+// console.log("_");
+// console.log("current",tickValue);
+//
+//   let coData=data.filter(function(d,i){
+//     if (d.key==tickValue){
+//       return true;
+//     }else{
+//       return false;
+//     }
+//   });
+//
+// let datapoint= coData[0];
+// console.log(datapoint);
+// let emoji= datapoint.name;
+//
+// console.log("coData",coData);
+//   return emoji;
+// }
+
+
+
+
+
+
 // create a group to hold all the axis elements
 let xAxisGroup = viz.append("g").classed("xAxis", true);
 // tell d3 to put the axis into place
 xAxisGroup.call(xAxis);
-// modfy the axis label (the emoojis) size
-xAxisGroup.selectAll("text").attr("font-size", 24).attr("y", 9);
+// // modfy the axis label (the emoojis) size
+// xAxisGroup.selectAll("text").attr("font-size", 24).attr("y", 9);
 // get rid of the little tick lines
 xAxisGroup.selectAll("line").remove();
 // bring axis to the correct y position
 xAxisGroup.attr("transform", "translate(0,"+ (h-padding) +")")
-
+xAxisGroup.transition().call(xAxis).selectAll("text").attr("font-size", 18); // we adjust this to bring the new axis onto the page
 
 // Y SCALE
 // we will not show a y axis in this graph, but still need a scale
@@ -79,6 +110,9 @@ yDomain = [0, yMax];
 let yScale = d3.scaleLinear().domain(yDomain).range([0, h-padding*2]);
 
 
+
+
+
 // the ACTUAL GRAPH
 // before we get to the actual graph, we make a group element into which to
 // put all visual graph things:
@@ -92,12 +126,13 @@ let graphGroup = viz.append("g").classed("graphGroup", true);
 
 
 
+function drawviz(){
+
 // now comes the interesting part, WATCH OUT! i'll go slow
 // we have the page (with nothing on it) and we have data
 // we *toss* it both to D3 and let it do its evaluation about
 // how many elements need to enter/update/exit.
-let elementsForPage =
- graphGroup.selectAll(".datapoint").data(data);
+let elementsForPage = graphGroup.selectAll(".datapoint").data(data);
 // note, we do not use ".enter()" for now. let's have a close look
 // at just this (the situation) for now
 // as we have learned, D3 did some kind of calculation here, some weighing
@@ -115,7 +150,6 @@ console.log("D3's assessment of whats needed on the page:", elementsForPage);
 // how should updating elements change their size, color, position etc.?
 // and the exiting ones, rather than just disappearing, how about they
 // fade out?
-
 
 
 // out of this, we will now extract the sub selections,
@@ -139,6 +173,7 @@ console.log("exitingElements", exitingElements);
 // "elementsForPage". For now, hold the thought that we are dealing
 // with three subsections of elements: entering ones, exiting ones, and updating ones.
 // hopefully this will get clearer as we go on.
+
 
 
 // as you can see, there is nothing on the page yet. And the previous console.logs
@@ -173,6 +208,12 @@ enteringDataGroups
 ;
 
 
+
+
+
+
+
+
 // we add new code below:
 console.log("new data", data)
 
@@ -190,6 +231,7 @@ xScale.domain(allNames);
 // for our new data
 
 
+
 // as you can see, we only adjust selectively the bits that depend
 // on our data. the same is true for the axis:
 xAxis = d3.axisBottom(xScale); //we adjust this because it uses the new xScale
@@ -203,8 +245,6 @@ yScale.domain(yDomain);
 
 // do you see how the axis adjusts to the new data at this point? you can animate
 // this transition inside the statement where you use ".call(xAxis)"...
-
-xAxisGroup.transition().call(xAxis).selectAll("text").attr("font-size", 18); // we adjust this to bring the new axis onto the page
 
 // we add new code below:
 console.log("new data", data)
@@ -228,8 +268,6 @@ console.log(elementsForPage);
 // again, we can now exactly define, how each subgroup should
 // behave
 
-
-
 // in the end, the incoming bar will appear on the right side. for that
 // to look great, let's move over the updating elements first.
 // to recap, we extract the entering elments like so:
@@ -247,14 +285,9 @@ elementsForPage.attr("transform", function(d, i){
 // oh my, it works. You can animate the transition in the same way as you did
 // with the x axis before
 
-
-
-
 elementsForPage.transition().duration(1000).attr("transform", function(d, i){
   return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
 });
-
-
 
 
 // we aren't done with the updating section yet
@@ -277,6 +310,8 @@ elementsForPage.select("rect")
 // first note, I added a new feature, the .delay() delays the transition
 // second, again, we only update the things that are impacted by the new data situation
 
+
+ console.log("okok");
 
 // lastly, we can deal with the elements that enter
 // we already extracted the enteringElements from elementsForPage above
@@ -305,11 +340,14 @@ incomingDataGroups
     })
     .attr("fill", "black")
  ;
+
+
+
+
+
  // works, but looks boring! let's transition from no height
  // at all to the actual height and from a different color towards
  // black.
-
-
  incomingDataGroups
   .append("rect")
     .attr("y", function(d,i){
@@ -333,6 +371,11 @@ incomingDataGroups
     })
     .attr("fill", "black")
  ;
+}
+
+
+// }
+
 
 
 
@@ -347,6 +390,7 @@ incomingDataGroups
 // the functions we use to do the actual work are defined in dataManager.js
 function add(){
   addDatapoints(1);
+  drawviz();
 }
 document.getElementById("buttonA").addEventListener("click", add);
 
