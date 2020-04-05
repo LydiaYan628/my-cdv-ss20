@@ -126,7 +126,7 @@ let graphGroup = viz.append("g").classed("graphGroup", true);
 
 
 
-function drawviz(){
+function vizAdd(){
 
 // now comes the interesting part, WATCH OUT! i'll go slow
 // we have the page (with nothing on it) and we have data
@@ -184,7 +184,7 @@ let enteringDataGroups = enteringElements.append("g").classed("datapoint", true)
 // position the group along the x axis (check the inspector tool to see
 // what we are doing):
 enteringDataGroups.attr("transform", function(d, i){
-  return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
+  return "translate("+ xScale(d.key)+ "," + (h - padding)+ ")";
 });
 // then append rectangles to them and position/size them:
 enteringDataGroups
@@ -209,11 +209,7 @@ enteringDataGroups
 
 
 
-
-
-
-
-
+function vizAdd(){
 // we add new code below:
 console.log("new data", data)
 
@@ -229,8 +225,6 @@ allNames = data.map(function(d){return d.key});
 xScale.domain(allNames);
 // done, the xScale is "fixed" and ready to help us to position elements
 // for our new data
-
-
 
 // as you can see, we only adjust selectively the bits that depend
 // on our data. the same is true for the axis:
@@ -374,7 +368,7 @@ incomingDataGroups
 }
 
 
-// }
+}
 
 
 
@@ -390,7 +384,7 @@ incomingDataGroups
 // the functions we use to do the actual work are defined in dataManager.js
 function add(){
   addDatapoints(1);
-  drawviz();
+  vizAdd();
 }
 document.getElementById("buttonA").addEventListener("click", add);
 
