@@ -116,7 +116,7 @@ function vizAdd() {
 
 		xScale.domain(allNames)
   	.range([padding, w - padding])
-  	.paddingInner(0.1);;
+  	.paddingInner(0.1);
 
 		xAxis = d3.axisBottom(xScale);
 		xAxis.tickFormat(d => {
@@ -215,8 +215,20 @@ function vizAdd() {
 
 
 
+  function vizExit() {
+    elementsForPage = graphGroup.selectAll(".datapoint").data(data);
+		console.log(elementsForPage);
+
+		enteringElements = elementsForPage.enter();
+		exitingElements = elementsForPage.exit();
+
+    
 
 
+
+
+    exitingElements.transition().delay(800).remove();
+}
 
 function add() {
 	addDatapoints(1);
@@ -226,6 +238,7 @@ document.getElementById("buttonA").addEventListener("click", add);
 
 function remove() {
 	removeDatapoints(1);
+  vizExit();
 }
 document.getElementById("buttonB").addEventListener("click", remove);
 
