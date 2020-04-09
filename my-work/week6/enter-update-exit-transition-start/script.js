@@ -4,9 +4,9 @@ let xPadding = 70;
 let yPadding = 50;
 
 let viz = d3.select("#container")
-  .append("svg")
-    .attr("width", w)
-    .attr("height", h)
+.append("svg")
+.attr("width", w)
+.attr("height", h)
 ;
 
 
@@ -28,7 +28,7 @@ function gotData(incomingData){
 
   let xScale=d3.scaleLinear().domain([0,maxX]).range([xPadding,w-xPadding]);
   let xAxisGroup= viz.append("g")
-    .attr("class","xaxis");
+  .attr("class","xaxis");
   let xAxis = d3.axisBottom(xScale);
   xAxisGroup.call(xAxis);
   xAxisGroup.attr("transform","translate(0,"+(h-yPadding)+")");
@@ -47,220 +47,220 @@ function gotData(incomingData){
   let vizGroup= viz.append("g").attr("class","vizGroup");
 
 
-// function step1(){
-//   //get data
-//   let dataToShow= incomingData[0];
-//   // console.log();
-//
-//   // viz
-//   let datagroups=vizGroup.selectAll(".datagroup").data(dataToShow).enter()
-//     .append("g")
-//     .attr("class","datagroup")
-//     ;
-//
-//   datagroups.append("circle")
-//     .attr("r",30)
-//     .attr("fill","red")
-//   ;
-//
-//   datagroups.append("text")
-//     .text(function(d,i){
-//       return d.name;
-//     })
-//     .attr("x",-17)
-//     .attr("y",17)
-//     .attr("font-family","sans-serif")
-//     .attr("font-size","3em")
-//     .attr("fill","white")
-//     ;
-//
-// ////why cannot write this function inside the "tranform"?
-//     function getGroupLocation(d,i){
-//       let x=xScale(d.x);
-//       let y=yScale(d.y);
-//       return "translate("+x+","+y+")";
-//     }
-//   datagroups.attr("transform",getGroupLocation);
-// }
+  // function step1(){
+  //   //get data
+  //   let dataToShow= incomingData[0];
+  //   // console.log();
+  //
+  //   // viz
+  //   let datagroups=vizGroup.selectAll(".datagroup").data(dataToShow).enter()
+  //     .append("g")
+  //     .attr("class","datagroup")
+  //     ;
+  //
+  //   datagroups.append("circle")
+  //     .attr("r",30)
+  //     .attr("fill","red")
+  //   ;
+  //
+  //   datagroups.append("text")
+  //     .text(function(d,i){
+  //       return d.name;
+  //     })
+  //     .attr("x",-17)
+  //     .attr("y",17)
+  //     .attr("font-family","sans-serif")
+  //     .attr("font-size","3em")
+  //     .attr("fill","white")
+  //     ;
+  //
+  // ////why cannot write this function inside the "tranform"?
+  //     function getGroupLocation(d,i){
+  //       let x=xScale(d.x);
+  //       let y=yScale(d.y);
+  //       return "translate("+x+","+y+")";
+  //     }
+  //   datagroups.attr("transform",getGroupLocation);
+  // }
 
 
 
 
 
 
-// function step2(){
-//   //get data
-//   let dataToShow= incomingData[1];
-//   // console.log();
-//
-//   // viz
-//
-//   let datagroups=vizGroup.selectAll(".datagroup").data(dataToShow);
-//
-//
-//   //we just want to change the location an dnot to append anything else
-//     // .enter()
-//     // .append("g")
-//     // .attr("class","datagroup")
-//     // ;
-//
-//   // datagroups.append("circle")
-//   //   .attr("r",30)
-//   //   .attr("fill","red")
-//   // ;
-//
-//   // datagroups.append("text")
-//   //   .text(function(d,i){
-//   //     return d.name;
-//   //   })
-//   //   .attr("x",-17)
-//   //   .attr("y",17)
-//   //   .attr("font-family","sans-serif")
-//   //   .attr("font-size","3em")
-//   //   .attr("fill","white")
-//   //   ;
-//
-// ////why cannot write this function inside the "tranform"?
-//     function getGroupLocation(d,i){
-//       let x=xScale(d.x);
-//       let y=yScale(d.y);
-//       return "translate("+x+","+y+")";
-//     }
-//   datagroups.attr("transform",getGroupLocation);
-// }
-//
-//
-// function step3(){
-//   //get data
-//   let dataToShow= incomingData[2];
-//   // console.log();
-//
-//   // viz
-//
-//   let datagroups=vizGroup.selectAll(".datagroup").data(dataToShow);
-//
-//   let exitingElements= datagroups.exit();
-//   exitingElements.remove();
-//
-//   //we just want to change the location an dnot to append anything else
-//     // .enter()
-//     // .append("g")
-//     // .attr("class","datagroup")
-//     // ;
-//
-//   // datagroups.append("circle")
-//   //   .attr("r",30)
-//   //   .attr("fill","red")
-//   // ;
-//
-//   // datagroups.append("text")
-//   //   .text(function(d,i){
-//   //     return d.name;
-//   //   })
-//   //   .attr("x",-17)
-//   //   .attr("y",17)
-//   //   .attr("font-family","sans-serif")
-//   //   .attr("font-size","3em")
-//   //   .attr("fill","white")
-//   //   ;
-//
-// ////why cannot write this function inside the "tranform"?
-//     function getGroupLocation(d,i){
-//       let x=xScale(d.x);
-//       let y=yScale(d.y);
-//       return "translate("+x+","+y+")";
-//     }
-//   datagroups.attr("transform",getGroupLocation);
-// }
-//
-//
-//
-//
-// function step4(){
-//   //get data
-//   let dataToShow= incomingData[3];
-//   // console.log();
-//
-//   // viz
-//
-//   let datagroups=vizGroup.selectAll(".datagroup").data(dataToShow);
-//
-//   // let exitingElements= datagroups.exit();
-//   // exitingElements.remove();
-//   let enteringElements= datagroups.enter()
-//     .append("g")
-//     .attr("class","datagroup")
-//     ;
-//
-//
-//
-//
-//   //we just want to change the location an dnot to append anything else
-//     // .enter()
-//
-//
-//   enteringElements.append("circle")
-//     .attr("r",30)
-//     .attr("fill","red")
-//   ;
-//
-//   enteringElements.append("text")
-//     .text(function(d,i){
-//       return d.name;
-//     })
-//     .attr("x",-17)
-//     .attr("y",17)
-//     .attr("font-family","sans-serif")
-//     .attr("font-size","3em")
-//     .attr("fill","white")
-//     ;
-//
-// ////why cannot write this function inside the "tranform"?
-//     function getGroupLocation(d,i){
-//       let x=xScale(d.x);
-//       let y=yScale(d.y);
-//       return "translate("+x+","+y+")";
-//     }
-//   enteringElements.attr("transform",getGroupLocation);
-//   datagroups.attr("transform",getGroupLocation);
-// }
+  // function step2(){
+  //   //get data
+  //   let dataToShow= incomingData[1];
+  //   // console.log();
+  //
+  //   // viz
+  //
+  //   let datagroups=vizGroup.selectAll(".datagroup").data(dataToShow);
+  //
+  //
+  //   //we just want to change the location an dnot to append anything else
+  //     // .enter()
+  //     // .append("g")
+  //     // .attr("class","datagroup")
+  //     // ;
+  //
+  //   // datagroups.append("circle")
+  //   //   .attr("r",30)
+  //   //   .attr("fill","red")
+  //   // ;
+  //
+  //   // datagroups.append("text")
+  //   //   .text(function(d,i){
+  //   //     return d.name;
+  //   //   })
+  //   //   .attr("x",-17)
+  //   //   .attr("y",17)
+  //   //   .attr("font-family","sans-serif")
+  //   //   .attr("font-size","3em")
+  //   //   .attr("fill","white")
+  //   //   ;
+  //
+  // ////why cannot write this function inside the "tranform"?
+  //     function getGroupLocation(d,i){
+  //       let x=xScale(d.x);
+  //       let y=yScale(d.y);
+  //       return "translate("+x+","+y+")";
+  //     }
+  //   datagroups.attr("transform",getGroupLocation);
+  // }
+  //
+  //
+  // function step3(){
+  //   //get data
+  //   let dataToShow= incomingData[2];
+  //   // console.log();
+  //
+  //   // viz
+  //
+  //   let datagroups=vizGroup.selectAll(".datagroup").data(dataToShow);
+  //
+  //   let exitingElements= datagroups.exit();
+  //   exitingElements.remove();
+  //
+  //   //we just want to change the location an dnot to append anything else
+  //     // .enter()
+  //     // .append("g")
+  //     // .attr("class","datagroup")
+  //     // ;
+  //
+  //   // datagroups.append("circle")
+  //   //   .attr("r",30)
+  //   //   .attr("fill","red")
+  //   // ;
+  //
+  //   // datagroups.append("text")
+  //   //   .text(function(d,i){
+  //   //     return d.name;
+  //   //   })
+  //   //   .attr("x",-17)
+  //   //   .attr("y",17)
+  //   //   .attr("font-family","sans-serif")
+  //   //   .attr("font-size","3em")
+  //   //   .attr("fill","white")
+  //   //   ;
+  //
+  // ////why cannot write this function inside the "tranform"?
+  //     function getGroupLocation(d,i){
+  //       let x=xScale(d.x);
+  //       let y=yScale(d.y);
+  //       return "translate("+x+","+y+")";
+  //     }
+  //   datagroups.attr("transform",getGroupLocation);
+  // }
+  //
+  //
+  //
+  //
+  // function step4(){
+  //   //get data
+  //   let dataToShow= incomingData[3];
+  //   // console.log();
+  //
+  //   // viz
+  //
+  //   let datagroups=vizGroup.selectAll(".datagroup").data(dataToShow);
+  //
+  //   // let exitingElements= datagroups.exit();
+  //   // exitingElements.remove();
+  //   let enteringElements= datagroups.enter()
+  //     .append("g")
+  //     .attr("class","datagroup")
+  //     ;
+  //
+  //
+  //
+  //
+  //   //we just want to change the location an dnot to append anything else
+  //     // .enter()
+  //
+  //
+  //   enteringElements.append("circle")
+  //     .attr("r",30)
+  //     .attr("fill","red")
+  //   ;
+  //
+  //   enteringElements.append("text")
+  //     .text(function(d,i){
+  //       return d.name;
+  //     })
+  //     .attr("x",-17)
+  //     .attr("y",17)
+  //     .attr("font-family","sans-serif")
+  //     .attr("font-size","3em")
+  //     .attr("fill","white")
+  //     ;
+  //
+  // ////why cannot write this function inside the "tranform"?
+  //     function getGroupLocation(d,i){
+  //       let x=xScale(d.x);
+  //       let y=yScale(d.y);
+  //       return "translate("+x+","+y+")";
+  //     }
+  //   enteringElements.attr("transform",getGroupLocation);
+  //   datagroups.attr("transform",getGroupLocation);
+  // }
 
 
 
-// document.getElementById("step1").addEventListener("click",step1);
-// document.getElementById("step2").addEventListener("click",step2);
-// document.getElementById("step3").addEventListener("click",step3);
-// document.getElementById("step4").addEventListener("click",step4);
+  // document.getElementById("step1").addEventListener("click",step1);
+  // document.getElementById("step2").addEventListener("click",step2);
+  // document.getElementById("step3").addEventListener("click",step3);
+  // document.getElementById("step4").addEventListener("click",step4);
 
-////why cannot write this function inside the "tranform"?
+  ////why cannot write this function inside the "tranform"?
 
 
-let dataIndex=0;
+  let dataIndex=0;
 
-function visualizeData(){
-  //get data
-  let dataToShow= incomingData[dataIndex];
-  // console.log();
+  function visualizeData(){
+    //get data
+    let dataToShow= incomingData[dataIndex];
+    // console.log();
 
-function assignKeys(d,i){
-  return d.name;
-}
+    function assignKeys(d,i){
+      return d.name;
+    }
 
-  // viz
-  let datagroups=vizGroup.selectAll(".datagroup").data(dataToShow,assignKeys);
+    // viz
+    let datagroups=vizGroup.selectAll(".datagroup").data(dataToShow,assignKeys);
 
-//entering elements
-  let enteringElements= datagroups.enter()
+    //entering elements
+    let enteringElements= datagroups.enter()
     .append("g")
     .attr("class","datagroup")
     ;
 
-  enteringElements.append("circle")
+    enteringElements.append("circle")
     .attr("r",30)
     .attr("fill","red")
-  ;
+    ;
 
-  enteringElements.append("text")
+    enteringElements.append("text")
     .text(function(d,i){
       return d.name;
     })
@@ -278,7 +278,7 @@ function assignKeys(d,i){
       let y=yScale(d.y);
 
       return "translate("+x+", "+y+")"
-    console.log("ok");
+      console.log("ok");
     }
 
     function getIncomingGroupLocation(d,i){
@@ -295,47 +295,47 @@ function assignKeys(d,i){
     }
 
     // entering elements
-  enteringElements.transition().delay(500).attr("transform",getIncomingGroupLocation).attr("transform",getGroupLocation);
+    enteringElements.transition().delay(500).attr("transform",getIncomingGroupLocation).attr("transform",getGroupLocation);
 
-  // exiting elements
-  let exitingElements= datagroups.exit();
-  exitingElements.transition().delay(500).attr("transform",getExitingGroupLocation).remove();
+    // exiting elements
+    let exitingElements= datagroups.exit();
+    exitingElements.transition().delay(500).attr("transform",getExitingGroupLocation).remove();
 
-  // updating elements
-  datagroups.select("text").text(function(d,i){
-    return d.name;
-  })
-  ;
-  datagroups.transition().duration(500).attr("transform",getGroupLocation);
-}
-
-
+    // updating elements
+    datagroups.select("text").text(function(d,i){
+      return d.name;
+    })
+    ;
+    datagroups.transition().duration(500).attr("transform",getGroupLocation);
+  }
 
 
-document.getElementById("step1").addEventListener("click",function(){
-  dataIndex=0;
-  visualizeData();
-});
 
-document.getElementById("step2").addEventListener("click",function(){
-  dataIndex=1;
-  visualizeData();
-});
 
-document.getElementById("step3").addEventListener("click",function(){
-  dataIndex=2;
-  visualizeData();
-});
+  document.getElementById("step1").addEventListener("click",function(){
+    dataIndex=0;
+    visualizeData();
+  });
 
-document.getElementById("step4").addEventListener("click",function(){
-  dataIndex=3;
-  visualizeData();
-});
+  document.getElementById("step2").addEventListener("click",function(){
+    dataIndex=1;
+    visualizeData();
+  });
 
-document.getElementById("step5").addEventListener("click",function(){
-  dataIndex=4;
-  visualizeData();
-});
+  document.getElementById("step3").addEventListener("click",function(){
+    dataIndex=2;
+    visualizeData();
+  });
+
+  document.getElementById("step4").addEventListener("click",function(){
+    dataIndex=3;
+    visualizeData();
+  });
+
+  document.getElementById("step5").addEventListener("click",function(){
+    dataIndex=4;
+    visualizeData();
+  });
 
 }
 
