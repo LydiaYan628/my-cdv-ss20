@@ -38,6 +38,52 @@ d3.json("countries.geojson").then(function(geoData){
     ;
     let pathMaker= d3.geoPath(projection);
 
+    let show= viz.append("text")
+    .text("")
+    .attr("x",100)
+    .attr("y",h-50)
+    .attr("font-family","'Roboto Condensed', sans-serif")
+    .attr("font-size",30)
+
+    ;
+
+    let titleArray=[];
+    for (i=0;i<incomingData.length;i++){
+      // console.log("test",incomingData[i].title);
+      let titleElement= [].concat(incomingData[i].title);
+      titleArray.push(titleElement);
+    }
+    console.log(titleArray);
+
+    let titleAll=titleArray.flat();
+    console.log(titleAll);
+
+    let titleCounter=0;
+    let currentTitle=titleAll[titleCounter];
+
+    setInterval(function(){
+      titleCounter++;
+      if (titleCounter>titleAll.length){
+        titleCounter=0;
+      }
+      currentTitle=titleAll[titleCounter];
+      show.text(currentTitle)
+      drawViz()
+    },1000)
+
+    let currentShowIndex=0;
+    let currentShow= incomingData[currentShowIndex];
+    function filterShow(d,i){
+      if (d==currentShow){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+
+
+
 
 
     let countryArray=[];
@@ -120,7 +166,8 @@ d3.json("countries.geojson").then(function(geoData){
       let numValue=countryCounter[currentCountry];
       if(currentCountry!=undefined){
         return colorScale(numValue)
-      }else if (currentCountry=currentShowData.country) {
+      }else if (currentCountry==currentShowData.country) {
+        // console.log(currentShowData.country);
         return "red"
       }else{
         return "black";
@@ -130,95 +177,103 @@ d3.json("countries.geojson").then(function(geoData){
     // .attr("stroke-width", 8)
     ;
 
-
-
-
-
-    d3.json("countriesLatLon.json").then(function(positionData){
-      console.log(positionData);
-      // put show name into visualization
-      let show= viz.append("text")
-      .text("")
-      .attr("x",100)
-      .attr("y",h-50)
-      .attr("font-family","'Roboto Condensed', sans-serif")
-      .attr("font-size",30)
-
-      ;
-
-      let titleArray=[];
-      for (i=0;i<incomingData.length;i++){
-        // console.log("test",incomingData[i].title);
-        let titleElement= [].concat(incomingData[i].title);
-        titleArray.push(titleElement);
-      }
-      console.log(titleArray);
-
-      let titleAll=titleArray.flat();
-      console.log(titleAll);
-
-      let titleCounter=0;
-      let currentTitle=titleAll[titleCounter];
-
-      setInterval(function(){
-        titleCounter++;
-        if (titleCounter>titleAll.length){
-          titleCounter=0;
-        }
-        currentTitle=titleAll[titleCounter];
-        show.text(currentTitle)
-        drawViz()
-      },1000)
-
-      let currentShowIndex=0;
-      let currentShow= incomingData[currentShowIndex];
-      function filterShow(d,i){
-        if (d==currentShow){
-          return true;
-        }else{
-          return false;
-        }
-      }
-
-
-
-
       let vizGroup=viz.append("g").attr("class","vizGroup")
-      function drawViz(){
+    function drawViz(){
 
-        console.log("success");
+      console.log("success");
 
-        let currentShowData=incomingData.filter(filterShow)
-        let dataGroup=vizGroup.selectAll(".datagroup")
-        .data(currentShowData)
-        console.log(currentShowData);
-
-        let enteringElements=dataGroup.enter()
-        .append("g")
-        .attr("class","datagroup")
-        ;
-
-        let circles=enteringElements.append("circle")
-        .attr("r",20)
-        .attr("fill","yellow")
+      let currentShowData=incomingData.filter(filterShow)
+      return currentShowData;
+      console.log(currentShowData);
+}
 
 
-        function circleLocation(d,i){
-          let x=projection([positionData.latitude,positionData.longitude])[0];
+    //
+    // d3.json("countriesLatLon.json").then(function(positionData){
+    //   console.log(positionData);
+      // put show name into visualization
+      // let show= viz.append("text")
+      // .text("")
+      // .attr("x",100)
+      // .attr("y",h-50)
+      // .attr("font-family","'Roboto Condensed', sans-serif")
+      // .attr("font-size",30)
+      //
+      // ;
+      //
+      // let titleArray=[];
+      // for (i=0;i<incomingData.length;i++){
+      //   // console.log("test",incomingData[i].title);
+      //   let titleElement= [].concat(incomingData[i].title);
+      //   titleArray.push(titleElement);
+      // }
+      // console.log(titleArray);
+      //
+      // let titleAll=titleArray.flat();
+      // console.log(titleAll);
+      //
+      // let titleCounter=0;
+      // let currentTitle=titleAll[titleCounter];
+      //
+      // setInterval(function(){
+      //   titleCounter++;
+      //   if (titleCounter>titleAll.length){
+      //     titleCounter=0;
+      //   }
+      //   currentTitle=titleAll[titleCounter];
+      //   show.text(currentTitle)
+      //   drawViz()
+      // },1000)
+      //
+      // let currentShowIndex=0;
+      // let currentShow= incomingData[currentShowIndex];
+      // function filterShow(d,i){
+      //   if (d==currentShow){
+      //     return true;
+      //   }else{
+      //     return false;
+      //   }
+      // }
+      //
 
-          let y=projection([positionData.latitude,positionData.longitude])[1];
-          return "translate("+x+","+y+")";
-        }
-
-        enteringElements.transition().attr("transform",circleLocation);
 
 
-      }
+      // let vizGroup=viz.append("g").attr("class","vizGroup")
+      // function drawViz(){
+      //
+      //   console.log("success");
+      //
+      //   let currentShowData=incomingData.filter(filterShow)
+      //   let dataGroup=vizGroup.selectAll(".datagroup")
+      //   .data(currentShowData)
+      //   console.log(currentShowData);
+      //
+      //   let enteringElements=dataGroup.enter()
+      //   .append("g")
+      //   .attr("class","datagroup")
+      //   ;
+      //
+      //   let circles=enteringElements.append("circle")
+      //   .attr("r",20)
+      //   .attr("fill","yellow")
+      //
+      //
+      //   function circleLocation(d,i){
+      //     let x=projection([positionData.latitude,positionData.longitude])[0];
+      //
+      //     let y=projection([positionData.latitude,positionData.longitude])[1];
+      //     return "translate("+x+","+y+")";
+      //   }
+      //
+      //   enteringElements.transition().attr("transform",circleLocation);
+      //
+      //
+      // }
 
 
 
 
-    })
+    // })
 
 })
 
