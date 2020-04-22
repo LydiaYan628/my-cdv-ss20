@@ -71,15 +71,9 @@ d3.json("countries.geojson").then(function(geoData){
       drawViz()
     },1000)
 
-    let currentShowIndex=0;
-    let currentShow= incomingData[currentShowIndex];
-    function filterShow(d,i){
-      if (d==currentShow){
-        return true;
-      }else{
-        return false;
-      }
-    }
+
+
+
 
 
 
@@ -166,9 +160,6 @@ d3.json("countries.geojson").then(function(geoData){
       let numValue=countryCounter[currentCountry];
       if(currentCountry!=undefined){
         return colorScale(numValue)
-      }else if (currentCountry==currentShowData.country) {
-        // console.log(currentShowData.country);
-        return "red"
       }else{
         return "black";
       }
@@ -182,14 +173,129 @@ d3.json("countries.geojson").then(function(geoData){
 
       console.log("success");
 
-      let currentShowData=incomingData.filter(filterShow)
-      return currentShowData;
-      console.log(currentShowData);
+      // let currentShowData=incomingData.filter(filterShow)
+      // return currentShowData;
+      // console.log(currentShowData);
 }
 
 
     //
-    // d3.json("countriesLatLon.json").then(function(positionData){
+    d3.json("countriesLatLon.json").then(function(positionData){
+      console.log("hh");
+
+      // let showArray=[]
+      // for (i=0;i<incomingData.length;i++){
+      //   // console.log("test",incomingData[i].title);
+      //   let showElement= [].concat(incomingData[i]);
+      //   showArray.push(showElement);
+      // }
+      // console.log(showArray);
+      //
+      //
+      // let showCounter=0;
+      // let currentShow=showArray[showCounter];
+      //
+      // setInterval(function(){
+      //   showCounter++;
+      //   if (showCounter>showArray.length){
+      //     showCounter=0;
+      //   }
+      //   currentShow=showArray[showCounter];
+      //   showCircles();
+      // },1000)
+      //
+      // let showCounter=0;
+      // function filterShowData(incomingData){
+      //   console.log(incomingData);
+      //
+      //   let currentShow=incomingData[showCounter];
+      //     showCounter++;
+      //       if (showCounter>incomingData.length){
+      //         showCounter=0;
+      //       }
+      //
+      //
+      //     if (incomingData==currentShow){
+      //       return true;
+      //     }else{
+      //       return false;
+      //     }
+      // }
+
+
+
+              function transformPositionData(dataToClean){
+                // console.log("okok");
+                let newData=[];
+                for (let i=0;i<dataToClean.length;i++){
+
+                  // console.log(dataToClean[i].name);
+                  newData.push(dataToClean[i].name);
+
+                }
+                return newData;
+                console.log(newData);
+              }
+
+      function showCircles(incomingData){
+
+        let data=positionData.filter(function(){
+          return positionData.name==incomingData.country;
+        })
+        // console.log(incomingData.country);
+
+        let datagroups=viz.selectAll(".datagroup")
+        .data(incomingData)
+
+        let enteringElements=datagroups.enter()
+        .append("g")
+        .attr("class","datagroup")
+        ;
+
+        enteringElements.append("circle")
+        .attr("r",20)
+        .attr("fill","yellow")
+
+
+
+
+        function getGroupLocation(positionData){
+
+          let transformPosition=transformPositionData(positionData);
+          // console.log(positionData);
+          let latlon= positionData.filter(function(){
+            for(i=0;i<positionData.length;i++){
+              // console.log(positionData[i].name);
+              // console.log(incomingData.country);
+              if (positionData[i].name==incomingData.country){
+                return true;
+              }else{
+                return false;
+              }
+            }
+
+          })
+          // console.log(latlon);
+        }
+
+        getGroupLocation(positionData);
+        // console.log("data",data);
+        // let selections = viz.selectAll("circle").data(data);
+        // return incomingData.country
+      }
+
+
+
+
+      let movieIndex = 0;
+      function intervalFunction(){
+         showCircles(incomingData[movieIndex]);
+         movieIndex++;
+         // needs if statement here to make sure movieIndex is reset once the end of the data is reached
+      }
+      setInterval(intervalFunction, 1000);
+
+
     //   console.log(positionData);
       // put show name into visualization
       // let show= viz.append("text")
@@ -273,7 +379,7 @@ d3.json("countries.geojson").then(function(geoData){
 
 
 
-    // })
+    })
 
 })
 
