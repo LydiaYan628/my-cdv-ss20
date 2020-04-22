@@ -1,4 +1,4 @@
-The vixualization is not an ideal one.
+The visualization is not an ideal one.
 1. The circle should be move along with the show title changing, as well as updating the corresponding country numbers.
 2. I cannot successfully translate the country name between two datasets. The array contains the country name in latitude and longitude dataset can not recognize the country in netflix dataset.
 3. Then I compromised and want to make the circle move between US and China, but it is not working too. I somehow cannot manage with the setInterval function. I should figure it out later.
