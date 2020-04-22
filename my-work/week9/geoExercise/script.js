@@ -184,8 +184,8 @@ d3.json("countries.geojson").then(function(geoData){
     //
     let lat0=[35.86166]
     let lon0=[104.195397]
-    // let lat1=37.09024
-    // let lon1=-95.712891
+    let lat1=37.09024
+    let lon1=-95.712891
 
     // console.log(latlon.latitude);
     // let latitude=0;
@@ -201,6 +201,17 @@ d3.json("countries.geojson").then(function(geoData){
     .attr("cy",function(){
       return pixelvalue=projection([lon0,lat0])[1];
     })
+
+
+    viz.append("circle")
+        .attr("r",20)
+        .attr("fill","orange")
+        .attr("cx",function(){
+          return pixelvalue=projection([lon1,lat1])[0];
+        })
+        .attr("cy",function(){
+          return pixelvalue=projection([lon1,lat1])[1];
+        })
 
   // function getCircleLocation(){
   //   if(timing=0){
