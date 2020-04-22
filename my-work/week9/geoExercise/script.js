@@ -186,14 +186,27 @@ d3.json("countries.geojson").then(function(geoData){
     let lon0=[104.195397]
     let lat1=37.09024
     let lon1=-95.712891
-
+    let lat2=56.130366
+    let lon2=-106.346771
+    let lat3=55.378051
+    let lon3=-3.435973
+    let lat4=36.204824
+    let lon4=138.252924
+    let lat5=35.907757
+    let lon5=127.766922
+    let lat6=61.92411
+    let lon6=5.748151
+    let lat7=47.516231
+    let lon7=133.775136
+    let lat8=-25.274398
+    let lon8=133.775136
     // console.log(latlon.latitude);
     // let latitude=0;
     // let test=projection([lon,lat])[0];
     // console.log(test);
 
     let circle= viz.append("circle")
-    .attr("r",20)
+    .attr("r",10)
     .attr("fill","orange")
     .attr("cx",function(){
       return pixelvalue=projection([lon0,lat0])[0];
@@ -204,7 +217,7 @@ d3.json("countries.geojson").then(function(geoData){
 
 
     viz.append("circle")
-        .attr("r",20)
+        .attr("r",10)
         .attr("fill","orange")
         .attr("cx",function(){
           return pixelvalue=projection([lon1,lat1])[0];
@@ -213,6 +226,74 @@ d3.json("countries.geojson").then(function(geoData){
           return pixelvalue=projection([lon1,lat1])[1];
         })
 
+        viz.append("circle")
+            .attr("r",10)
+            .attr("fill","orange")
+            .attr("cx",function(){
+              return pixelvalue=projection([lon2,lat2])[0];
+            })
+            .attr("cy",function(){
+              return pixelvalue=projection([lon2,lat2])[1];
+            })
+
+            viz.append("circle")
+                .attr("r",10)
+                .attr("fill","orange")
+                .attr("cx",function(){
+                  return pixelvalue=projection([lon3,lat3])[0];
+                })
+                .attr("cy",function(){
+                  return pixelvalue=projection([lon3,lat3])[1];
+                })
+
+  viz.append("circle")
+      .attr("r",10)
+      .attr("fill","orange")
+      .attr("cx",function(){
+        return pixelvalue=projection([lon4,lat4])[0];
+      })
+      .attr("cy",function(){
+        return pixelvalue=projection([lon4,lat4])[1];
+    })
+
+    viz.append("circle")
+        .attr("r",10)
+        .attr("fill","orange")
+        .attr("cx",function(){
+          return pixelvalue=projection([lon5,lat5])[0];
+        })
+        .attr("cy",function(){
+          return pixelvalue=projection([lon5,lat5])[1];
+      })
+
+      viz.append("circle")
+          .attr("r",10)
+          .attr("fill","orange")
+          .attr("cx",function(){
+            return pixelvalue=projection([lon6,lat6])[0];
+          })
+          .attr("cy",function(){
+            return pixelvalue=projection([lon6,lat6])[1];
+        })
+
+        viz.append("circle")
+            .attr("r",10)
+            .attr("fill","orange")
+            .attr("cx",function(){
+              return pixelvalue=projection([lon7,lat7])[0];
+            })
+            .attr("cy",function(){
+              return pixelvalue=projection([lon7,lat7])[1];
+          })
+          viz.append("circle")
+              .attr("r",10)
+              .attr("fill","orange")
+              .attr("cx",function(){
+                return pixelvalue=projection([lon8,lat8])[0];
+              })
+              .attr("cy",function(){
+                return pixelvalue=projection([lon8,lat8])[1];
+            })
   // function getCircleLocation(){
   //   if(timing=0){
   //     let x=projection([lon0,lat0])[0];
