@@ -2,6 +2,7 @@ let w = 1200;
 let h = 800;
 let padding = 20;
 let around= 50;
+let timing=0;
 
 let viz = d3.select("#container").append("svg")
 .style("width", w)
@@ -168,7 +169,7 @@ d3.json("countries.geojson").then(function(geoData){
     // .attr("stroke-width", 8)
     ;
 
-      let vizGroup=viz.append("g").attr("class","vizGroup")
+    let vizGroup=viz.append("g").attr("class","vizGroup")
     function drawViz(){
 
       console.log("success");
@@ -176,13 +177,66 @@ d3.json("countries.geojson").then(function(geoData){
       // let currentShowData=incomingData.filter(filterShow)
       // return currentShowData;
       // console.log(currentShowData);
-}
+    }
+
+
+
+    //
+    let lat0=[35.86166]
+    let lon0=[104.195397]
+    // let lat1=37.09024
+    // let lon1=-95.712891
+
+    // console.log(latlon.latitude);
+    // let latitude=0;
+    // let test=projection([lon,lat])[0];
+    // console.log(test);
+
+    let circle= viz.append("circle")
+    .attr("r",20)
+    .attr("fill","orange")
+    .attr("cx",function(){
+      return pixelvalue=projection([lon0,lat0])[0];
+    })
+    .attr("cy",function(){
+      return pixelvalue=projection([lon0,lat0])[1];
+    })
+
+  // function getCircleLocation(){
+  //   if(timing=0){
+  //     let x=projection([lon0,lat0])[0];
+  //     let y=projection([lon0,lat0])[1];
+  //       timing++;
+  //   }else if(timing>0){
+  //     let x=projection([lon1,lat1])[0];
+  //     let y=projection([lon1,lat1])[1];
+  //       timing=0;
+  //   }
+  //     return "translate("+x+","+y+")"
+  // }
+  //
+  // circle.transition().delay(1000).duration(500).attr("transform",getCircleLocation)
+
+
+
+    function transformPositionData(dataToClean){
+      // console.log("okok");
+      let newData=[];
+      for (let i=0;i<dataToClean.length;i++){
+        dataToClean[i].name=dataToClean[i].name.replace(/, /g,",").split(",");
+        // console.log(dataToClean[i].name);
+        newData.push(dataToClean[i]);
+
+      }
+      return newData;
+      // console.log(newData);
+    }
 
 
     //
     d3.json("countriesLatLon.json").then(function(positionData){
       console.log("hh");
-
+      let transformPosition=transformPositionData(positionData);
       // let showArray=[]
       // for (i=0;i<incomingData.length;i++){
       //   // console.log("test",incomingData[i].title);
@@ -224,24 +278,13 @@ d3.json("countries.geojson").then(function(geoData){
 
 
 
-              function transformPositionData(dataToClean){
-                // console.log("okok");
-                let newData=[];
-                for (let i=0;i<dataToClean.length;i++){
-
-                  // console.log(dataToClean[i].name);
-                  newData.push(dataToClean[i].name);
-
-                }
-                return newData;
-                console.log(newData);
-              }
 
       function showCircles(incomingData){
+        //
+        // let data=positionData.filter(function(){
+        //   return positionData.name==incomingData.country;
+        // })
 
-        let data=positionData.filter(function(){
-          return positionData.name==incomingData.country;
-        })
         // console.log(incomingData.country);
 
         let datagroups=viz.selectAll(".datagroup")
@@ -260,127 +303,116 @@ d3.json("countries.geojson").then(function(geoData){
 
 
         function getGroupLocation(positionData){
+          // console.log("hi");
+          console.log(incomingData.country);
+          console.log(positionData.latitude);
 
-          let transformPosition=transformPositionData(positionData);
-          // console.log(positionData);
-          let latlon= positionData.filter(function(){
-            for(i=0;i<positionData.length;i++){
-              // console.log(positionData[i].name);
-              // console.log(incomingData.country);
-              if (positionData[i].name==incomingData.country){
-                return true;
-              }else{
-                return false;
-              }
-            }
 
-          })
-          // console.log(latlon);
+          getGroupLocation(positionData);
+          // console.log("data",data);
+          // let selections = viz.selectAll("circle").data(data);
+          // return incomingData.country
         }
 
-        getGroupLocation(positionData);
-        // console.log("data",data);
-        // let selections = viz.selectAll("circle").data(data);
-        // return incomingData.country
+
+
+
+        let movieIndex = 0;
+        function intervalFunction(){
+          console.log("hello");
+          showCircles(incomingData[movieIndex]);
+          console.log(incomingData[movieIndex]);
+          movieIndex++;
+          // needs if statement here to make sure movieIndex is reset once the end of the data is reached
+        }
+        setInterval(intervalFunction, 1000);
+
+
+        //   console.log(positionData);
+        // put show name into visualization
+        // let show= viz.append("text")
+        // .text("")
+        // .attr("x",100)
+        // .attr("y",h-50)
+        // .attr("font-family","'Roboto Condensed', sans-serif")
+        // .attr("font-size",30)
+        //
+        // ;
+        //
+        // let titleArray=[];
+        // for (i=0;i<incomingData.length;i++){
+        //   // console.log("test",incomingData[i].title);
+        //   let titleElement= [].concat(incomingData[i].title);
+        //   titleArray.push(titleElement);
+        // }
+        // console.log(titleArray);
+        //
+        // let titleAll=titleArray.flat();
+        // console.log(titleAll);
+        //
+        // let titleCounter=0;
+        // let currentTitle=titleAll[titleCounter];
+        //
+        // setInterval(function(){
+        //   titleCounter++;
+        //   if (titleCounter>titleAll.length){
+        //     titleCounter=0;
+        //   }
+        //   currentTitle=titleAll[titleCounter];
+        //   show.text(currentTitle)
+        //   drawViz()
+        // },1000)
+        //
+        // let currentShowIndex=0;
+        // let currentShow= incomingData[currentShowIndex];
+        // function filterShow(d,i){
+        //   if (d==currentShow){
+        //     return true;
+        //   }else{
+        //     return false;
+        //   }
+        // }
+        //
+
+
+
+        // let vizGroup=viz.append("g").attr("class","vizGroup")
+        // function drawViz(){
+        //
+        //   console.log("success");
+        //
+        //   let currentShowData=incomingData.filter(filterShow)
+        //   let dataGroup=vizGroup.selectAll(".datagroup")
+        //   .data(currentShowData)
+        //   console.log(currentShowData);
+        //
+        //   let enteringElements=dataGroup.enter()
+        //   .append("g")
+        //   .attr("class","datagroup")
+        //   ;
+        //
+        //   let circles=enteringElements.append("circle")
+        //   .attr("r",20)
+        //   .attr("fill","yellow")
+        //
+        //
+        //   function circleLocation(d,i){
+        //     let x=projection([positionData.latitude,positionData.longitude])[0];
+        //
+        //     let y=projection([positionData.latitude,positionData.longitude])[1];
+        //     return "translate("+x+","+y+")";
+        //   }
+        //
+        //   enteringElements.transition().attr("transform",circleLocation);
+        //
+        //
+        // }
+
+
       }
-
-
-
-
-      let movieIndex = 0;
-      function intervalFunction(){
-         showCircles(incomingData[movieIndex]);
-         movieIndex++;
-         // needs if statement here to make sure movieIndex is reset once the end of the data is reached
-      }
-      setInterval(intervalFunction, 1000);
-
-
-    //   console.log(positionData);
-      // put show name into visualization
-      // let show= viz.append("text")
-      // .text("")
-      // .attr("x",100)
-      // .attr("y",h-50)
-      // .attr("font-family","'Roboto Condensed', sans-serif")
-      // .attr("font-size",30)
-      //
-      // ;
-      //
-      // let titleArray=[];
-      // for (i=0;i<incomingData.length;i++){
-      //   // console.log("test",incomingData[i].title);
-      //   let titleElement= [].concat(incomingData[i].title);
-      //   titleArray.push(titleElement);
-      // }
-      // console.log(titleArray);
-      //
-      // let titleAll=titleArray.flat();
-      // console.log(titleAll);
-      //
-      // let titleCounter=0;
-      // let currentTitle=titleAll[titleCounter];
-      //
-      // setInterval(function(){
-      //   titleCounter++;
-      //   if (titleCounter>titleAll.length){
-      //     titleCounter=0;
-      //   }
-      //   currentTitle=titleAll[titleCounter];
-      //   show.text(currentTitle)
-      //   drawViz()
-      // },1000)
-      //
-      // let currentShowIndex=0;
-      // let currentShow= incomingData[currentShowIndex];
-      // function filterShow(d,i){
-      //   if (d==currentShow){
-      //     return true;
-      //   }else{
-      //     return false;
-      //   }
-      // }
-      //
-
-
-
-      // let vizGroup=viz.append("g").attr("class","vizGroup")
-      // function drawViz(){
-      //
-      //   console.log("success");
-      //
-      //   let currentShowData=incomingData.filter(filterShow)
-      //   let dataGroup=vizGroup.selectAll(".datagroup")
-      //   .data(currentShowData)
-      //   console.log(currentShowData);
-      //
-      //   let enteringElements=dataGroup.enter()
-      //   .append("g")
-      //   .attr("class","datagroup")
-      //   ;
-      //
-      //   let circles=enteringElements.append("circle")
-      //   .attr("r",20)
-      //   .attr("fill","yellow")
-      //
-      //
-      //   function circleLocation(d,i){
-      //     let x=projection([positionData.latitude,positionData.longitude])[0];
-      //
-      //     let y=projection([positionData.latitude,positionData.longitude])[1];
-      //     return "translate("+x+","+y+")";
-      //   }
-      //
-      //   enteringElements.transition().attr("transform",circleLocation);
-      //
-      //
-      // }
-
-
-
 
     })
 
-})
+  })
 
 })
