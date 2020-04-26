@@ -1,4 +1,4 @@
-#Week 11 Reading Reflection
+# Week 11 Reading Reflection
 
 In both “How Trump Consultants Exploited the Facebook Data of Millions” and “Cambridge Analytica and Our Lives Inside the Surveillance Machine”, they talk about Cambridge Analytica’s political data collection for the US election. The company collected personal information from Facebook without individual consent or even awareness. The collected data, in this case, is used for better prediction and manipulation of a political environment.
 
