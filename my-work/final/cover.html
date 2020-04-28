@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>NETFLIX category 2019</title>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- include the d3 library -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <!-- font-family: 'Bebas Neue', cursive; -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- font-family: 'Montserrat', sans-serif; -->
+  </head>
+  <body>
+    <div id="cover">
+      <div id="topBar">
+        <ul>
+          <li id="backToTop"><a href="#cover">NETFLIX</a></li>
+          <li><a href="#hi">About Me</a></li>
+          <li><a href="#news">Credit</a></li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">What to see next</a>
+            <div class="dropdown-content">
+              <a href="#worldPage">World</a>
+              <a href="#TVMoviePage">TV Shows & Movies</a>
+              <a href="#releasedYearPage">Released Year</a>
+              <a href="#ratePage">Age Rate</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="explanation">
+        <p>
+          Netflix is a streaming media company that has a huge impact on the world media industry, there are over 167 million subscribers all around the globe which made it the king of streaming. The company is famous for its great contents and it is attracting more and more audiences through its well-established programs.
+
+          <br><br>Netflix is attracting more and more people through its recommendation system which brings up a better user experience. As the book <i>Technologies of Vision: The War Between Data and Images</i> by Steve F. Anderson introduces, Netflix aims to take the user viewing history as the database to analyze the aesthetic preferences of its users.
+
+          <br><br>This visualization is to show you what you may see next according to the video category. It will stand on different viewpoints, and show you a simplified function of the recommendation system.
+        </p>
+      </div>
+
+      <div id="mainTitle">
+        <p id="bigTitle">NETFLIX 2019</p>
+        <p id=secondaryTitle>WHAT TO SEE NEXT</p>
+      </div>
+
+      <div id="pageGuide">
+        <a href="#worldPage>"<img src="image/Untitled (1).jpg" alt="world" class="pageGuideImage" id="pageGuide1"></a>
+        <a href="#TVMoviePage>"<img src="image/Untitled (2).jpg" alt="TVM" class="pageGuideImage" id="pageGuide2"></a>
+        <a href="#releasedYearPage"<img src="image/Untitled (3).jpg" alt="year" class="pageGuideImage" id="pageGuide3"></a>
+        <a href="#ratePage>"<img src="image/Untitled (4).jpg" alt="rate" class="pageGuideImage" id="pageGuide4"></a>
+      </div>
+    </div>
+
+
+    <!-- main d3 visualization -->
+    <div id="worldPage">
+
+    </div>
+
+    <div id="TVMoviePage">
+
+    </div>
+
+    <div id="releasedYearPage">
+
+    </div>
+
+    <div id="ratePage">
+
+    </div>
+
+    <!-- our main script: -->
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
