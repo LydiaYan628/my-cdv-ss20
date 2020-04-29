@@ -132,9 +132,15 @@ li.dropdown {
   z-index: 8;
 }
 
+.pageGuideImage:hover{
+  filter: grayscale(50%);
+}
+
+
 #pageGuide1{
   left:100px;
 }
+
 
 #pageGuide2{
   left:460px;

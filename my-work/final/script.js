@@ -51,7 +51,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     },{})
     console.log("counter",countryCounter);
 
-    let colorScale=d3.scaleLinear().domain([0,100,2610]).range(["white","red","darkred"]);
+    let colorScale=d3.scaleLinear().domain([0,80,2610]).range(["white","red","darkred"]);
 
     let netflixCountry=worldviz.selectAll(".countries").data(geoData.features).enter()
     .append("path")
@@ -160,6 +160,11 @@ let yearviz = d3.select("#releasedYearPage").append("svg")
     .attr("fill","white")
     .style("font-size","20px")
     ;
+
+
+
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
