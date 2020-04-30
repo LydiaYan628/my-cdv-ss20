@@ -7,10 +7,28 @@ let worldviz = d3.select("#worldPage").append("svg")
   .style("height",h)
   ;
 
+
+let timeParseFunction=d3.timeParse("%Y");
+
+function mapFunction(datapoint){
+  datapoint.release_year=timeParseFunction(datapoint.release_year);
+  return datapoint;
+}
+
+function timeCorrectData(datapoint){
+  let timeCorrected=datapoint.map(mapFunction);
+  return timeCorrected;
+}
+
+
   function transformData(dataToClean){
+    // console.log(dataToClean);
+
     let newData=[];
     for (let i=0;i<dataToClean.length;i++){
       dataToClean[i].country=dataToClean[i].country.replace(/, /g,",").split(",");
+      dataToClean[i].listed_in=dataToClean[i].listed_in.replace(/, /g,",").split(",");
+
 
       newData.push(dataToClean[i]);
 
@@ -18,8 +36,16 @@ let worldviz = d3.select("#worldPage").append("svg")
     return newData;
   }
 
+let xScale=d3.scaleTime().range([padding, w-padding]);
+
+
 d3.json("data/countries.geojson").then(function(geoData){
-  d3.json("data/netflix.json").then(function(worldData){
+  d3.json("data/netflix.json").then(function(incomingData){
+
+    let transformedData=transformData(incomingData);
+    let timeCorrectedData=timeCorrectData(transformedData);
+    console.log(incomingData);
+
 
 // world map visualization
     let projection= d3.geoEqualEarth()
@@ -29,11 +55,11 @@ d3.json("data/countries.geojson").then(function(geoData){
     ;
     let pathMaker= d3.geoPath(projection);
 
-
+// deal with country
     let countryArray=[];
-    for (i=0;i<worldData.length;i++){
-      // console.log(worldData[i].country);
-      let countryElement= [].concat(worldData[i].country);
+    for (i=0;i<incomingData.length;i++){
+      // console.log(incomingData[i].country);
+      let countryElement= [].concat(incomingData[i].country);
       countryArray.push(countryElement);
     }
 
@@ -50,6 +76,27 @@ d3.json("data/countries.geojson").then(function(geoData){
       return acc;
     },{})
     console.log("counter",countryCounter);
+
+// deal with category
+    let categoryArray=[];
+    for(i=0;i<incomingData.length;i++){
+      let categoryElement=[].concat(incomingData[i].listed_in);
+      categoryArray.push(categoryElement);
+    }
+
+    let categoryAll=categoryArray.flat();
+
+    let categoryCounter=categoryAll.reduce(function(acc,curr){
+      if (typeof acc[curr]=='undefined'){
+        acc[curr]=1;
+      }else {
+        acc[curr] += 1;
+      }
+      return acc;
+    },{});
+    console.log("category",categoryCounter);
+
+
 
     let colorScale=d3.scaleLinear().domain([0,80,2610]).range(["white","red","darkred"]);
 
@@ -92,8 +139,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     .attr("fill","white")
     .style("font-size","20px")
     ;
-  })
-})
+
 
 
 
@@ -162,6 +208,25 @@ let yearviz = d3.select("#releasedYearPage").append("svg")
     ;
 
 
+    let extent = d3.extent(incomingData, function(d){
+    return d.release_year;
+    })
+    console.log(extent);
+    // amend domain to scale
+    xScale.domain(extent);
+    // group to hold axis
+    let xAxisGroup = yearviz.append("g")
+    .attr("class","xAxisGroup")
+    .attr("stroke","white")
+    .attr("transform","translate(0,60)")
+    ;
+
+    // ask d3 to get an axis ready
+    let xAxis = d3.axisBottom(xScale);
+    // xAxis.selectAll("path").attr("stroke","white");
+    // build the axis into our group
+    xAxisGroup.call(xAxis);
+
 
 
 
@@ -190,3 +255,10 @@ let rateviz = d3.select("#ratePage").append("svg")
     .attr("fill","white")
     .style("font-size","20px")
     ;
+
+
+
+
+
+  })
+})
