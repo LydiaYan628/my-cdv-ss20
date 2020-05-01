@@ -21,13 +21,20 @@ let xScale = d3.scaleTime().range([padding, w-padding]);
 d3.json("data.json").then(function(incomingData){
   console.log(incomingData);
 
-  incomingData = incomingData.slice(0,100);
+  incomingData = incomingData.slice(0,400);
 
   //turn date in to data object
   incomingData = incomingData.map(d=>{
     d.date = new Date(d.parsedDate)
+    d.price= Number(d.price);
     return d
   })
+  let priceExtent=d3.extent(incomingData,function(d){
+    return d.price;
+  })
+ console.log(priceExtent);
+let rScale= d3.scaleLinear().domain(priceExtent).range([5,50]);
+
   // get the earliest and latest date in the dataset
   let extent = d3.extent(incomingData, function(d){
     return d.date;
@@ -48,14 +55,53 @@ d3.json("data.json").then(function(incomingData){
   viz.selectAll(".datapoint").data(incomingData).enter()
     .append("circle")
     .attr("class", "datapoint")
+    .attr("fill","blue")
     .attr("cx", function(d){
       return xScale(d.date);
     })
     .attr("cy", function(d){
       return h/2;
     })
-    .attr("r", 4)
+    .attr("r",function(d){
+      return rScale(d.price);
+    })
   ;
+
+  incomingData=incomingData.map(function(datapoint){
+    datapoint.x= xScale(datapoint.date);
+    datapoint.y= h/2;
+
+    return datapoint;
+  })
+
+// update the location using simulation
+  let simulation=d3.forceSimulation(incomingData)
+  .force("forceX", function(d,i){
+    return d3.forceX(xScale(d.date));
+  })
+  .force("forceY", d3.forceY(h/2))
+
+  .force("collide",d3.forceCollide().radius(function(d){
+    return rScale(d.price)+1;
+  }))
+  // .force("collide", function(d,i){
+  //   return d3.forceCollide(rScale(d.price));
+  // })
+  .on("tick",simulationRan)
+;
+
+function simulationRan(){
+    console.log(incomingData[0].x);
+    viz.selectAll(".datapoint")
+      .attr("cx", function(d){
+        return d.x;
+      })
+      .attr("cy", function(d){
+        return d.y;
+      })
+}
+
+
 
   // problem: points overlap!
 

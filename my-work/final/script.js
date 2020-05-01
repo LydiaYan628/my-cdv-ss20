@@ -36,6 +36,98 @@ function timeCorrectData(datapoint){
     return newData;
   }
 
+  function categoryColor(datapoint){
+    // console.log(color);
+    if (datapoint.listed_in=="Action & Adventure"){
+      return "hsl(0,100%,50%)";
+    }else if(datapoint.list_in=="Anime Features"){
+      return  "hsl(8,100%,50%)";
+    }else if(datapoint.list_in=="Anime Series"){
+      return  "hsl(16,100%,50%)";
+    }else if(datapoint.list_in=="British TV Shows"){
+      return  "hsl(24,100%,50%)";
+    }else if(datapoint.list_in=="Children & Family Movies"){
+      return  "hsl(32,100%,50%)";
+    }else if(datapoint.list_in=="Classic & Cult TV"){
+      return  "hsl(40,100%,50%)";
+    }else if(datapoint.list_in=="Classic Movies"){
+      return  "hsl(48,100%,50%)";
+    }else if(datapoint.list_in=="Comedies"){
+      return  "hsl(56,100%,50%)";
+    }else if(datapoint.list_in=="Crime TV Shows"){
+      return  "hsl(64,100%,50%)";
+    }else if(datapoint.list_in=="Cult Movies"){
+      return  "hsl(72,100%,50%)";
+    }else if(datapoint.list_in=="Documentaries"){
+      return  "hsl(80,100%,50%)";
+    }else if(datapoint.list_in=="Docuseries"){
+      return  "hsl(88,100%,50%)";
+    }else if(datapoint.list_in=="Dramas"){
+      return  "hsl(96,100%,50%)";
+    }else if(datapoint.list_in=="Faith & Spirituality"){
+      return  "hsl(104,100%,50%)";
+    }else if(datapoint.list_in=="Horror Movies"){
+      return  "hsl(112,100%,50%)";
+    }else if(datapoint.list_in=="Independent Movies"){
+      return  "hsl(120,100%,50%)";
+    }else if(datapoint.list_in=="International Movies"){
+      return  "hsl(128,100%,50%)";
+    }else if(datapoint.list_in=="International TV Shows"){
+      return  "hsl(136,100%,50%)";
+    }else if(datapoint.list_in=="Kids' TV"){
+      return  "hsl(144,100%,50%)";
+    }else if(datapoint.list_in=="Korean TV Shows"){
+      return  "hsl(152,100%,50%)";
+    }else if(datapoint.list_in=="LGBTQ Movies"){
+      return  "hsl(160,100%,50%)";
+    }else if(datapoint.list_in=="Movies"){
+      return  "hsl(168,100%,50%)";
+    }else if(datapoint.list_in=="Music & Musicals"){
+      return  "hsl(176,100%,50%)";
+    }else if(datapoint.list_in=="Reality TV"){
+      return  "hsl(184,100%,50%)";
+    }else if(datapoint.list_in=="Romantic Movies"){
+      return  "hsl(192,100%,50%)";
+    }else if(datapoint.list_in=="Romantic TV Shows"){
+      return  "hsl(200,100%,50%)";
+    }else if(datapoint.list_in=="Sci-Fi & Fantasy"){
+      return  "hsl(208,100%,50%)";
+    }else if(datapoint.list_in=="Science & Nature TV"){
+      return  "hsl(216,100%,50%)";
+    }else if(datapoint.list_in=="Spanish-Language TV Shows"){
+      return  "hsl(224,100%,50%)";
+    }else if(datapoint.list_in=="Sports Movies"){
+      return  "hsl(232,100%,50%)";
+    }else if(datapoint.list_in=="Stand-Up Comedy"){
+      return  "hsl(240,100%,50%)";
+    }else if(datapoint.list_in=="Stand-Up Comedy & Talk Shows"){
+      return  "hsl(248,100%,50%)";
+    }else if(datapoint.list_in=="TV Action & Adventure"){
+      return  "hsl(256,100%,50%)";
+    }else if(datapoint.list_in=="TV Comedies"){
+      return  "hsl(264,100%,50%)";
+    }else if(datapoint.list_in=="TV Dramas"){
+      return  "hsl(272,100%,50%)";
+    }else if(datapoint.list_in=="TV Horror"){
+      return  "hsl(280,100%,50%)";
+    }else if(datapoint.list_in=="TV Mysteries"){
+      return  "hsl(288,100%,50%)";
+    }else if(datapoint.list_in=="TV Sci-Fi & Fantasy"){
+      return  "hsl(296,100%,50%)";
+    }else if(datapoint.list_in=="TV Shows"){
+      return  "hsl(304,100%,50%)";
+    }else if(datapoint.list_in=="TV Thrillers"){
+      return  "hsl(312,100%,50%)";
+    }else if(datapoint.list_in=="Teen TV Shows"){
+      return  "hsl(320,100%,50%)";
+    }else if(datapoint.list_in=="Thrillers"){
+      return  "hsl(328,100%,50%)";
+    }else{
+      return "white";
+    }
+  }
+
+
 let xScale=d3.scaleTime().range([padding, w-padding]);
 
 
@@ -95,6 +187,7 @@ d3.json("data/countries.geojson").then(function(geoData){
       return acc;
     },{});
     console.log("category",categoryCounter);
+    // console.log(categoryCounter.length);
 
 
 
@@ -136,7 +229,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     .style("font-family","'Montserrat', sans-serif")
     .attr("x",20)
     .attr("y",840)
-    .attr("fill","white")
+    .attr("fill","red")
     .style("font-size","20px")
     ;
 
@@ -178,12 +271,14 @@ let tvmviz = d3.select("#TVMoviePage").append("svg")
       .style("font-family","'Montserrat', sans-serif")
       .attr("x",20)
       .attr("y",840)
-      .attr("fill","white")
+      .attr("fill","red")
       .style("font-size","20px")
       ;
 
 
 ////////////////////////////////////////////////////////////////////////////////
+
+
 let yearviz = d3.select("#releasedYearPage").append("svg")
     .style("width",w)
     .style("height",h)
@@ -203,9 +298,10 @@ let yearviz = d3.select("#releasedYearPage").append("svg")
     .style("font-family","'Montserrat', sans-serif")
     .attr("x",20)
     .attr("y",840)
-    .attr("fill","white")
+    .attr("fill","red")
     .style("font-size","20px")
     ;
+
 
 
     let extent = d3.extent(incomingData, function(d){
@@ -221,6 +317,8 @@ let yearviz = d3.select("#releasedYearPage").append("svg")
     .attr("transform","translate(0,60)")
     ;
 
+
+
     // ask d3 to get an axis ready
     let xAxis = d3.axisBottom(xScale);
     // xAxis.selectAll("path").attr("stroke","white");
@@ -228,6 +326,54 @@ let yearviz = d3.select("#releasedYearPage").append("svg")
     xAxisGroup.call(xAxis);
 
 
+    let paddingYear=100;
+    let timeScale= d3.scaleTime().domain([1925,2020]).range([padding,w-padding]);
+
+    let yearGraphGroup=yearviz.append("g").attr("class","graphgroup");
+
+    let yearDataGroups= yearGraphGroup.selectAll(".datagroup").data(timeCorrectedData).enter()
+      .append("g")
+        .attr("class","datagroup")
+        ;
+
+    let yearCircles=yearDataGroups.append("circle")
+      .attr("class","yearDatapoint")
+      .attr("cx",function(d){
+        return xScale(d.release_year);
+      })
+      .attr("cy",function(d){
+        return h/2;
+      })
+      .attr("r",2)
+      .attr("fill",categoryColor)
+      ;
+
+    incomingData=incomingData.map(function(datapoint){
+      datapoint.x= xScale(datapoint.release_year);
+      datapoint.y= h/2;
+      return datapoint;
+    })
+
+    // update the location using simulation
+  let simulation=d3.forceSimulation(incomingData)
+    .force("forceX", function(d,i){
+      return d3.forceX(xScale(d.release_year));
+    })
+    .force("forceY", d3.forceY(h/2))
+    .force("collide",d3.forceCollide().radius(5))
+    .on("tick",simulationRan)
+  ;
+
+  function simulationRan(){
+      // console.log(incomingData[0].x);
+      yearviz.selectAll(".yearDatapoint")
+        .attr("cx", function(d){
+          return d.x;
+        })
+        .attr("cy", function(d){
+          return d.y;
+        })
+  }
 
 
 
@@ -252,7 +398,7 @@ let rateviz = d3.select("#ratePage").append("svg")
     .style("font-family","'Montserrat', sans-serif")
     .attr("x",20)
     .attr("y",840)
-    .attr("fill","white")
+    .attr("fill","red")
     .style("font-size","20px")
     ;
 
