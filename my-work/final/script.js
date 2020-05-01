@@ -7,6 +7,20 @@ let worldviz = d3.select("#worldPage").append("svg")
   .style("height",h)
   ;
 
+let tvmviz = d3.select("#TVMoviePage").append("svg")
+  .style("width",w)
+  .style("height",h)
+  ;
+
+let yearviz = d3.select("#releasedYearPage").append("svg")
+    .style("width",w)
+    .style("height",h)
+    ;
+
+let rateviz = d3.select("#ratePage").append("svg")
+  .style("width",w)
+  .style("height",h)
+;
 
 let timeParseFunction=d3.timeParse("%Y");
 
@@ -78,7 +92,7 @@ function timeCorrectData(datapoint){
       return  "hsl(144,100%,50%)";
     }else if(datapoint.list_in=="Korean TV Shows"){
       return  "hsl(152,100%,50%)";
-    }else if(datapoint.list_in=="LGBTQ Movies"){
+    }else if(datapoint.listed_in=="LGBTQ Movies"){
       return  "hsl(160,100%,50%)";
     }else if(datapoint.list_in=="Movies"){
       return  "hsl(168,100%,50%)";
@@ -129,6 +143,14 @@ function timeCorrectData(datapoint){
 
 
 let xScale=d3.scaleTime().range([padding, w-padding]);
+let textElement=yearviz.append("text")
+  .text("")
+  .attr("x",w/2)
+  .attr("y",padding/2)
+  .attr("class","description")
+  .attr("fill","red")
+  .style("z-index",7)
+  .attr("class","yearTitle")
 
 
 d3.json("data/countries.geojson").then(function(geoData){
@@ -252,10 +274,7 @@ d3.json("data/countries.geojson").then(function(geoData){
 
 
 ///////////////////////////////////////////////////////////////////////////////
-let tvmviz = d3.select("#TVMoviePage").append("svg")
-  .style("width",w)
-  .style("height",h)
-  ;
+
 
   // title
     tvmviz.append("text")
@@ -276,13 +295,13 @@ let tvmviz = d3.select("#TVMoviePage").append("svg")
       ;
 
 
+
+
+
 ////////////////////////////////////////////////////////////////////////////////
 
 
-let yearviz = d3.select("#releasedYearPage").append("svg")
-    .style("width",w)
-    .style("height",h)
-    ;
+
 
 // title
   yearviz.append("text")
@@ -334,6 +353,27 @@ let yearviz = d3.select("#releasedYearPage").append("svg")
     let yearDataGroups= yearGraphGroup.selectAll(".datagroup").data(timeCorrectedData).enter()
       .append("g")
         .attr("class","datagroup")
+        .on("mouseover",function(d,i){
+          console.log(d3.event);
+          console.log(d3.mouse(yearviz.node()));
+          let mouseInSVG=d3.mouse(yearviz.node())
+          textElement
+          .transition()
+          .text(d.listed_in+" --- "+d.title)
+          .attr("x",100)
+          .attr("y",120)
+          // datagroups.attr("opacity",0.1)
+          d3.select(this).select("circle")
+          .transition()
+          .attr("r",20)
+        })
+        .on("mouseout",function(d,i){
+          // textElement.text("")
+          d3.select(this).select("circle")
+          .transition()
+          .attr("r",2)
+        })
+
         ;
 
     let yearCircles=yearDataGroups.append("circle")
@@ -346,6 +386,7 @@ let yearviz = d3.select("#releasedYearPage").append("svg")
       })
       .attr("r",2)
       .attr("fill",categoryColor)
+
       ;
 
     incomingData=incomingData.map(function(datapoint){
@@ -379,10 +420,7 @@ let yearviz = d3.select("#releasedYearPage").append("svg")
 
 
 ////////////////////////////////////////////////////////////////////////////////
-let rateviz = d3.select("#ratePage").append("svg")
-  .style("width",w)
-  .style("height",h)
-;
+
 
 // title
   rateviz.append("text")
@@ -401,6 +439,7 @@ let rateviz = d3.select("#ratePage").append("svg")
     .attr("fill","red")
     .style("font-size","20px")
     ;
+
 
 
 

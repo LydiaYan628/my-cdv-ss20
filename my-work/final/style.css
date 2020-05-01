@@ -181,3 +181,8 @@ li.dropdown {
   width:100%;
   height:80px;
 }
+
+.yearTitle{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+}
