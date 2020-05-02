@@ -143,14 +143,26 @@ function timeCorrectData(datapoint){
 
 
 let xScale=d3.scaleTime().range([padding, w-padding]);
-let textElement=yearviz.append("text")
+let yearTextElement=yearviz.append("text")
   .text("")
   .attr("x",w/2)
   .attr("y",padding/2)
-  .attr("class","description")
   .attr("fill","red")
   .style("z-index",7)
   .attr("class","yearTitle")
+
+let worldTextElement=worldviz.append("text")
+  .text("")
+  .attr("x",w/2)
+  .attr("y",padding/2)
+  .attr("class","worldFav")
+  .attr("fill","yellow")
+;
+
+
+ let yScale=d3.scaleLinear().domain([0,1927]).range([0,h/2])
+
+
 
 
 d3.json("data/countries.geojson").then(function(geoData){
@@ -234,7 +246,19 @@ d3.json("data/countries.geojson").then(function(geoData){
       }
     })
     .attr("stroke", "#333")
-    // .attr("stroke-width", 8)
+    .on("mouseover",function(d,i){
+      let mouseInWorld=d3.mouse(worldviz.node())
+      // console.log(mouseInWorld);
+      worldTextElement
+      .transition()
+      .text("hi")
+      .attr("x",mouseInWorld[0])
+      .attr("y",mouseInWorld[1])
+      d3.select(this).select("path")
+      .transition()
+    ///////how to make corresponding shape bigger?
+    })
+
     ;
 
 // title
@@ -293,6 +317,36 @@ d3.json("data/countries.geojson").then(function(geoData){
       .attr("fill","red")
       .style("font-size","20px")
       ;
+
+      function getTVMHeight(d,i){
+        return 10;
+      }
+
+      function getYPosition(d,i){
+        return 10;
+      }
+
+      function getGroupPosition(d,i){
+        let x=(w/100*i);
+        let y=h/2;
+        return "translate("+x+","+y+")"
+      }
+
+    let tvmdatagroups=tvmviz.selectAll(".tvmdatagroup").data(incomingData).enter()
+      .append("g")
+        .attr("class","tvmdatagroup")
+      ;
+
+
+    let tvmCat=tvmdatagroups.append("rect")
+      .attr("class","tvmCat")
+      .attr("x",0)
+      .attr("y",getYPosition)
+      .attr("width",20)
+      .attr("height",getTVMHeight)
+      .attr("fill",categoryColor)
+
+    tvmdatagroups.attr("transform",getGroupPosition)
 
 
 
@@ -356,12 +410,12 @@ d3.json("data/countries.geojson").then(function(geoData){
         .on("mouseover",function(d,i){
           console.log(d3.event);
           console.log(d3.mouse(yearviz.node()));
-          let mouseInSVG=d3.mouse(yearviz.node())
-          textElement
+          let mouseInYear=d3.mouse(yearviz.node())
+          yearTextElement
           .transition()
           .text(d.listed_in+" --- "+d.title)
           .attr("x",100)
-          .attr("y",120)
+          .attr("y",mouseInYear[1])
           // datagroups.attr("opacity",0.1)
           d3.select(this).select("circle")
           .transition()
@@ -440,6 +494,9 @@ d3.json("data/countries.geojson").then(function(geoData){
     .style("font-size","20px")
     ;
 
+    // for (i=0, i<incomingData.length, i++) {
+    //   console.log(incomingData[i].rating);
+    // }
 
 
 
