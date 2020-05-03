@@ -494,10 +494,27 @@ d3.json("data/countries.geojson").then(function(geoData){
     .style("font-size","20px")
     ;
 
-    // for (i=0, i<incomingData.length, i++) {
-    //   console.log(incomingData[i].rating);
-    // }
 
+      // console.log(incomingData.rating);
+
+
+    let rateArray=[];
+    for(i=0;i<incomingData.length;i++){
+      let rateElement=[].concat(incomingData[i].rating);
+      rateArray.push(rateElement);
+    }
+
+    let rateAll=rateArray.flat();
+
+    let rateCounter=rateAll.reduce(function(acc,curr){
+      if (typeof acc[curr]=='undefined'){
+        acc[curr]=1;
+      }else {
+        acc[curr] += 1;
+      }
+      return acc;
+    },{});
+    console.log("rate",rateCounter);
 
 
 
