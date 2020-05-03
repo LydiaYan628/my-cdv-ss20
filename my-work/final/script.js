@@ -332,6 +332,7 @@ d3.json("data/countries.geojson").then(function(geoData){
         return "translate("+x+","+y+")"
       }
 
+      
     let tvmdatagroups=tvmviz.selectAll(".tvmdatagroup").data(incomingData).enter()
       .append("g")
         .attr("class","tvmdatagroup")
@@ -420,7 +421,9 @@ d3.json("data/countries.geojson").then(function(geoData){
           d3.select(this).select("circle")
           .transition()
           .attr("r",20)
+
         })
+
         .on("mouseout",function(d,i){
           // textElement.text("")
           d3.select(this).select("circle")
@@ -514,8 +517,30 @@ d3.json("data/countries.geojson").then(function(geoData){
       }
       return acc;
     },{});
-    console.log("rate",rateCounter);
 
+    console.log("rate",rateCounter.G);
+
+    let rateRec=rateviz.append("rect")
+    .attr("class","rateRec")
+    .attr("width",w-padding*2)
+    .attr("height",200)
+    .attr("x",padding)
+    .attr("y",(h-padding*2)/2)
+    .attr("fill","white")
+    ;
+
+    let smallRateRec=rateRec.append("rect")
+    .attr("class","smallRateRec")
+    .attr("height",200)
+    .attr("width",function(d,i){
+      console.log(d);
+      // let rateName=d;
+      // if(rateName==""){
+      //   rateName="Unrated";
+      // }
+      // let numRate=rateCounter.rateName;
+
+    })
 
 
 
