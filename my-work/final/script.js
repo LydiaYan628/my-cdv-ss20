@@ -3,23 +3,23 @@ let h=876.67;
 let padding=20;
 
 let worldviz = d3.select("#worldPage").append("svg")
-  .style("width",w)
-  .style("height",h)
-  ;
+.style("width",w)
+.style("height",h)
+;
 
 let tvmviz = d3.select("#TVMoviePage").append("svg")
-  .style("width",w)
-  .style("height",h)
-  ;
+.style("width",w)
+.style("height",h)
+;
 
 let yearviz = d3.select("#releasedYearPage").append("svg")
-    .style("width",w)
-    .style("height",h)
-    ;
+.style("width",w)
+.style("height",h)
+;
 
 let rateviz = d3.select("#ratePage").append("svg")
-  .style("width",w)
-  .style("height",h)
+.style("width",w)
+.style("height",h)
 ;
 
 let timeParseFunction=d3.timeParse("%Y");
@@ -34,133 +34,231 @@ function timeCorrectData(datapoint){
   return timeCorrected;
 }
 
-
-  function transformData(dataToClean){
-    // console.log(dataToClean);
-
-    let newData=[];
-    for (let i=0;i<dataToClean.length;i++){
-      dataToClean[i].country=dataToClean[i].country.replace(/, /g,",").split(",");
-      dataToClean[i].listed_in=dataToClean[i].listed_in.replace(/, /g,",").split(",");
-
-
-      newData.push(dataToClean[i]);
-
-    }
-    return newData;
-  }
-
-  function categoryColor(datapoint){
-    // console.log(color);
-    if (datapoint.listed_in=="Action & Adventure"){
-      return "hsl(0,100%,50%)";
-    }else if(datapoint.list_in=="Anime Features"){
-      return  "hsl(8,100%,50%)";
-    }else if(datapoint.list_in=="Anime Series"){
-      return  "hsl(16,100%,50%)";
-    }else if(datapoint.list_in=="British TV Shows"){
-      return  "hsl(24,100%,50%)";
-    }else if(datapoint.list_in=="Children & Family Movies"){
-      return  "hsl(32,100%,50%)";
-    }else if(datapoint.list_in=="Classic & Cult TV"){
-      return  "hsl(40,100%,50%)";
-    }else if(datapoint.list_in=="Classic Movies"){
-      return  "hsl(48,100%,50%)";
-    }else if(datapoint.list_in=="Comedies"){
-      return  "hsl(56,100%,50%)";
-    }else if(datapoint.list_in=="Crime TV Shows"){
-      return  "hsl(64,100%,50%)";
-    }else if(datapoint.list_in=="Cult Movies"){
-      return  "hsl(72,100%,50%)";
-    }else if(datapoint.list_in=="Documentaries"){
-      return  "hsl(80,100%,50%)";
-    }else if(datapoint.list_in=="Docuseries"){
-      return  "hsl(88,100%,50%)";
-    }else if(datapoint.list_in=="Dramas"){
-      return  "hsl(96,100%,50%)";
-    }else if(datapoint.list_in=="Faith & Spirituality"){
-      return  "hsl(104,100%,50%)";
-    }else if(datapoint.list_in=="Horror Movies"){
-      return  "hsl(112,100%,50%)";
-    }else if(datapoint.list_in=="Independent Movies"){
-      return  "hsl(120,100%,50%)";
-    }else if(datapoint.list_in=="International Movies"){
-      return  "hsl(128,100%,50%)";
-    }else if(datapoint.list_in=="International TV Shows"){
-      return  "hsl(136,100%,50%)";
-    }else if(datapoint.list_in=="Kids' TV"){
-      return  "hsl(144,100%,50%)";
-    }else if(datapoint.list_in=="Korean TV Shows"){
-      return  "hsl(152,100%,50%)";
-    }else if(datapoint.listed_in=="LGBTQ Movies"){
-      return  "hsl(160,100%,50%)";
-    }else if(datapoint.list_in=="Movies"){
-      return  "hsl(168,100%,50%)";
-    }else if(datapoint.list_in=="Music & Musicals"){
-      return  "hsl(176,100%,50%)";
-    }else if(datapoint.list_in=="Reality TV"){
-      return  "hsl(184,100%,50%)";
-    }else if(datapoint.list_in=="Romantic Movies"){
-      return  "hsl(192,100%,50%)";
-    }else if(datapoint.list_in=="Romantic TV Shows"){
-      return  "hsl(200,100%,50%)";
-    }else if(datapoint.list_in=="Sci-Fi & Fantasy"){
-      return  "hsl(208,100%,50%)";
-    }else if(datapoint.list_in=="Science & Nature TV"){
-      return  "hsl(216,100%,50%)";
-    }else if(datapoint.list_in=="Spanish-Language TV Shows"){
-      return  "hsl(224,100%,50%)";
-    }else if(datapoint.list_in=="Sports Movies"){
-      return  "hsl(232,100%,50%)";
-    }else if(datapoint.list_in=="Stand-Up Comedy"){
-      return  "hsl(240,100%,50%)";
-    }else if(datapoint.list_in=="Stand-Up Comedy & Talk Shows"){
-      return  "hsl(248,100%,50%)";
-    }else if(datapoint.list_in=="TV Action & Adventure"){
-      return  "hsl(256,100%,50%)";
-    }else if(datapoint.list_in=="TV Comedies"){
-      return  "hsl(264,100%,50%)";
-    }else if(datapoint.list_in=="TV Dramas"){
-      return  "hsl(272,100%,50%)";
-    }else if(datapoint.list_in=="TV Horror"){
-      return  "hsl(280,100%,50%)";
-    }else if(datapoint.list_in=="TV Mysteries"){
-      return  "hsl(288,100%,50%)";
-    }else if(datapoint.list_in=="TV Sci-Fi & Fantasy"){
-      return  "hsl(296,100%,50%)";
-    }else if(datapoint.list_in=="TV Shows"){
-      return  "hsl(304,100%,50%)";
-    }else if(datapoint.list_in=="TV Thrillers"){
-      return  "hsl(312,100%,50%)";
-    }else if(datapoint.list_in=="Teen TV Shows"){
-      return  "hsl(320,100%,50%)";
-    }else if(datapoint.list_in=="Thrillers"){
-      return  "hsl(328,100%,50%)";
-    }else{
-      return "white";
+function mapCatFunction(datapoint){
+  let category=datapoint.listed_in;
+  // console.log(category);
+  for(i=0; i<category.length; i++){
+    if(category[i]=="TV Action & Adventure"){
+      category[i]=category[i].replace("TV Action & Adventure","Action & Adventure");
+    }else if (category[i]=="TV Comedies"){
+      category[i]=category[i].replace("TV Comedies","Comedies");
+    }else if (category[i]=="TV Dramas"){
+      category[i]=category[i].replace("TV Dramas","Dramas");
+    }else if (category[i]=="TV Horror"){
+      category[i]=category[i].replace("TV Horror","Horror");
+    }else if (category[i]=="Horror Movies"){
+      category[i]=category[i].replace("Horror Movies","Horror");
+    }else if (category[i]=="TV Sci-Fi & Fantasy"){
+      category[i]=category[i].replace("TV Sci-Fi & Fantasy","Sci-Fi & Fantasy");
+    }else if (category[i]=="TV Thrillers"){
+      category[i]=category[i].replace("TV Thrillers","Thrillers");
+    }else if (category[i]=="Anime Features"){
+      category[i]=category[i].replace("Anime Features","Anime");
+    }else if (category[i]=="Anime Series"){
+      category[i]=category[i].replace("Anime Series","Anime");
+    }else if (category[i]=="Comedie"){
+      category[i]=category[i].replace("Comedie","Comedies");
+    }else if (category[i]=="Classic & Cult TV"){
+      category[i]=category[i].replace("Classic & Cult TV","Classic");
+    }else if (category[i]=="Classic Movies"){
+      category[i]=category[i].replace("Classic Movies","Classic");
+    }else if (category[i]=="Docuseries"){
+      category[i]=category[i].replace("Docuseries","Documentaries");
+    }else if (category[i]=="International Movies"){
+      category[i]=category[i].replace("International Movies","International");
+    }else if (category[i]=="International TV Shows"){
+      category[i]=category[i].replace("International TV Shows","International");
+    }else if (category[i]=="Romantic Movies"){
+      category[i]=category[i].replace("Romantic Movies","Romantic");
+    }else if (category[i]=="Romantic TV Shows"){
+      category[i]=category[i].replace("Romantic TV Shows","Romantic");
+    }else if (category[i]=="Stand-Up Comedy & Talk Shows"){
+      category[i]=category[i].replace("Stand-Up Comedy & Talk Shows","Stand-Up Comedy");
+    }else if (category[i]=="Teen TV Shows"){
+      category[i]=category[i].replace("Teen TV Shows","TV Shows");
     }
   }
+  return datapoint;
+}
 
 
-let xScale=d3.scaleTime().range([padding, w-padding]);
+
+function categoryCorrect(datapoint){
+  let categoryCorrected=datapoint.map(mapCatFunction)
+  return categoryCorrected;
+}
+
+
+
+function transformData(dataToClean){
+  // console.log(dataToClean);
+
+
+  let newData=[];
+  for (let i=0;i<dataToClean.length;i++){
+    dataToClean[i].country=dataToClean[i].country.replace(/, /g,",").split(",");
+    dataToClean[i].listed_in=dataToClean[i].listed_in.replace(/, /g,",").split(",");
+
+
+    newData.push(dataToClean[i]);
+
+  }
+  return newData;
+}
+
+// function categoryColor(datapoint){
+//   // console.log(color);
+//   if (datapoint.listed_in=="Action & Adventure"){
+//     return "hsl(0,100%,50%)";
+//   }else if(datapoint.list_in=="Anime Features"){
+//     return  "hsl(8,100%,50%)";
+//   }else if(datapoint.list_in=="Anime Series"){
+//     return  "hsl(16,100%,50%)";
+//   }else if(datapoint.list_in=="British TV Shows"){
+//     return  "hsl(24,100%,50%)";
+//   }else if(datapoint.list_in=="Children & Family Movies"){
+//     return  "hsl(32,100%,50%)";
+//   }else if(datapoint.list_in=="Classic & Cult TV"){
+//     return  "hsl(40,100%,50%)";
+//   }else if(datapoint.list_in=="Classic Movies"){
+//     return  "hsl(48,100%,50%)";
+//   }else if(datapoint.list_in=="Comedies"){
+//     return  "hsl(56,100%,50%)";
+//   }else if(datapoint.list_in=="Crime TV Shows"){
+//     return  "hsl(64,100%,50%)";
+//   }else if(datapoint.list_in=="Cult Movies"){
+//     return  "hsl(72,100%,50%)";
+//   }else if(datapoint.list_in=="Documentaries"){
+//     return  "hsl(80,100%,50%)";
+//   }else if(datapoint.list_in=="Docuseries"){
+//   return  "hsl(88,100%,50%)";
+// }else if(datapoint.list_in=="Dramas"){
+//   return  "hsl(96,100%,50%)";
+// }else if(datapoint.list_in=="Faith & Spirituality"){
+//   return  "hsl(104,100%,50%)";
+// }else if(datapoint.list_in=="Horror Movies"){
+//   return  "hsl(112,100%,50%)";
+// }else if(datapoint.list_in=="Independent Movies"){
+//   return  "hsl(120,100%,50%)";
+// }else if(datapoint.list_in=="International Movies"){
+//   return  "hsl(128,100%,50%)";
+// }else if(datapoint.list_in=="International TV Shows"){
+//   return  "hsl(136,100%,50%)";
+// }else if(datapoint.list_in=="Kids' TV"){
+//   return  "hsl(144,100%,50%)";
+// }else if(datapoint.list_in=="Korean TV Shows"){
+//   return  "hsl(152,100%,50%)";
+// }else if(datapoint.listed_in=="LGBTQ Movies"){
+//   return  "hsl(160,100%,50%)";
+// }else if(datapoint.list_in=="Movies"){
+//   return  "hsl(168,100%,50%)";
+// }else if(datapoint.list_in=="Music & Musicals"){
+//   return  "hsl(176,100%,50%)";
+// }else if(datapoint.list_in=="Reality TV"){
+//   return  "hsl(184,100%,50%)";
+// }else if(datapoint.list_in=="Romantic Movies"){
+//   return  "hsl(192,100%,50%)";
+// }else if(datapoint.list_in=="Romantic TV Shows"){
+//   return  "hsl(200,100%,50%)";
+// }else if(datapoint.list_in=="Sci-Fi & Fantasy"){
+//   return  "hsl(208,100%,50%)";
+// }else if(datapoint.list_in=="Science & Nature TV"){
+//   return  "hsl(216,100%,50%)";
+// }else if(datapoint.list_in=="Spanish-Language TV Shows"){
+//   return  "hsl(224,100%,50%)";
+// }else if(datapoint.list_in=="Sports Movies"){
+//   return  "hsl(232,100%,50%)";
+// }else if(datapoint.list_in=="Stand-Up Comedy"){
+//   return  "hsl(240,100%,50%)";
+// }else if(datapoint.list_in=="Stand-Up Comedy & Talk Shows"){
+//   return  "hsl(248,100%,50%)";
+// }else if(datapoint.list_in=="TV Action & Adventure"){
+//   return  "hsl(256,100%,50%)";
+// }else if(datapoint.list_in=="TV Comedies"){
+//   return  "hsl(264,100%,50%)";
+// }else if(datapoint.list_in=="TV Dramas"){
+//   return  "hsl(272,100%,50%)";
+// }else if(datapoint.list_in=="TV Horror"){
+//   return  "hsl(280,100%,50%)";
+// }else if(datapoint.list_in=="TV Mysteries"){
+//     return  "hsl(288,100%,50%)";
+//   }else if(datapoint.list_in=="TV Sci-Fi & Fantasy"){
+//     return  "hsl(296,100%,50%)";
+//   }else if(datapoint.list_in=="TV Shows"){
+//     return  "hsl(304,100%,50%)";
+//   }else if(datapoint.list_in=="TV Thrillers"){
+//     return  "hsl(312,100%,50%)";
+//   }else if(datapoint.list_in=="Teen TV Shows"){
+//     return  "hsl(320,100%,50%)";
+//   }else if(datapoint.list_in=="Thrillers"){
+//     return  "hsl(328,100%,50%)";
+//   }else{
+//     return "white";
+//   }
+// }
+
+
+let xScale=d3.scaleTime().range([200, w-padding]);
 let yearTextElement=yearviz.append("text")
-  .text("")
-  .attr("x",w/2)
-  .attr("y",padding/2)
-  .attr("fill","red")
-  .style("z-index",7)
-  .attr("class","yearTitle")
+.text("")
+.attr("x",w/2)
+.attr("y",padding/2)
+.attr("fill","red")
+.style("z-index",7)
+.attr("class","yearTitle")
 
 let worldTextElement=worldviz.append("text")
-  .text("")
-  .attr("x",w/2)
-  .attr("y",padding/2)
-  .attr("class","worldFav")
-  .attr("fill","yellow")
+.text("")
+.attr("x",w/2)
+.attr("y",padding/2)
+.attr("class","worldFav")
+.attr("fill","yellow")
 ;
 
 
- let yScale=d3.scaleLinear().domain([0,1927]).range([0,h/2])
+let yScale=d3.scaleLinear().domain([0,3000]).range([0,h/2])
+
+d3.selectAll(".checkbox").on("change",currentSelection);
+currentSelection();
+
+function currentSelection(){
+  let choice=[];
+  d3.selectAll(".checkbox").each(function(d){
+    checkboxSelected=d3.select(this);
+    // console.log(checkboxSelected);
+    if(checkboxSelected.property("checked")){
+      console.log("hhhhh");
+      choice.push(checkboxSelected.property("value"))
+      console.log(choice);
+    }
+  })
+
+}
+
+function genreFilter(datapoint){
+  // console.log("okok");
+  return datapoint.listed_in.includes(currentSelection);
+}
+
+
+function filterTV(datapoint){
+  if(datapoint.type="TV Show"){
+    return true;
+  }else if(datapoint.type="Movie"){
+    return false;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -170,10 +268,11 @@ d3.json("data/countries.geojson").then(function(geoData){
 
     let transformedData=transformData(incomingData);
     let timeCorrectedData=timeCorrectData(transformedData);
-    console.log(incomingData);
+    let categoryCorrectedData=categoryCorrect(timeCorrectedData);
+    console.log(categoryCorrectedData);
 
 
-// world map visualization
+    // world map visualization
     let projection= d3.geoEqualEarth()
     .translate([w/2,h/2])
     .center([103.8,34.1])
@@ -181,7 +280,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     ;
     let pathMaker= d3.geoPath(projection);
 
-// deal with country
+    // deal with country
     let countryArray=[];
     for (i=0;i<incomingData.length;i++){
       // console.log(incomingData[i].country);
@@ -203,7 +302,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     },{})
     console.log("counter",countryCounter);
 
-// deal with category
+    // deal with category
     let categoryArray=[];
     for(i=0;i<incomingData.length;i++){
       let categoryElement=[].concat(incomingData[i].listed_in);
@@ -245,32 +344,34 @@ d3.json("data/countries.geojson").then(function(geoData){
         return "black";
       }
     })
-    .attr("stroke", "#333")
+    .attr("stroke", "#333");
+
+    netflixCountry
     .on("mouseover",function(d,i){
       let mouseInWorld=d3.mouse(worldviz.node())
       // console.log(mouseInWorld);
       worldTextElement
       .transition()
-      .text("hi")
+      .text("the most category")
       .attr("x",mouseInWorld[0])
       .attr("y",mouseInWorld[1])
       d3.select(this).select("path")
       .transition()
-    ///////how to make corresponding shape bigger?
+      ///////how to make corresponding shape bigger?
     })
 
     ;
 
-// title
-  worldviz.append("text")
+    // title
+    worldviz.append("text")
     .text("WORLD's favorite category")
     .style("font-family","'Bebas Neue', cursive")
     .attr("x",20)
     .attr("y",820)
     .attr("fill","white")
     .style("font-size","50px")
-;
-  worldviz.append("text")
+    ;
+    worldviz.append("text")
     .text("This is the map of each production country's favorite show category.")
     .style("font-family","'Montserrat', sans-serif")
     .attr("x",20)
@@ -297,77 +398,110 @@ d3.json("data/countries.geojson").then(function(geoData){
 
 
 
-///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
 
 
-  // title
+    // title
     tvmviz.append("text")
-      .text("TV show or Movie?")
-      .style("font-family","'Bebas Neue', cursive")
-      .attr("x",20)
-      .attr("y",820)
-      .attr("fill","white")
-      .style("font-size","50px")
-  ;
+    .text("TV show or Movie?")
+    .style("font-family","'Bebas Neue', cursive")
+    .attr("x",20)
+    .attr("y",820)
+    .attr("fill","white")
+    .style("font-size","50px")
+    ;
     tvmviz.append("text")
-      .text("Comparison between Netflix TV shows and movies with differnt coategories.")
-      .style("font-family","'Montserrat', sans-serif")
-      .attr("x",20)
-      .attr("y",840)
-      .attr("fill","red")
-      .style("font-size","20px")
-      ;
-
-      function getTVMHeight(d,i){
-        return 10;
-      }
-
-      function getYPosition(d,i){
-        return 10;
-      }
-
-      function getGroupPosition(d,i){
-        let x=(w/100*i);
-        let y=h/2;
-        return "translate("+x+","+y+")"
-      }
-
-      
-    let tvmdatagroups=tvmviz.selectAll(".tvmdatagroup").data(incomingData).enter()
-      .append("g")
-        .attr("class","tvmdatagroup")
-      ;
+    .text("Comparison between Netflix TV shows and movies with different categories.")
+    .style("font-family","'Montserrat', sans-serif")
+    .attr("x",20)
+    .attr("y",840)
+    .attr("fill","red")
+    .style("font-size","20px")
+    ;
+    //
+    yTVScale=d3.scaleLinear().domain([0,3000]).range([0,h/2])
 
 
-    let tvmCat=tvmdatagroups.append("rect")
-      .attr("class","tvmCat")
+    function getTVYPos(datapoint){
+      // console.log(categoryCounter);
+      return yTVScale(categoryArray[datapoint.listed_in]);
+    }
+    //
+    function getTVHeight(datapoint){
+      return yTVScale(categoryArray[datapoint.listed_in]);
+    }
+    //
+    function getTVGroupPosition(d,i){
+      let x=(w/100*i);
+      let y=h/2;
+      return "translate("+x+","+y+")";
+    }
+
+    function getName(datapoint){
+      return datapoint.listed_in;
+    }
+
+    // function filterTV(datapoint){
+    //   return datapoint.type="TV Show";
+    // }
+    //
+
+    let tvdatagroups=tvmviz.selectAll(".tvdatagroup").data(incomingData.filter(filterTV)).enter()
+    .append("g")
+    .attr("class","tvdatagroup")
+    ;
+
+    let tvCats=tvdatagroups.append("rect")
+      .attr("class","tower")
       .attr("x",0)
-      .attr("y",getYPosition)
+      .attr("y",getTVYPos)
       .attr("width",20)
-      .attr("height",getTVMHeight)
-      .attr("fill",categoryColor)
+      .attr("height",getTVHeight)
+      .attr("fill","red")
 
-    tvmdatagroups.attr("transform",getGroupPosition)
+    let lables=tvdatagroups.append("text")
+      .attr("class","name")
+      .text(getName)
+      .attr("x",5)
+      .attr("y",-4)
+      .attr("transform","rotate(90)")
+      .style("font-family","sans-serif")
+
+      tvdatagroups.attr("transform",getTVGroupPosition)
+
+
+    //
+    //
+    // let tvCat=tvdatagroups.append("rect")
+    // .attr("class","tvmCat")
+    // .attr("x",0)
+    // .attr("y",getTVYPosition)
+    // .attr("width",20)
+    // .attr("height",getTVHeight)
+    // .attr("fill","white")
+    //
+    // tvdatagroups.attr("transform",getTVGroupPosition)
 
 
 
 
 
-////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////////
 
 
 
 
-// title
-  yearviz.append("text")
+    // title
+    yearviz.append("text")
     .text("Released year")
     .style("font-family","'Bebas Neue', cursive")
     .attr("x",20)
     .attr("y",820)
     .attr("fill","white")
     .style("font-size","50px")
-;
-  yearviz.append("text")
+    ;
+    yearviz.append("text")
     .text("Show categories released in each year from 1925-2020")
     .style("font-family","'Montserrat', sans-serif")
     .attr("x",20)
@@ -379,7 +513,7 @@ d3.json("data/countries.geojson").then(function(geoData){
 
 
     let extent = d3.extent(incomingData, function(d){
-    return d.release_year;
+      return d.release_year;
     })
     console.log(extent);
     // amend domain to scale
@@ -401,50 +535,52 @@ d3.json("data/countries.geojson").then(function(geoData){
 
 
     let paddingYear=100;
-    let timeScale= d3.scaleTime().domain([1925,2020]).range([padding,w-padding]);
+    let timeScale= d3.scaleTime().domain([1925,2020]).range([200,w-padding]);
 
     let yearGraphGroup=yearviz.append("g").attr("class","graphgroup");
 
-    let yearDataGroups= yearGraphGroup.selectAll(".datagroup").data(timeCorrectedData).enter()
-      .append("g")
-        .attr("class","datagroup")
-        .on("mouseover",function(d,i){
-          console.log(d3.event);
-          console.log(d3.mouse(yearviz.node()));
-          let mouseInYear=d3.mouse(yearviz.node())
-          yearTextElement
-          .transition()
-          .text(d.listed_in+" --- "+d.title)
-          .attr("x",100)
-          .attr("y",mouseInYear[1])
-          // datagroups.attr("opacity",0.1)
-          d3.select(this).select("circle")
-          .transition()
-          .attr("r",20)
 
-        })
 
-        .on("mouseout",function(d,i){
-          // textElement.text("")
-          d3.select(this).select("circle")
-          .transition()
-          .attr("r",2)
-        })
+    let yearDataGroups= yearGraphGroup.selectAll(".datagroup").data(timeCorrectedData.filter(genreFilter)).enter()
+    .append("g")
+      .attr("class","datagroup")
+      .on("mouseover",function(d,i){
+        console.log(d3.event);
+        console.log(d3.mouse(yearviz.node()));
+        let mouseInYear=d3.mouse(yearviz.node())
+        yearTextElement
+        .transition()
+        .text(d.listed_in+" --- "+d.title)
+        .attr("x",100)
+        .attr("y",mouseInYear[1])
+        // datagroups.attr("opacity",0.1)
+        d3.select(this).select("circle")
+        .transition()
+        .attr("r",20)
 
-        ;
+    })
+
+    .on("mouseout",function(d,i){
+      // textElement.text("")
+      d3.select(this).select("circle")
+      .transition()
+      .attr("r",2)
+    })
+
+    ;
 
     let yearCircles=yearDataGroups.append("circle")
-      .attr("class","yearDatapoint")
-      .attr("cx",function(d){
-        return xScale(d.release_year);
-      })
-      .attr("cy",function(d){
-        return h/2;
-      })
-      .attr("r",2)
-      .attr("fill",categoryColor)
+    .attr("class","yearDatapoint")
+    .attr("cx",function(d){
+      return xScale(d.release_year);
+    })
+    .attr("cy",function(d){
+      return h/2;
+    })
+    .attr("r",2)
+    .attr("fill","white")
 
-      ;
+    ;
 
     incomingData=incomingData.map(function(datapoint){
       datapoint.x= xScale(datapoint.release_year);
@@ -453,16 +589,16 @@ d3.json("data/countries.geojson").then(function(geoData){
     })
 
     // update the location using simulation
-  let simulation=d3.forceSimulation(incomingData)
+    let simulation=d3.forceSimulation(incomingData.filter(genreFilter))
     .force("forceX", function(d,i){
       return d3.forceX(xScale(d.release_year));
     })
     .force("forceY", d3.forceY(h/2))
     .force("collide",d3.forceCollide().radius(5))
     .on("tick",simulationRan)
-  ;
+    ;
 
-  function simulationRan(){
+    function simulationRan(){
       // console.log(incomingData[0].x);
       yearviz.selectAll(".yearDatapoint")
         .attr("cx", function(d){
@@ -470,25 +606,25 @@ d3.json("data/countries.geojson").then(function(geoData){
         })
         .attr("cy", function(d){
           return d.y;
-        })
-  }
+      })
+    }
 
 
 
 
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 
 
-// title
-  rateviz.append("text")
+    // title
+    rateviz.append("text")
     .text("Age rate")
     .style("font-family","'Bebas Neue', cursive")
     .attr("x",20)
     .attr("y",820)
     .attr("fill","white")
     .style("font-size","50px")
-;
-  rateviz.append("text")
+    ;
+    rateviz.append("text")
     .text("The proportion of each age rate compares to overall Netflix shows and the most popular category of each show.")
     .style("font-family","'Montserrat', sans-serif")
     .attr("x",20)
@@ -498,7 +634,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     ;
 
 
-      // console.log(incomingData.rating);
+    // console.log(incomingData.rating);
 
 
     let rateArray=[];
