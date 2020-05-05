@@ -228,16 +228,17 @@ function currentSelection(){
     // console.log(checkboxSelected);
     if(checkboxSelected.property("checked")){
       console.log("hhhhh");
-      choice.push(checkboxSelected.property("value"))
+      choice.push(checkboxSelected.property("name"))
       console.log(choice);
     }
   })
-
+  return choice;
 }
 
 function genreFilter(datapoint){
   // console.log("okok");
   return datapoint.listed_in.includes(currentSelection);
+  console.log(currentSelection);
 }
 
 
