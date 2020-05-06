@@ -198,7 +198,7 @@ function transformData(dataToClean){
 // }
 
 
-let xScale=d3.scaleTime().range([200, w-padding]);
+let xScale=d3.scaleTime().range([padding, w-padding]);
 let yearTextElement=yearviz.append("text")
 .text("")
 .attr("x",w/2)
@@ -216,30 +216,14 @@ let worldTextElement=worldviz.append("text")
 ;
 
 
-let yScale=d3.scaleLinear().domain([0,3000]).range([0,h/2])
+let yScale=d3.scaleLinear().domain([0,3500]).range([0,h/2])
 
-d3.selectAll(".checkbox").on("change",currentSelection);
-currentSelection();
 
-function currentSelection(){
-  let choice=[];
-  d3.selectAll(".checkbox").each(function(d){
-    checkboxSelected=d3.select(this);
-    // console.log(checkboxSelected);
-    if(checkboxSelected.property("checked")){
-      console.log("hhhhh");
-      choice.push(checkboxSelected.property("name"))
-      console.log(choice);
-    }
-  })
-  return choice;
-}
 
-function genreFilter(datapoint){
-  // console.log("okok");
-  return datapoint.listed_in.includes(currentSelection);
-  console.log(currentSelection);
-}
+
+// function genreFilter(datapoint){
+//   if ()
+// }
 
 
 function filterTV(datapoint){
@@ -252,7 +236,7 @@ function filterTV(datapoint){
 }
 
 
-
+    yTVScale=d3.scaleLinear().domain([0,1010]).range([0,h/2])
 
 
 
@@ -323,7 +307,64 @@ d3.json("data/countries.geojson").then(function(geoData){
     console.log("category",categoryCounter);
     // console.log(categoryCounter.length);
 
+    let tvArray=[];
 
+    let onlyTV=incomingData.filter(function(d,i){
+      if (d.type=="TV Show"){
+        return true;
+      }else{
+        return false;
+      }
+    })
+    console.log(onlyTV);
+    for(i=0;i<onlyTV.length;i++){
+      let tvElement=[].concat(onlyTV[i].listed_in);
+      // console.log(tvElement);
+      tvArray.push(tvElement);
+    }
+
+    let tvAll=tvArray.flat();
+
+    let tvCounter=tvAll.reduce(function(acc,curr){
+      if (typeof acc[curr]=='undefined'){
+        acc[curr]=1;
+      }else {
+        acc[curr] += 1;
+      }
+      return acc;
+    },{});
+    console.log("tv",tvCounter);
+
+
+
+
+    let movieArray=[];
+
+    let onlyMovie=incomingData.filter(function(d,i){
+      if (d.type=="Movie"){
+        return true;
+      }else{
+        return false;
+      }
+    })
+    console.log(onlyMovie);
+    for(i=0;i<onlyMovie.length;i++){
+      let movieElement=[].concat(onlyMovie[i].listed_in);
+      // console.log(tvElement);
+      movieArray.push(movieElement);
+    }
+
+    let movieAll=movieArray.flat();
+
+    let movieCounter=movieAll.reduce(function(acc,curr){
+      if (typeof acc[curr]=='undefined'){
+        acc[curr]=1;
+      }else {
+        acc[curr] += 1;
+      }
+      return acc;
+    },{});
+    console.log("movie",movieCounter);
 
     let colorScale=d3.scaleLinear().domain([0,80,2610]).range(["white","red","darkred"]);
 
@@ -420,56 +461,53 @@ d3.json("data/countries.geojson").then(function(geoData){
     .style("font-size","20px")
     ;
     //
-    yTVScale=d3.scaleLinear().domain([0,3000]).range([0,h/2])
 
 
-    function getTVYPos(datapoint){
-      // console.log(categoryCounter);
-      return yTVScale(categoryArray[datapoint.listed_in]);
+
+
+
+
+
+
+    function getTVYPosition(d){
+      return -yTVScale(d.number);
     }
-    //
-    function getTVHeight(datapoint){
-      return yTVScale(categoryArray[datapoint.listed_in]);
-    }
-    //
+
     function getTVGroupPosition(d,i){
-      let x=(w/100*i);
+      let x=(w/30*i);
       let y=h/2;
-      return "translate("+x+","+y+")";
+      return "translate("+(x+padding)+","+y+")";
     }
 
-    function getName(datapoint){
-      return datapoint.listed_in;
+    function getTVHeight(d){
+      return yTVScale(d.number);
     }
 
-    // function filterTV(datapoint){
-    //   return datapoint.type="TV Show";
-    // }
-    //
+    d3.json("data/tvCat.json").then(function(tvData){
+      console.log(tvData);
+      let tvdatagroups=tvmviz.selectAll(".tvdatagroup").data(tvData).enter()
+        .append("g")
+          .attr("class","tvdatagroup")
+      ;
 
-    let tvdatagroups=tvmviz.selectAll(".tvdatagroup").data(incomingData.filter(filterTV)).enter()
-    .append("g")
-    .attr("class","tvdatagroup")
-    ;
+      let tvs=tvdatagroups.append("rect")
+        .attr("class","tvs")
+        .attr("x",0)
+        .attr("y",getTVYPosition)
+        .attr("width",20)
+        .attr("height",getTVHeight)
+        .attr("fill","red")
 
-    let tvCats=tvdatagroups.append("rect")
-      .attr("class","tower")
-      .attr("x",0)
-      .attr("y",getTVYPos)
-      .attr("width",20)
-      .attr("height",getTVHeight)
-      .attr("fill","red")
 
-    let lables=tvdatagroups.append("text")
-      .attr("class","name")
-      .text(getName)
-      .attr("x",5)
-      .attr("y",-4)
-      .attr("transform","rotate(90)")
-      .style("font-family","sans-serif")
+        tvdatagroups.attr("transform",getTVGroupPosition)
 
-      tvdatagroups.attr("transform",getTVGroupPosition)
+    })
 
+
+    d3.json("data/movieCat.json").then(function(movieData){
+      let moviedatagroups=tvmviz.selectAll(".moviedatagroup").data(movieData).enter()
+        .append("g")
+    })
 
     //
     //
@@ -542,46 +580,103 @@ d3.json("data/countries.geojson").then(function(geoData){
 
 
 
-    let yearDataGroups= yearGraphGroup.selectAll(".datagroup").data(timeCorrectedData.filter(genreFilter)).enter()
-    .append("g")
-      .attr("class","datagroup")
-      .on("mouseover",function(d,i){
-        console.log(d3.event);
-        console.log(d3.mouse(yearviz.node()));
-        let mouseInYear=d3.mouse(yearviz.node())
-        yearTextElement
-        .transition()
-        .text(d.listed_in+" --- "+d.title)
-        .attr("x",100)
-        .attr("y",mouseInYear[1])
-        // datagroups.attr("opacity",0.1)
+
+
+
+
+
+    d3.selectAll(".checkbox").on("change",updateGraph);
+    // currentSelection();
+
+
+    function currentSelection(){
+      let selection=[];
+
+      d3.selectAll(".checkbox").each(function(d){
+          checkboxSelected=d3.select(this);
+          // console.log(checkboxSelected);
+          if(checkboxSelected.property("checked")){
+            // console.log("hhhhh");
+            selection.push(checkboxSelected.property("name"))
+            // console.log(selection);
+          }
+        })
+      // [ "Adventure Movie", "Drama" ]
+      return selection;
+    }
+
+    function filterCurrentSelection(datapoint, currentSel){
+      // console.log(currentSel);
+      for(let i=0;i< datapoint.listed_in.length;i++){
+
+        console.log("currentSel", currentSel);
+        console.log("datapoint.listed_in[i]", datapoint.listed_in[i]);
+
+        if (currentSel.includes(datapoint.listed_in[i])==true){
+          return true
+        }else{
+          return false
+        }
+
+
+
+
+      }
+
+
+    }
+    ///////////////////////////////////////
+////they are calling each other endlessly//////
+  //////////////////////////////////////////
+    function updateGraph(){
+      let currentSel = currentSelection();
+      console.log(currentSel);
+
+      let yearDataGroups= yearGraphGroup.selectAll(".datagroup")
+        .data(incomingData.filter(function(d, i){
+          console.log(d);
+          return filterCurrentSelection(d, currentSel)
+        })).enter()
+        .append("g")
+          .attr("class","datagroup")
+          .on("mouseover",function(d,i){
+            console.log(d3.event);
+            console.log(d3.mouse(yearviz.node()));
+            let mouseInYear=d3.mouse(yearviz.node())
+            yearTextElement
+            .transition()
+            .text(d.listed_in+" --- "+d.title)
+            .attr("x",100)
+            .attr("y",mouseInYear[1])
+            // datagroups.attr("opacity",0.1)
+            d3.select(this).select("circle")
+            .transition()
+            .attr("r",20)
+
+      })
+
+      .on("mouseout",function(d,i){
+        // textElement.text("")
         d3.select(this).select("circle")
         .transition()
-        .attr("r",20)
+        .attr("r",2)
+      })
 
-    })
+      ;
 
-    .on("mouseout",function(d,i){
-      // textElement.text("")
-      d3.select(this).select("circle")
-      .transition()
+      let yearCircles=yearDataGroups.append("circle")
+      .attr("class","yearDatapoint")
+      .attr("cx",function(d){
+        return xScale(d.release_year);
+      })
+      .attr("cy",function(d){
+        return h/2;
+      })
       .attr("r",2)
-    })
+      .attr("fill","white")
 
-    ;
+      ;
 
-    let yearCircles=yearDataGroups.append("circle")
-    .attr("class","yearDatapoint")
-    .attr("cx",function(d){
-      return xScale(d.release_year);
-    })
-    .attr("cy",function(d){
-      return h/2;
-    })
-    .attr("r",2)
-    .attr("fill","white")
-
-    ;
 
     incomingData=incomingData.map(function(datapoint){
       datapoint.x= xScale(datapoint.release_year);
@@ -590,7 +685,10 @@ d3.json("data/countries.geojson").then(function(geoData){
     })
 
     // update the location using simulation
-    let simulation=d3.forceSimulation(incomingData.filter(genreFilter))
+    let simulation=d3.forceSimulation(incomingData.filter(function(d, i){
+      console.log(d);
+      return filterCurrentSelection(d, currentSel)
+    }))
     .force("forceX", function(d,i){
       return d3.forceX(xScale(d.release_year));
     })
@@ -610,7 +708,7 @@ d3.json("data/countries.geojson").then(function(geoData){
       })
     }
 
-
+}
 
 
     ////////////////////////////////////////////////////////////////////////////////
