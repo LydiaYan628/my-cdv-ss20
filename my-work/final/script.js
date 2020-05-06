@@ -215,6 +215,24 @@ let worldTextElement=worldviz.append("text")
 .attr("fill","yellow")
 ;
 
+let tvTextElement=tvmviz.append("text")
+.text("")
+.attr("x",w/2)
+.attr("y",padding/2)
+.attr("class","tvNumber")
+.attr("fill","white")
+.attr("font-size","30px")
+;
+
+let movieTextElement=tvmviz.append("text")
+.text("")
+.attr("x",w/2)
+.attr("y",padding/2)
+.attr("class","movieNumber")
+.attr("fill","red")
+.attr("font-size","30px")
+;
+
 
 let yScale=d3.scaleLinear().domain([0,3500]).range([0,h/2])
 
@@ -502,7 +520,31 @@ d3.json("data/countries.geojson").then(function(geoData){
       let tvdatagroups=tvmviz.selectAll(".tvdatagroup").data(tvData).enter()
         .append("g")
           .attr("class","tvdatagroup")
-      ;
+          .on("mouseover",function(d,i){
+            console.log(d3.mouse(tvmviz.node()));
+            let mouseInTV=d3.mouse(tvmviz.node())
+            tvTextElement
+            .transition()
+            .text(d.number)
+            .attr("x",150)
+            .attr("y",95)
+            d3.select(this).select("rect")
+            .transition()
+            .attr("width",30)
+            .attr("x",-5)
+            .attr("fill","yellow")
+
+          })
+          .on("mouseout",function(d,i){
+            // textElement.text("")
+            d3.select(this).select("rect")
+            .transition()
+            .attr("width",20)
+            .attr("x",0)
+            .attr("fill","red")
+          })
+          ;
+
 
       let tvs=tvdatagroups.append("rect")
         .attr("class","tvs")
@@ -511,17 +553,18 @@ d3.json("data/countries.geojson").then(function(geoData){
         .attr("width",20)
         .attr("height",getTVHeight)
         .attr("fill","red")
+        ;
 
         let lables=tvdatagroups.append("text")
           .attr("class","tvName")
           .text(function(d){
             return d.category;
           })
-          .attr("x",3)
+          .attr("x",-80)
           .attr("y",34)
           .attr("transform","rotate(270)")
-          .style("font-family","sans-serif")
-          .attr("fill","white")
+          .style("font-family","'Montserrat', sans-serif")
+          .attr("fill","yellow")
 
         tvdatagroups.attr("transform",getTVGroupPosition)
 
@@ -546,7 +589,30 @@ d3.json("data/countries.geojson").then(function(geoData){
       let moviedatagroups=tvmviz.selectAll(".moviedatagroup").data(movieData).enter()
         .append("g")
           .attr("class","moviedatagroup")
-        ;
+          .on("mouseover",function(d,i){
+            console.log(d3.mouse(tvmviz.node()));
+            let mouseInTV=d3.mouse(tvmviz.node())
+            movieTextElement
+            .transition()
+            .text(d.number)
+            .attr("x",1370)
+            .attr("y",820)
+            d3.select(this).select("rect")
+            .transition()
+            .attr("width",30)
+            .attr("x",-5)
+            .attr("fill","yellow")
+
+          })
+          .on("mouseout",function(d,i){
+            // textElement.text("")
+            d3.select(this).select("rect")
+            .transition()
+            .attr("width",20)
+            .attr("x",0)
+            .attr("fill","white")
+          })
+          ;
 
       let movies=moviedatagroups.append("rect")
       .attr("class","movies")
