@@ -236,9 +236,9 @@ function filterTV(datapoint){
 }
 
 
-    yTVScale=d3.scaleLinear().domain([0,1010]).range([0,h/2])
+    yTVScale=d3.scaleLinear().domain([0,2000]).range([0,h/2])
 
-
+    yMScale=d3.scaleLinear().domain([0,2000]).range([0,h/2])
 
 
 
@@ -453,7 +453,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     .style("font-size","50px")
     ;
     tvmviz.append("text")
-    .text("Comparison between Netflix TV shows and movies with different categories.")
+    .text("Comparison between Netflix TV shows and movies in categories.")
     .style("font-family","'Montserrat', sans-serif")
     .attr("x",20)
     .attr("y",840)
@@ -462,9 +462,23 @@ d3.json("data/countries.geojson").then(function(geoData){
     ;
     //
 
+    tvmviz.append("text")
+    .text("TV Show")
+    .style("font-family","'Bebas Neue', cursive")
+    .attr("x",20)
+    .attr("y",100)
+    .attr("fill","red")
+    .style("font-size","40px")
+    ;
 
-
-
+    tvmviz.append("text")
+    .text("Movie")
+    .style("font-family","'Bebas Neue', cursive")
+    .attr("x",1450)
+    .attr("y",820)
+    .attr("fill","white")
+    .style("font-size","40px")
+    ;
 
 
 
@@ -474,7 +488,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     }
 
     function getTVGroupPosition(d,i){
-      let x=(w/30*i);
+      let x=(w/30*i)+20;
       let y=h/2;
       return "translate("+(x+padding)+","+y+")";
     }
@@ -498,15 +512,53 @@ d3.json("data/countries.geojson").then(function(geoData){
         .attr("height",getTVHeight)
         .attr("fill","red")
 
+        let lables=tvdatagroups.append("text")
+          .attr("class","tvName")
+          .text(function(d){
+            return d.category;
+          })
+          .attr("x",3)
+          .attr("y",34)
+          .attr("transform","rotate(270)")
+          .style("font-family","sans-serif")
+          .attr("fill","white")
 
         tvdatagroups.attr("transform",getTVGroupPosition)
 
     })
 
 
+    function getMovieYPosition(d){
+      return 0
+    }
+
+    function getMovieHeight(d){
+      return yMScale(d.number)
+    }
+
+    function getMovieGroupPosition(d,i){
+      let x=(w/30*i)+20;
+      let y=h/2;
+      return "translate("+(x+padding)+","+y+")";
+    }
+
     d3.json("data/movieCat.json").then(function(movieData){
       let moviedatagroups=tvmviz.selectAll(".moviedatagroup").data(movieData).enter()
         .append("g")
+          .attr("class","moviedatagroup")
+        ;
+
+      let movies=moviedatagroups.append("rect")
+      .attr("class","movies")
+      .attr("x",0)
+      .attr("y",getMovieYPosition)
+      .attr("width",20)
+      .attr("height",getMovieHeight)
+      .attr("fill","white")
+      ;
+
+      moviedatagroups.attr("transform",getMovieGroupPosition)
+
     })
 
     //
