@@ -772,13 +772,13 @@ d3.json("data/countries.geojson").then(function(geoData){
 
         let enteringElementGroups=enteringElements.append("g")
           .attr("class","datagroup")
+
       ;
 
         enteringElementGroups.select("circle")
         .attr("r",2)
         .transition()
         .duration(500)
-        .delay(500)
         .on("mouseover",function(d,i){
           console.log(d3.event);
           console.log(d3.mouse(yearviz.node()));
@@ -793,26 +793,26 @@ d3.json("data/countries.geojson").then(function(geoData){
           .transition()
           .attr("r",20)
 
-    })
+        })
 
-    .on("mouseout",function(d,i){
-      // textElement.text("")
-      d3.select(this).select("circle")
-      .transition()
-      .attr("r",2)
-    })
-    // .append("circle")
-    .attr("class","yearDatapoint")
-    .attr("cx",function(d){
-      return xScale(d.release_year);
-    })
-    .attr("cy",function(d){
-      return h/2;
-    })
-    .attr("r",2)
-    .attr("fill","white")
+        .on("mouseout",function(d,i){
+          // textElement.text("")
+          d3.select(this).select("circle")
+          .transition()
+          .attr("r",2)
+        })
+        // .append("circle")
+        .attr("class","yearDatapoint")
+        .attr("cx",function(d){
+          return xScale(d.release_year);
+        })
+        .attr("cy",function(d){
+          return h/2;
+        })
+        .attr("r",2)
+        .attr("fill","white")
 
-    ;
+        ;
 
 
 
