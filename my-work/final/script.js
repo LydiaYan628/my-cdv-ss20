@@ -743,19 +743,41 @@ d3.json("data/countries.geojson").then(function(geoData){
 
 
     }
+
+    //
+    // function assignKeys(d,i){
+    //   return d.show_id;
+    // }
     ///////////////////////////////////////
 ////they are calling each other endlessly//////
   //////////////////////////////////////////
     function updateGraph(){
       let currentSel = currentSelection();
       console.log(currentSel);
+      //
+      // allNames=incomingData.map(function(d){
+      //   return d.show_id;
+      // })
 
       let yearDataGroups= yearGraphGroup.selectAll(".datagroup")
         .data(incomingData.filter(function(d, i){
           console.log(d);
           return filterCurrentSelection(d, currentSel)
-        })).enter()
-        .append("g")
+        }))
+
+        let enteringElements=yearDataGroups.enter();
+        let exitingElements=yearDataGroups.exit();
+
+        // yearDataGroups.select("circle")
+        // .attr("r",2)
+        // .transition()
+        // .duration(500)
+        // .delay(500)
+
+
+
+
+        enteringElements.append("g")
           .attr("class","datagroup")
           .on("mouseover",function(d,i){
             console.log(d3.event);
@@ -782,7 +804,9 @@ d3.json("data/countries.geojson").then(function(geoData){
 
       ;
 
-      let yearCircles=yearDataGroups.append("circle")
+
+
+      let yearCircles=enteringElements.append("circle")
       .attr("class","yearDatapoint")
       .attr("cx",function(d){
         return xScale(d.release_year);
@@ -825,6 +849,15 @@ d3.json("data/countries.geojson").then(function(geoData){
           return d.y;
       })
     }
+
+    //
+    exitingElements.select("circle")
+    .transition()
+    .duration(500)
+    .attr("fill","red")
+    .attr("r",0)
+
+    exitingElements.transition().delay(500).remove();
 
 }
 
