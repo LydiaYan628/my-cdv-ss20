@@ -744,10 +744,10 @@ d3.json("data/countries.geojson").then(function(geoData){
 
     }
 
-    //
-    // function assignKeys(d,i){
-    //   return d.show_id;
-    // }
+
+    function assignKeys(d,i){
+      return d.show_id;
+    }
     ///////////////////////////////////////
 ////they are calling each other endlessly//////
   //////////////////////////////////////////
@@ -763,50 +763,65 @@ d3.json("data/countries.geojson").then(function(geoData){
         .data(incomingData.filter(function(d, i){
           console.log(d);
           return filterCurrentSelection(d, currentSel)
-        }))
+        }),assignKeys);
 
         let enteringElements=yearDataGroups.enter();
         let exitingElements=yearDataGroups.exit();
 
-        // yearDataGroups.select("circle")
-        // .attr("r",2)
-        // .transition()
-        // .duration(500)
-        // .delay(500)
 
 
-
-
-        enteringElements.append("g")
+        let enteringElementGroups=enteringElements.append("g")
           .attr("class","datagroup")
-          .on("mouseover",function(d,i){
-            console.log(d3.event);
-            console.log(d3.mouse(yearviz.node()));
-            let mouseInYear=d3.mouse(yearviz.node())
-            yearTextElement
-            .transition()
-            .text(d.listed_in+" --- "+d.title)
-            .attr("x",100)
-            .attr("y",mouseInYear[1])
-            // datagroups.attr("opacity",0.1)
-            d3.select(this).select("circle")
-            .transition()
-            .attr("r",20)
-
-      })
-
-      .on("mouseout",function(d,i){
-        // textElement.text("")
-        d3.select(this).select("circle")
-        .transition()
-        .attr("r",2)
-      })
-
       ;
 
+        enteringElementGroups.select("circle")
+        .attr("r",2)
+        .transition()
+        .duration(500)
+        .delay(500)
+        .on("mouseover",function(d,i){
+          console.log(d3.event);
+          console.log(d3.mouse(yearviz.node()));
+          let mouseInYear=d3.mouse(yearviz.node())
+          yearTextElement
+          .transition()
+          .text(d.listed_in+" --- "+d.title)
+          .attr("x",100)
+          .attr("y",mouseInYear[1])
+          // datagroups.attr("opacity",0.1)
+          d3.select(this).select("circle")
+          .transition()
+          .attr("r",20)
+
+    })
+
+    .on("mouseout",function(d,i){
+      // textElement.text("")
+      d3.select(this).select("circle")
+      .transition()
+      .attr("r",2)
+    })
+    // .append("circle")
+    .attr("class","yearDatapoint")
+    .attr("cx",function(d){
+      return xScale(d.release_year);
+    })
+    .attr("cy",function(d){
+      return h/2;
+    })
+    .attr("r",2)
+    .attr("fill","white")
+
+    ;
 
 
-      let yearCircles=enteringElements.append("circle")
+
+      //
+      //
+
+
+
+      let yearCircles=enteringElementGroups.append("circle")
       .attr("class","yearDatapoint")
       .attr("cx",function(d){
         return xScale(d.release_year);
@@ -856,8 +871,9 @@ d3.json("data/countries.geojson").then(function(geoData){
     .duration(500)
     .attr("fill","red")
     .attr("r",0)
-
-    exitingElements.transition().delay(500).remove();
+    // .transition()
+    // .delay(500)
+    .remove();
 
 }
 
@@ -904,7 +920,35 @@ d3.json("data/countries.geojson").then(function(geoData){
       return acc;
     },{});
 
-    console.log("rate",rateCounter.G);
+  console.log("rate",rateCounter);
+
+
+    let gArray=[];
+    let onlyG=incomingData.filter(function(d,i){
+      if (d.rating=="G"){
+        return true;
+      }else{
+        return false;
+      }
+    })
+    console.log(onlyG);
+    for(i=0;i<onlyG.length;i++){
+      let gElement=[].concat(onlyG[i].listed_in);
+      gArray.push(gElement);
+    }
+
+    let gAll=gArray.flat();
+
+    let gCounter=gAll.reduce(function(acc,curr){
+      if (typeof acc[curr]=='undefined'){
+        acc[curr]=1;
+      }else {
+        acc[curr] += 1;
+      }
+      return acc;
+    },{});
+
+    console.log("G",gCounter);
 
     let rateRec=rateviz.append("rect")
     .attr("class","rateRec")
