@@ -322,7 +322,7 @@ d3.json("data/countries.geojson").then(function(geoData){
       }
       return acc;
     },{});
-    console.log("category",categoryCounter);
+    // console.log("category",categoryCounter);
     // console.log(categoryCounter.length);
 
     let tvArray=[];
@@ -334,7 +334,7 @@ d3.json("data/countries.geojson").then(function(geoData){
         return false;
       }
     })
-    console.log(onlyTV);
+    // console.log(onlyTV);
     for(i=0;i<onlyTV.length;i++){
       let tvElement=[].concat(onlyTV[i].listed_in);
       // console.log(tvElement);
@@ -351,7 +351,7 @@ d3.json("data/countries.geojson").then(function(geoData){
       }
       return acc;
     },{});
-    console.log("tv",tvCounter);
+    // console.log("tv",tvCounter);
 
 
 
@@ -365,7 +365,7 @@ d3.json("data/countries.geojson").then(function(geoData){
         return false;
       }
     })
-    console.log(onlyMovie);
+    // console.log(onlyMovie);
     for(i=0;i<onlyMovie.length;i++){
       let movieElement=[].concat(onlyMovie[i].listed_in);
       // console.log(tvElement);
@@ -382,7 +382,7 @@ d3.json("data/countries.geojson").then(function(geoData){
       }
       return acc;
     },{});
-    console.log("movie",movieCounter);
+    // console.log("movie",movieCounter);
 
     let colorScale=d3.scaleLinear().domain([0,80,2610]).range(["white","red","darkred"]);
 
@@ -516,7 +516,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     }
 
     d3.json("data/tvCat.json").then(function(tvData){
-      console.log(tvData);
+      // console.log(tvData);
       let tvdatagroups=tvmviz.selectAll(".tvdatagroup").data(tvData).enter()
         .append("g")
           .attr("class","tvdatagroup")
@@ -692,7 +692,7 @@ d3.json("data/countries.geojson").then(function(geoData){
 
 
     let paddingYear=100;
-    let timeScale= d3.scaleTime().domain([1925,2020]).range([200,w-padding]);
+    let timeScale= d3.scaleTime().domain([1925,2020]).range([padding,w-padding]);
 
     let yearGraphGroup=yearviz.append("g").attr("class","graphgroup");
 
@@ -726,22 +726,12 @@ d3.json("data/countries.geojson").then(function(geoData){
     function filterCurrentSelection(datapoint, currentSel){
       // console.log(currentSel);
       for(let i=0;i< datapoint.listed_in.length;i++){
-
-        console.log("currentSel", currentSel);
-        console.log("datapoint.listed_in[i]", datapoint.listed_in[i]);
-
         if (currentSel.includes(datapoint.listed_in[i])==true){
           return true
-        }else{
+        }else if(i==datapoint.listed_in.length){
           return false
         }
-
-
-
-
       }
-
-
     }
 
 
@@ -753,15 +743,12 @@ d3.json("data/countries.geojson").then(function(geoData){
   //////////////////////////////////////////
     function updateGraph(){
       let currentSel = currentSelection();
-      console.log(currentSel);
-      //
-      // allNames=incomingData.map(function(d){
-      //   return d.show_id;
-      // })
+      // console.log(currentSel);
+
 
       let yearDataGroups= yearGraphGroup.selectAll(".datagroup")
         .data(incomingData.filter(function(d, i){
-          console.log(d);
+          // console.log(d);
           return filterCurrentSelection(d, currentSel)
         }),assignKeys);
 
@@ -772,66 +759,39 @@ d3.json("data/countries.geojson").then(function(geoData){
 
         let enteringElementGroups=enteringElements.append("g")
           .attr("class","datagroup")
+          .attr("transform",function(d){
+            let x=xScale(d.release_year);
+            let y=h/2;
+            return "translate("+x+","+y+")"
+          })
+          .on("mouseover",function(d,i){
+            let mouseInYear=d3.mouse(yearviz.node())
+            yearTextElement
+            .transition()
+            .text(d.listed_in+" --- "+d.title)
+            .attr("x",100)
+            .attr("y",mouseInYear[1])
+            // datagroups.attr("opacity",0.1)
+            d3.select(this).select("circle")
+            .transition()
+            .attr("r",15)
 
+          })
+          .on("mouseout",function(d,i){
+            // textElement.text("")
+            d3.select(this).select("circle")
+            .transition()
+            .attr("r",2)
+          })
       ;
 
-        enteringElementGroups.select("circle")
-        .attr("r",2)
-        .transition()
-        .duration(500)
-        .on("mouseover",function(d,i){
-          console.log(d3.event);
-          console.log(d3.mouse(yearviz.node()));
-          let mouseInYear=d3.mouse(yearviz.node())
-          yearTextElement
-          .transition()
-          .text(d.listed_in+" --- "+d.title)
-          .attr("x",100)
-          .attr("y",mouseInYear[1])
-          // datagroups.attr("opacity",0.1)
-          d3.select(this).select("circle")
-          .transition()
-          .attr("r",20)
-
-        })
-
-        .on("mouseout",function(d,i){
-          // textElement.text("")
-          d3.select(this).select("circle")
-          .transition()
-          .attr("r",2)
-        })
-        // .append("circle")
-        .attr("class","yearDatapoint")
-        .attr("cx",function(d){
-          return xScale(d.release_year);
-        })
-        .attr("cy",function(d){
-          return h/2;
-        })
-        .attr("r",2)
-        .attr("fill","white")
-
-        ;
-
-
-
-      //
-      //
 
 
 
       let yearCircles=enteringElementGroups.append("circle")
       .attr("class","yearDatapoint")
-      .attr("cx",function(d){
-        return xScale(d.release_year);
-      })
-      .attr("cy",function(d){
-        return h/2;
-      })
-      .attr("r",2)
+      .attr("r",4)
       .attr("fill","white")
-
       ;
 
 
@@ -856,23 +816,25 @@ d3.json("data/countries.geojson").then(function(geoData){
 
     function simulationRan(){
       // console.log(incomingData[0].x);
-      yearviz.selectAll(".yearDatapoint")
-        .attr("cx", function(d){
-          return d.x;
+      enteringElementGroups
+        .attr("transform",function(d){
+          let x=xScale(d.release_year);
+          let y=h/2
+          return "translate("+d.x+","+d.y+")"
         })
-        .attr("cy", function(d){
-          return d.y;
-      })
     }
 
     //
     exitingElements.select("circle")
     .transition()
-    .duration(500)
+    .duration(1000)
     .attr("fill","red")
     .attr("r",0)
-    // .transition()
-    // .delay(500)
+    ;
+
+    exitingElements
+    .transition()
+    .delay(1000)
     .remove();
 
 }
@@ -923,23 +885,23 @@ d3.json("data/countries.geojson").then(function(geoData){
   console.log("rate",rateCounter);
 
 
-    let gArray=[];
-    let onlyG=incomingData.filter(function(d,i){
-      if (d.rating=="G"){
+    let urArray=[];
+    let onlyur=incomingData.filter(function(d,i){
+      if (d.rating=="TV-Y7-FV"){
         return true;
       }else{
         return false;
       }
     })
-    console.log(onlyG);
-    for(i=0;i<onlyG.length;i++){
-      let gElement=[].concat(onlyG[i].listed_in);
-      gArray.push(gElement);
+    console.log(onlyur);
+    for(i=0;i<onlyur.length;i++){
+      let urElement=[].concat(onlyur[i].listed_in);
+      urArray.push(urElement);
     }
 
-    let gAll=gArray.flat();
+    let urAll=urArray.flat();
 
-    let gCounter=gAll.reduce(function(acc,curr){
+    let urCounter=urAll.reduce(function(acc,curr){
       if (typeof acc[curr]=='undefined'){
         acc[curr]=1;
       }else {
@@ -948,30 +910,89 @@ d3.json("data/countries.geojson").then(function(geoData){
       return acc;
     },{});
 
-    console.log("G",gCounter);
+    console.log("ur",urCounter);
 
-    let rateRec=rateviz.append("rect")
-    .attr("class","rateRec")
-    .attr("width",w-padding*2)
-    .attr("height",200)
-    .attr("x",padding)
-    .attr("y",(h-padding*2)/2)
-    .attr("fill","white")
-    ;
+    // let rateRec=rateviz.append("rect")
+    // .attr("class","rateRec")
+    // .attr("width",w-padding*2)
+    // .attr("height",200)
+    // .attr("x",padding)
+    // .attr("y",(h-padding*2)/2)
+    // .attr("fill","white")
+    // ;
+    //
+    // let eachRateGroup=rateRec.append("g")
+    //   .attr("class","eachRateGroup")
+    //
+    // let eachRateRec=eachRateGroup.append("rect")
+    //   .attr("class",eachRateRec)
 
-    let smallRateRec=rateRec.append("rect")
-    .attr("class","smallRateRec")
-    .attr("height",200)
-    .attr("width",function(d,i){
-      console.log(d);
-      // let rateName=d;
-      // if(rateName==""){
-      //   rateName="Unrated";
-      // }
-      // let numRate=rateCounter.rateName;
+    // let smallRateRec=rateRec.append("rect")
+    // .attr("class","smallRateRec")
+    // .attr("height",200)
+    // .attr("width",function(d,i){
+    //   console.log(d);
+    //   // let rateName=d;
+    //   // if(rateName==""){
+    //   //   rateName="Unrated";
+    //   // }
+    //   // let numRate=rateCounter.rateName;
 
+    // })
+
+    let wPie=500;
+    let hPie=500;
+
+    let circle=d3.select("circle")
+    .attr("r",wPie/2);
+
+    radius=wPie/2;
+
+    let g=circle.append("g")
+    .attr("transform","translate("+wPie/2+","+hPie/2+")");
+
+    let pie = d3. pie().value(function(d){
+      return d.total/6234
     })
 
+    let path = d3.arc()
+    .outerRadius(radius-10)
+    .innerRadius(0);
+
+    let label= d3.arc()
+    .outerRadius(radius)
+    .innerRadius(radius-80);
+
+    d3.json("data/rateData.json",function(data){
+
+      let arc=g.selectAll(".arc")
+        .data(pie(data))
+        .enter()
+        .append("g")
+        .attr("class","arc");
+
+
+      arc.append("path")
+      .attr("d",path)
+      .attr("fill",function(d){
+        return d.color
+      });
+
+      arc.append("text")
+      .attr("transform",function(d){
+        return "translate("+label.centroid(d)+")";
+
+      })
+      .text(function(d){
+        return d.name;
+      })
+
+
+
+
+
+
+    })
 
 
   })

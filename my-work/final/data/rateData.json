@@ -8,75 +8,107 @@
     "color":"#9E0041"
   },
   {
-    "rate":"G",
-    "name":"General",
-    "mostListed":"Children & Family Movies",
-    "mostNumber":28,
-    "total":37,
-    "color":"#9E0041"
+    "rate":"UR",
+    "name":"Unrated",
+    "mostListed":"Movies",
+    "mostNumber":7,
+    "total":24,
+    "color":"#C32F4B"
   },
   {
-    "rate":"G",
-    "name":"General",
-    "mostListed":"Children & Family Movies",
-    "mostNumber":28,
-    "total":37,
-    "color":"#9E0041"
+    "rate":"NC-17",
+    "name":"No Children 17 and Under Admitted",
+    "mostListed":"Independent Movies",
+    "mostNumber":2,
+    "total":2,
+    "color":"#E1514B"
   },
   {
-    "rate":"G",
-    "name":"General",
-    "mostListed":"Children & Family Movies",
-    "mostNumber":28,
-    "total":37,
-    "color":"#9E0041"
+    "rate":"NR",
+    "name":"Not Rated",
+    "mostListed":"International",
+    "mostNumber":110,
+    "total":218,
+    "color":"#F47245"
   },
   {
-    "rate":"G",
-    "name":"General",
+    "rate":"PG",
+    "name":"Parental Guidance",
     "mostListed":"Children & Family Movies",
-    "mostNumber":28,
-    "total":37,
-    "color":"#9E0041"
+    "mostNumber":122,
+    "total":184,
+    "color":"#FB9F59"
   },
   {
-    "rate":"G",
-    "name":"General",
-    "mostListed":"Children & Family Movies",
-    "mostNumber":28,
-    "total":37,
-    "color":"#9E0041"
+    "rate":"PG-13",
+    "name":"Parental Guidance-13",
+    "mostListed":"Comedies and Drama",
+    "mostNumber":103,
+    "total":286,
+    "color":"#FEC574"
   },
   {
-    "rate":"G",
-    "name":"General",
-    "mostListed":"Children & Family Movies",
-    "mostNumber":28,
-    "total":37,
-    "color":"#9E0041"
+    "rate":"R",
+    "name":"Restricted",
+    "mostListed":"Dramas",
+    "mostNumber":252,
+    "total":508,
+    "color":"#FAE38C"
   },
   {
-    "rate":"G",
-    "name":"General",
-    "mostListed":"Children & Family Movies",
-    "mostNumber":28,
-    "total":37,
-    "color":"#9E0041"
+    "rate":"TV-14",
+    "name":"TV for Under 14",
+    "mostListed":"International",
+    "mostNumber":1178,
+    "total":1698,
+    "color":"#EAF195"
   },
   {
-    "rate":"G",
-    "name":"General",
-    "mostListed":"Children & Family Movies",
-    "mostNumber":28,
-    "total":37,
-    "color":"#9E0041"
+    "rate":"TV-G",
+    "name":"TV General",
+    "mostListed":"Documentaries",
+    "mostNumber":61,
+    "total":149,
+    "color":"#C7E89E"
   },
   {
-    "rate":"G",
-    "name":"General",
-    "mostListed":"Children & Family Movies",
-    "mostNumber":28,
-    "total":37,
-    "color":"#9E0041"
+    "rate":"TV-MA",
+    "name":"TV Mature",
+    "mostListed":"International",
+    "mostNumber":1102,
+    "total":2027,
+    "color":"#9CD6A4"
+  },
+  {
+    "rate":"TV-PG",
+    "name":"TV Parential Guardian",
+    "mostListed":"International",
+    "mostNumber":352,
+    "total":701,
+    "color":"#6CC4A4"
+  },
+  {
+    "rate":"TV-Y",
+    "name":"TV for children of all age",
+    "mostListed":"Kids' TV",
+    "mostNumber":102,
+    "total":143,
+    "color":"#4D9DB4"
+  },
+  {
+    "rate":"TV-Y7",
+    "name":"TV for 7 and older",
+    "mostListed":"Kids' TV",
+    "mostNumber":97,
+    "total":169,
+    "color":"#4776B4"
+  },
+  {
+    "rate":"TV-Y7-FV",
+    "name":"TV for 7 or order with fantasy violence",
+    "mostListed":"Kids' TV",
+    "mostNumber":68,
+    "total":95,
+    "color":"#5E4EA1"
   }
 ]
