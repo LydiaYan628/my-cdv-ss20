@@ -206,6 +206,7 @@ let yearTextElement=yearviz.append("text")
 .attr("fill","red")
 .style("z-index",7)
 .attr("class","yearTitle")
+// .style("font-size",18)
 
 let worldTextElement=worldviz.append("text")
 .text("")
@@ -384,6 +385,12 @@ d3.json("data/countries.geojson").then(function(geoData){
     },{});
     // console.log("movie",movieCounter);
 
+
+
+
+
+
+
     let colorScale=d3.scaleLinear().domain([0,80,2610]).range(["white","red","darkred"]);
 
     let netflixCountry=worldviz.selectAll(".countries").data(geoData.features).enter()
@@ -408,17 +415,33 @@ d3.json("data/countries.geojson").then(function(geoData){
 
     netflixCountry
     .on("mouseover",function(d,i){
-      let mouseInWorld=d3.mouse(worldviz.node())
-      // console.log(mouseInWorld);
-      worldTextElement
-      .transition()
-      .text("the most category")
-      .attr("x",mouseInWorld[0])
-      .attr("y",mouseInWorld[1])
-      d3.select(this).select("path")
-      .transition()
-      ///////how to make corresponding shape bigger?
-    })
+                d3.select(this).attr("fill","grey").attr("stroke-width",2);
+                return tooltip.style("hidden", false).html(d.properties.name);
+            })
+            .on("mousemove",function(d){
+                tooltip.classed("hidden", false)
+                       .style("top", (d3.event.pageY) + "px")
+                       .style("left", (d3.event.pageX + 10) + "px")
+                       .html(d.properties.name)
+                       // .text("hi")
+            })
+            .on("mouseout",function(d,i){
+                d3.select(this).attr("fill",function(d,i){
+                  let currentCountry=d.properties.name;
+                  if (currentCountry=="Republic of Serbia"){
+                    currentCountry="Serbia"
+                  }else if (currentCountry=="United States of America"){
+                    currentCountry="United States"
+                  }
+                  let numValue=countryCounter[currentCountry];
+                  if(currentCountry!=undefined){
+                    return colorScale(numValue)
+                  }else{
+                    return "black";
+                  }
+                }).attr("stroke-width",1);
+                tooltip.classed("hidden", true);
+            });
 
     ;
 
@@ -440,15 +463,90 @@ d3.json("data/countries.geojson").then(function(geoData){
     .style("font-size","20px")
     ;
 
+    var tooltip = d3.select("div.tooltip");
+
+    d3.queue()
+  .defer(d3.json, "data/countries.geojson")
+  // .defer(d3.csv, "world-country-names.csv")
+  .await(ready);
+
+
+function ready(error, world, names) {
+  if (error) throw error;
+  var countries1 = topojson.feature(world, world.objects.countries).features;
+    countries = countries1.filter(function(d) {
+    return names.some(function(n) {
+      if (d.id == n.id) {
+        return d.properties.name = n.name;
+      }
+    })});
+  }
+
+
+  // for the selection
+  d3.selectAll(".checkboxworld").on("change",updateWorld);
+
+  function worldSelection(){
+    let worldselection=[]
+  d3.selectAll(".checkboxworld").each(function(d){
+      checkboxSelected=d3.select(this);
+      // console.log(checkboxSelected);
+      if(checkboxSelected.property("checked")){
+        // console.log("hhhhh");
+        selection.push(checkboxSelected.property("name"))
+        // console.log(selection);
+      }
+    })
+  // [ "Adventure Movie", "Drama" ]
+  return worldselection;
+}
+
+function filterCurrentSelection(datapoint, currentSel){
+  // console.log(currentSel);
+  for(let i=0;i< datapoint.listed_in.length;i++){
+    if (currentSel.includes(datapoint.listed_in[i])==true){
+      return true
+    }else if(i==datapoint.listed_in.length){
+      return false
+    }
+  }
+}
+
+function assignKeysForWorld(d,i){
+  return d.show_id;
+}
+
+function updateWorld(){
+  let currentSel=worldSelection();
+
+  let worldDataGroups= netflixCountry.selectAll(".countries").data
+    .data(incomingData.filter(function(d, i){
+      // console.log(d);
+      return filterCurrentSelection(d, currentSel)
+    }),assignKeysForWorld);
+}
 
 
 
-
-
-
-
-
-
+// netflixCountry=worldviz.selectAll(".countries").data(geoData.features).enter()
+// .append("path")
+// .attr("class", "countries")
+// .attr("d", pathMaker)
+// .attr("fill", function(d,i){
+//  let currentCountry=d.properties.name;
+//  if (currentCountry=="Republic of Serbia"){
+//    currentCountry="Serbia"
+//  }else if (currentCountry=="United States of America"){
+//    currentCountry="United States"
+//  }
+//  let numValue=countryCounter[currentCountry];
+//  if(currentCountry!=undefined){
+//    return colorScale(numValue)
+//  }else{
+//    return "black";
+//  }
+// })
+// .attr("stroke", "#333");
 
 
 
@@ -769,19 +867,21 @@ d3.json("data/countries.geojson").then(function(geoData){
             yearTextElement
             .transition()
             .text(d.listed_in+" --- "+d.title)
-            .attr("x",100)
+            .attr("x",200)
             .attr("y",mouseInYear[1])
+
             // datagroups.attr("opacity",0.1)
             d3.select(this).select("circle")
             .transition()
             .attr("r",15)
-
+            .attr("fill","red")
           })
           .on("mouseout",function(d,i){
             // textElement.text("")
             d3.select(this).select("circle")
             .transition()
-            .attr("r",2)
+            .attr("r",4)
+            .attr("fill","white")
           })
       ;
 
@@ -885,6 +985,7 @@ d3.json("data/countries.geojson").then(function(geoData){
   console.log("rate",rateCounter);
 
 
+
     let urArray=[];
     let onlyur=incomingData.filter(function(d,i){
       if (d.rating=="TV-Y7-FV"){
@@ -959,8 +1060,8 @@ d3.json("data/countries.geojson").then(function(geoData){
 
     d3.json("data/rateData.json").then(function(rateData){
 
-      rateviz
-        .append("g")
+      let graph=rateviz
+        .append("div")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr("transform", "translate(" + width / 2 + "," + ( height/2+100 )+ ")"); // Add 100 on Y translation, cause upper bars are longer
@@ -976,7 +1077,7 @@ d3.json("data/countries.geojson").then(function(geoData){
         .domain([0, 2027]); // Domain of Y is from 0 to the max seen in the data
 
         // Add bars
-  rateviz.append("g")
+  graph.append("g")
     .selectAll("path")
     .data(rateData)
     .enter()
