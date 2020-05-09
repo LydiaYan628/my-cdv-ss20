@@ -912,87 +912,89 @@ d3.json("data/countries.geojson").then(function(geoData){
 
     console.log("ur",urCounter);
 
-    // let rateRec=rateviz.append("rect")
-    // .attr("class","rateRec")
-    // .attr("width",w-padding*2)
-    // .attr("height",200)
-    // .attr("x",padding)
-    // .attr("y",(h-padding*2)/2)
-    // .attr("fill","white")
-    // ;
-    //
-    // let eachRateGroup=rateRec.append("g")
-    //   .attr("class","eachRateGroup")
-    //
-    // let eachRateRec=eachRateGroup.append("rect")
-    //   .attr("class",eachRateRec)
 
-    // let smallRateRec=rateRec.append("rect")
-    // .attr("class","smallRateRec")
-    // .attr("height",200)
-    // .attr("width",function(d,i){
-    //   console.log(d);
-    //   // let rateName=d;
-    //   // if(rateName==""){
-    //   //   rateName="Unrated";
-    //   // }
-    //   // let numRate=rateCounter.rateName;
 
+    // d3.json("data/rateData.json").then(function(rateData){
+    //   let rateRec=rateviz.append("rect")
+    //   .attr("class","rateRec")
+    //   .attr("width",w-padding*2)
+    //   .attr("height",200)
+    //   .attr("x",padding)
+    //   .attr("y",(h-padding*2)/2)
+    //   .attr("fill","white")
+    //   ;
+    //
+    //   let eachRateGroup=rateRec.append("g")
+    //     .attr("class","eachRateGroup")
+    //
+    //   let eachRateRec=eachRateGroup.append("rect")
+    //     .attr("class","eachRateRec")
+    //     .attr("height",200)
+    //     .attr("width",function(d,i){
+    //
+    //       return (w-padding*2)*(d[i].mostNumber/d[i].total);
+    //     })
+    //     .attr("fill",function(d){
+    //       return d.color;
+    //     })
+    //     .attr("x",function(d,i){
+    //       for (m=0;m<d.length;m++){
+    //         console.log("kkk");
+    //       }
+    //     })
     // })
 
-    let wPie=500;
-    let hPie=500;
+    var margin = {top: 10, right: 10, bottom: 10, left: 10},
+    width = 600 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom,
+    innerRadius = 80,
+    outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
 
-    let circle=d3.select("circle")
-    .attr("r",wPie/2);
+//     var svg = d3.select("rateviz
+// ")
+//       .attr("width", width + margin.left + margin.right)
+//       .attr("height", height + margin.top + margin.bottom)
+//     .append("g")
+//       .attr("transform", "translate(" + width / 2 + "," + ( height/2+100 )+ ")"); // Add 100 on Y translation, cause upper bars are longer
 
-    radius=wPie/2;
+    d3.json("data/rateData.json").then(function(rateData){
 
-    let g=circle.append("g")
-    .attr("transform","translate("+wPie/2+","+hPie/2+")");
-
-    let pie = d3. pie().value(function(d){
-      return d.total/6234
-    })
-
-    let path = d3.arc()
-    .outerRadius(radius-10)
-    .innerRadius(0);
-
-    let label= d3.arc()
-    .outerRadius(radius)
-    .innerRadius(radius-80);
-
-    d3.json("data/rateData.json",function(data){
-
-      let arc=g.selectAll(".arc")
-        .data(pie(data))
-        .enter()
+      rateviz
         .append("g")
-        .attr("class","arc");
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .attr("transform", "translate(" + width / 2 + "," + ( height/2+100 )+ ")"); // Add 100 on Y translation, cause upper bars are longer
 
+      var rateX = d3.scaleBand()
+      .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
+      .align(0)                  // This does nothing ?
+      .domain( rateData.map(function(d) { return d.rate; }) ); // The domain of the X axis is the list of states.
 
-      arc.append("path")
-      .attr("d",path)
-      .attr("fill",function(d){
-        return d.color
-      });
+  // Y scale
+  var rateY = d3.scaleRadial()
+        .range([innerRadius, outerRadius])   // Domain will be define later.
+        .domain([0, 2027]); // Domain of Y is from 0 to the max seen in the data
 
-      arc.append("text")
-      .attr("transform",function(d){
-        return "translate("+label.centroid(d)+")";
-
-      })
-      .text(function(d){
-        return d.name;
-      })
-
-
-
-
-
+        // Add bars
+  rateviz.append("g")
+    .selectAll("path")
+    .data(rateData)
+    .enter()
+    .append("path")
+      .attr("fill", "red")
+      .attr("d", d3.arc()     // imagine your doing a part of a donut plot
+          .innerRadius(innerRadius)
+          .outerRadius(function(d) { return rateY(d['Value']); })
+          .startAngle(function(d) { return rateX(d.Country); })
+          .endAngle(function(d) { return rateX(d.Country) + rateX.bandwidth(); })
+          .padAngle(0.01)
+          .padRadius(innerRadius))
 
     })
+
+
+
+
 
 
   })

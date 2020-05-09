@@ -319,3 +319,13 @@ li.dropdown {
            fill: teal;
            font-weight: bold;
        }
+
+
+#pieChart{
+  position:relative;
+  top: 150px;
+  left:200px;
+  width:600px;
+  height:600px;
+  z-index: 100;
+}
