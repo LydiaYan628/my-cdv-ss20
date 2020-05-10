@@ -484,69 +484,40 @@ function ready(error, world, names) {
 
 
   // for the selection
-  d3.selectAll(".checkboxworld").on("change",updateWorld);
-
-  function worldSelection(){
-    let worldselection=[]
-  d3.selectAll(".checkboxworld").each(function(d){
-      checkboxSelected=d3.select(this);
-      // console.log(checkboxSelected);
-      if(checkboxSelected.property("checked")){
-        // console.log("hhhhh");
-        selection.push(checkboxSelected.property("name"))
-        // console.log(selection);
-      }
-    })
-  // [ "Adventure Movie", "Drama" ]
-  return worldselection;
-}
-
-function filterCurrentSelection(datapoint, currentSel){
-  // console.log(currentSel);
-  for(let i=0;i< datapoint.listed_in.length;i++){
-    if (currentSel.includes(datapoint.listed_in[i])==true){
-      return true
-    }else if(i==datapoint.listed_in.length){
-      return false
-    }
-  }
-}
-
-function assignKeysForWorld(d,i){
-  return d.show_id;
-}
-
-function updateWorld(){
-  let currentSel=worldSelection();
-
-  let worldDataGroups= netflixCountry.selectAll(".countries").data
-    .data(incomingData.filter(function(d, i){
-      // console.log(d);
-      return filterCurrentSelection(d, currentSel)
-    }),assignKeysForWorld);
-}
+//   d3.selectAll(".checkboxworld").on("change",updateWorld);
+//
+//   function worldSelection(){
+//     let worldselection=[]
+//   d3.selectAll(".checkboxworld").each(function(d){
+//       checkboxSelected=d3.select(this);
+//       // console.log(checkboxSelected);
+//       if(checkboxSelected.property("checked")){
+//         // console.log("hhhhh");
+//         selection.push(checkboxSelected.property("name"))
+//         // console.log(selection);
+//       }
+//     })
+//   // [ "Adventure Movie", "Drama" ]
+//   return worldselection;
+// }
+//
+// function filterCurrentSelection(datapoint, currentSel){
+//   // console.log(currentSel);
+//   for(let i=0;i< datapoint.listed_in.length;i++){
+//     if (currentSel.includes(datapoint.listed_in[i])==true){
+//       return true
+//     }else if(i==datapoint.listed_in.length){
+//       return false
+//     }
+//   }
+// }
+//
+// function assignKeysForWorld(d,i){
+//   return d.show_id;
+// }
 
 
 
-// netflixCountry=worldviz.selectAll(".countries").data(geoData.features).enter()
-// .append("path")
-// .attr("class", "countries")
-// .attr("d", pathMaker)
-// .attr("fill", function(d,i){
-//  let currentCountry=d.properties.name;
-//  if (currentCountry=="Republic of Serbia"){
-//    currentCountry="Serbia"
-//  }else if (currentCountry=="United States of America"){
-//    currentCountry="United States"
-//  }
-//  let numValue=countryCounter[currentCountry];
-//  if(currentCountry!=undefined){
-//    return colorScale(numValue)
-//  }else{
-//    return "black";
-//  }
-// })
-// .attr("stroke", "#333");
 
 
 
@@ -1051,31 +1022,69 @@ function updateWorld(){
     innerRadius = 80,
     outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
 
-//     var svg = d3.select("rateviz
-// ")
-//       .attr("width", width + margin.left + margin.right)
-//       .attr("height", height + margin.top + margin.bottom)
-//     .append("g")
-//       .attr("transform", "translate(" + width / 2 + "," + ( height/2+100 )+ ")"); // Add 100 on Y translation, cause upper bars are longer
+
+
+
+
+
 
     d3.json("data/rateData.json").then(function(rateData){
+      let pie= d3.pie();
+    console.log(d3.pie(rateData));
 
       let graph=rateviz
-        .append("div")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .attr("transform", "translate(" + width / 2 + "," + ( height/2+100 )+ ")"); // Add 100 on Y translation, cause upper bars are longer
+        .append("g")
 
-      var rateX = d3.scaleBand()
+
+        // .attr("width", width + margin.left + margin.right)
+        // .attr("height", height + margin.top + margin.bottom)
+        // .attr("transform", "translate(" + width / 2 + "," + ( height/2+100 )+ ")"); // Add 100 on Y translation, cause upper bars are longer
+
+      var rateX = d3.scaleLinear()
       .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
-      .align(0)                  // This does nothing ?
-      .domain( rateData.map(function(d) { return d.rate; }) ); // The domain of the X axis is the list of states.
+                // This does nothing ?
+      .domain( [0,6234] ); // The domain of the X axis is the list of states.
 
   // Y scale
   var rateY = d3.scaleRadial()
         .range([innerRadius, outerRadius])   // Domain will be define later.
         .domain([0, 2027]); // Domain of Y is from 0 to the max seen in the data
 
+
+
+
+  let arcProjection=d3.arc()    // imagine your doing a part of a donut plot
+  let arcMaker=arcProjection
+    .innerRadius(innerRadius)
+    .outerRadius(300)
+    .startAngle(function(d,i){
+      let sum=0;
+      for (j=0; j<13;j++){
+        for(i=0;i<13;i++){
+          if(j<i){
+            sum+=d.total;
+          }else{
+            sum=sum;
+          }
+        }
+      }
+      return rateX(sum);
+    })
+    .endAngle(function(d) {   let sum=0;
+      // console.log(i);
+      for (j=0; j<13;j++){
+        for(i=0;i<13;i++){
+          if(j<i){
+            sum+=d.total;
+          }else{
+            sum=sum;
+          }
+        }
+      }
+      console.log(rateX(sum));
+      return rateX(sum)+rateX(d.total) ; })
+    .padAngle(0.01)
+    .padRadius(innerRadius)
         // Add bars
   graph.append("g")
     .selectAll("path")
@@ -1083,13 +1092,14 @@ function updateWorld(){
     .enter()
     .append("path")
       .attr("fill", "red")
-      .attr("d", d3.arc()     // imagine your doing a part of a donut plot
-          .innerRadius(innerRadius)
-          .outerRadius(function(d) { return rateY(d['Value']); })
-          .startAngle(function(d) { return rateX(d.Country); })
-          .endAngle(function(d) { return rateX(d.Country) + rateX.bandwidth(); })
-          .padAngle(0.01)
-          .padRadius(innerRadius))
+      .attr("d",arcMaker )
+      .attr("stroke","black")
+
+      graph.attr("transform","translate("+w/2+","+400+")")
+
+
+
+
 
     })
 
