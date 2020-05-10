@@ -106,87 +106,87 @@ function transformData(dataToClean){
   return newData;
 }
 
-// function categoryColor(datapoint){
-//   // console.log(color);
-//   if (datapoint.listed_in=="Action & Adventure"){
+//function categoryColor(datapoint){
+//   console.log(datapoint);
+//   if (datapoint.mostListed=="Action & Adventure"){
 //     return "hsl(0,100%,50%)";
-//   }else if(datapoint.list_in=="Anime Features"){
+//   }else if(datapoint.mostListed=="Anime Features"){
 //     return  "hsl(8,100%,50%)";
-//   }else if(datapoint.list_in=="Anime Series"){
+//   }else if(datapoint.mostListed=="Anime Series"){
 //     return  "hsl(16,100%,50%)";
-//   }else if(datapoint.list_in=="British TV Shows"){
+//   }else if(datapoint.mostListed=="British TV Shows"){
 //     return  "hsl(24,100%,50%)";
-//   }else if(datapoint.list_in=="Children & Family Movies"){
+//   }else if(datapoint.mostListed=="Children & Family Movies"){
 //     return  "hsl(32,100%,50%)";
-//   }else if(datapoint.list_in=="Classic & Cult TV"){
+//   }else if(datapoint.mostListed=="Classic & Cult TV"){
 //     return  "hsl(40,100%,50%)";
-//   }else if(datapoint.list_in=="Classic Movies"){
+//   }else if(datapoint.mostListed=="Classic Movies"){
 //     return  "hsl(48,100%,50%)";
-//   }else if(datapoint.list_in=="Comedies"){
+//   }else if(datapoint.mostListed=="Comedies"){
 //     return  "hsl(56,100%,50%)";
-//   }else if(datapoint.list_in=="Crime TV Shows"){
+//   }else if(datapoint.mostListed=="Crime TV Shows"){
 //     return  "hsl(64,100%,50%)";
-//   }else if(datapoint.list_in=="Cult Movies"){
+//   }else if(datapoint.mostListed=="Cult Movies"){
 //     return  "hsl(72,100%,50%)";
-//   }else if(datapoint.list_in=="Documentaries"){
+//   }else if(datapoint.mostListed=="Documentaries"){
 //     return  "hsl(80,100%,50%)";
-//   }else if(datapoint.list_in=="Docuseries"){
+//   }else if(datapoint.mostListed=="Docuseries"){
 //   return  "hsl(88,100%,50%)";
-// }else if(datapoint.list_in=="Dramas"){
+// }else if(datapoint.mostListed=="Dramas"){
 //   return  "hsl(96,100%,50%)";
-// }else if(datapoint.list_in=="Faith & Spirituality"){
+// }else if(datapoint.mostListed=="Faith & Spirituality"){
 //   return  "hsl(104,100%,50%)";
-// }else if(datapoint.list_in=="Horror Movies"){
+// }else if(datapoint.mostListed=="Horror Movies"){
 //   return  "hsl(112,100%,50%)";
-// }else if(datapoint.list_in=="Independent Movies"){
+// }else if(datapoint.mostListed=="Independent Movies"){
 //   return  "hsl(120,100%,50%)";
-// }else if(datapoint.list_in=="International Movies"){
+// }else if(datapoint.mostListed=="International Movies"){
 //   return  "hsl(128,100%,50%)";
-// }else if(datapoint.list_in=="International TV Shows"){
+// }else if(datapoint.mostListed=="International TV Shows"){
 //   return  "hsl(136,100%,50%)";
-// }else if(datapoint.list_in=="Kids' TV"){
+// }else if(datapoint.mostListed=="Kids' TV"){
 //   return  "hsl(144,100%,50%)";
-// }else if(datapoint.list_in=="Korean TV Shows"){
+// }else if(datapoint.mostListed=="Korean TV Shows"){
 //   return  "hsl(152,100%,50%)";
-// }else if(datapoint.listed_in=="LGBTQ Movies"){
+// }else if(datapoint.limostLteded=="LGBTQ Movies"){
 //   return  "hsl(160,100%,50%)";
-// }else if(datapoint.list_in=="Movies"){
+// }else if(datapoint.mostListed=="Movies"){
 //   return  "hsl(168,100%,50%)";
-// }else if(datapoint.list_in=="Music & Musicals"){
+// }else if(datapoint.mostListed=="Music & Musicals"){
 //   return  "hsl(176,100%,50%)";
-// }else if(datapoint.list_in=="Reality TV"){
+// }else if(datapoint.mostListed=="Reality TV"){
 //   return  "hsl(184,100%,50%)";
-// }else if(datapoint.list_in=="Romantic Movies"){
+// }else if(datapoint.mostListed=="Romantic Movies"){
 //   return  "hsl(192,100%,50%)";
-// }else if(datapoint.list_in=="Romantic TV Shows"){
+// }else if(datapoint.mostListed=="Romantic TV Shows"){
 //   return  "hsl(200,100%,50%)";
-// }else if(datapoint.list_in=="Sci-Fi & Fantasy"){
+// }else if(datapoint.mostListed=="Sci-Fi & Fantasy"){
 //   return  "hsl(208,100%,50%)";
-// }else if(datapoint.list_in=="Science & Nature TV"){
+// }else if(datapoint.mostListed=="Science & Nature TV"){
 //   return  "hsl(216,100%,50%)";
-// }else if(datapoint.list_in=="Spanish-Language TV Shows"){
+// }else if(datapoint.mostListed=="Spanish-Language TV Shows"){
 //   return  "hsl(224,100%,50%)";
-// }else if(datapoint.list_in=="Sports Movies"){
+// }else if(datapoint.mostListed=="Sports Movies"){
 //   return  "hsl(232,100%,50%)";
-// }else if(datapoint.list_in=="Stand-Up Comedy"){
+// }else if(datapoint.mostListed=="Stand-Up Comedy"){
 //   return  "hsl(240,100%,50%)";
-// }else if(datapoint.list_in=="Stand-Up Comedy & Talk Shows"){
+// }else if(datapoint.mostListed=="Stand-Up Comedy & Talk Shows"){
 //   return  "hsl(248,100%,50%)";
-// }else if(datapoint.list_in=="TV Action & Adventure"){
+// }else if(datapoint.mostListed=="TV Action & Adventure"){
 //   return  "hsl(256,100%,50%)";
-// }else if(datapoint.list_in=="TV Comedies"){
+// }else if(datapoint.mostListed=="TV Comedies"){
 //   return  "hsl(264,100%,50%)";
-// }else if(datapoint.list_in=="TV Dramas"){
+// }else if(datapoint.mostListed=="TV Dramas"){
 //   return  "hsl(272,100%,50%)";
-// }else if(datapoint.list_in=="TV Horror"){
+// }else if(datapoint.mostListed=="TV Horror"){
 //   return  "hsl(280,100%,50%)";
-// }else if(datapoint.list_in=="TV Mysteries"){
+// }else if(datapoint.mostListed=="TV Mysteries"){
 //     return  "hsl(288,100%,50%)";
-//   }else if(datapoint.list_in=="TV Sci-Fi & Fantasy"){
+//   }else if(datapoint.mostListed=="TV Sci-Fi & Fantasy"){
 //     return  "hsl(296,100%,50%)";
-//   }else if(datapoint.list_in=="TV Shows"){
+//   }else if(datapoint.mostListed=="TV Shows"){
 //     return  "hsl(304,100%,50%)";
-//   }else if(datapoint.list_in=="TV Thrillers"){
+//   }else if(datapoint.mostListed=="TV Thrillers"){
 //     return  "hsl(312,100%,50%)";
 //   }else if(datapoint.list_in=="Teen TV Shows"){
 //     return  "hsl(320,100%,50%)";
@@ -234,6 +234,14 @@ let movieTextElement=tvmviz.append("text")
 .attr("font-size","30px")
 ;
 
+let rateTextElement=rateviz.append("text")
+.text("")
+.attr("x",w/2)
+.attr("y",padding/2)
+.attr("class","rateName")
+.attr("fill","red")
+.attr("font-size","30px")
+;
 
 let yScale=d3.scaleLinear().domain([0,3500]).range([0,h/2])
 
@@ -326,6 +334,42 @@ d3.json("data/countries.geojson").then(function(geoData){
     // console.log("category",categoryCounter);
     // console.log(categoryCounter.length);
 
+    let madness= categoryCorrectedData.reduce(function(acc,datapoint){
+      datapoint.country.forEach(country=>{
+        if(acc.hasOwnProperty(country)==false){
+          acc[country]={}
+          acc[country].tally={}
+        }
+        datapoint.listed_in.forEach(cat=>{
+          if(acc[country].tally.hasOwnProperty(cat)==false){
+            acc[country].tally[cat]=1;
+
+          }else{
+            acc[country].tally[cat]+=1;
+          }
+        })
+      })
+      return acc
+    },{})
+    console.log(madness);
+
+    // let maxCat=madness.max()
+
+for(country in madness){
+  let e=Object.entries(madness[country].tally);
+  e.sort(function(a,b){
+    return b[1]-a[1];
+  })
+  // console.log(e);
+  madness[country]={
+    name: e[0][0],
+    value:e[0][1]
+  }
+  // console.log(madness[country]);
+}
+
+
+
     let tvArray=[];
 
     let onlyTV=incomingData.filter(function(d,i){
@@ -414,15 +458,12 @@ d3.json("data/countries.geojson").then(function(geoData){
     .attr("stroke", "#333");
 
     netflixCountry
-    .on("mouseover",function(d,i){
-                d3.select(this).attr("fill","grey").attr("stroke-width",2);
-                return tooltip.style("hidden", false).html(d.properties.name);
-            })
             .on("mousemove",function(d){
+              d3.select(this).attr("fill","grey").attr("stroke-width",2);
                 tooltip.classed("hidden", false)
                        .style("top", (d3.event.pageY) + "px")
                        .style("left", (d3.event.pageX + 10) + "px")
-                       .html(d.properties.name)
+                       .html(d.properties.name+": "+madness[d.properties.name]["name"])
                        // .text("hi")
             })
             .on("mouseout",function(d,i){
@@ -464,6 +505,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     ;
 
     var tooltip = d3.select("div.tooltip");
+    var tooltip1 = d3.select("div.tooltip1");
 
     d3.queue()
   .defer(d3.json, "data/countries.geojson")
@@ -874,7 +916,7 @@ function ready(error, world, names) {
 
     // update the location using simulation
     let simulation=d3.forceSimulation(incomingData.filter(function(d, i){
-      console.log(d);
+      // console.log(d);
       return filterCurrentSelection(d, currentSel)
     }))
     .force("forceX", function(d,i){
@@ -1029,8 +1071,11 @@ function ready(error, world, names) {
 
 
     d3.json("data/rateData.json").then(function(rateData){
-      let pie= d3.pie();
-    console.log(d3.pie(rateData));
+      let ratepie= d3.pie()
+      .value(function(d){
+        return d.total;
+      })
+    console.log(ratepie(rateData));
 
       let graph=rateviz
         .append("g")
@@ -1056,46 +1101,62 @@ function ready(error, world, names) {
   let arcProjection=d3.arc()    // imagine your doing a part of a donut plot
   let arcMaker=arcProjection
     .innerRadius(innerRadius)
-    .outerRadius(300)
+    .outerRadius(350)
     .startAngle(function(d,i){
-      let sum=0;
-      for (j=0; j<13;j++){
-        for(i=0;i<13;i++){
-          if(j<i){
-            sum+=d.total;
-          }else{
-            sum=sum;
-          }
-        }
-      }
-      return rateX(sum);
+      return d.startAngle;
     })
-    .endAngle(function(d) {   let sum=0;
-      // console.log(i);
-      for (j=0; j<13;j++){
-        for(i=0;i<13;i++){
-          if(j<i){
-            sum+=d.total;
-          }else{
-            sum=sum;
-          }
-        }
-      }
-      console.log(rateX(sum));
-      return rateX(sum)+rateX(d.total) ; })
+    .endAngle(function(d) {
+      return d.endAngle ; })
     .padAngle(0.01)
     .padRadius(innerRadius)
         // Add bars
   graph.append("g")
     .selectAll("path")
-    .data(rateData)
+    .data(ratepie(rateData))
     .enter()
     .append("path")
-      .attr("fill", "red")
+      .attr("fill", function(d){
+        // console.log(d);
+        return d["data"]["color"]
+      })
       .attr("d",arcMaker )
       .attr("stroke","black")
+      .on("mouseover",function(d,i){
+        tooltip1.classed("hidden", false)
+               .style("top", (d3.event.pageY) + "px")
+               .style("left", (d3.event.pageX + 10) + "px")
+               .html(d["data"]["name"]+": "+d["data"]["mostListed"])
+        // console.log(d3.mouse(rateviz.node()));
+        let mouseInRate=d3.mouse(rateviz.node())
+        // rateTextElement
+        // .transition()
+        // // .text(d["data"]["name"]+": "+d["data"]["mostListed"])
+        // .attr("x",1370)
+        // .attr("y",820)
+        d3.select(this).select("path")
+        .transition()
+        .duration(500)
+        // .attr("width",30)
+        // .attr("x",-5)
+        .attr("fill","red")
+        // console.log(this);
 
-      graph.attr("transform","translate("+w/2+","+400+")")
+      })
+      .on("mouseout",function(d,i){
+        // textElement.text("")
+        d3.select(this)
+        .transition()
+        .select("path")
+        // .attr("width",20)
+        // .attr("x",0)
+        .attr("fill", function(d){
+          // console.log(d);
+          return d["data"]["color"]
+        })
+        tooltip1.classed("hidden", true);
+      })
+
+      graph.attr("transform","translate("+w/2+","+420+")")
 
 
 
