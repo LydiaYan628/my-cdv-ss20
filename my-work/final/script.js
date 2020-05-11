@@ -281,7 +281,7 @@ d3.json("data/countries.geojson").then(function(geoData){
     let transformedData=transformData(incomingData);
     let timeCorrectedData=timeCorrectData(transformedData);
     let categoryCorrectedData=categoryCorrect(timeCorrectedData);
-    console.log(categoryCorrectedData);
+    // console.log(categoryCorrectedData);
 
 
     // world map visualization
@@ -1007,7 +1007,7 @@ function ready(error, world, names) {
         return false;
       }
     })
-    console.log(onlyur);
+    // console.log(onlyur);
     for(i=0;i<onlyur.length;i++){
       let urElement=[].concat(onlyur[i].listed_in);
       urArray.push(urElement);
@@ -1065,7 +1065,10 @@ function ready(error, world, names) {
     outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
 
 
-
+    function outStrech(d,i){
+      console.log(d);
+      return d["data"]["mostNumber"]/d["data"]["total"]*400
+    }
 
 
 
@@ -1101,7 +1104,7 @@ function ready(error, world, names) {
   let arcProjection=d3.arc()    // imagine your doing a part of a donut plot
   let arcMaker=arcProjection
     .innerRadius(innerRadius)
-    .outerRadius(350)
+    .outerRadius(outStrech)
     .startAngle(function(d,i){
       return d.startAngle;
     })
@@ -1110,22 +1113,33 @@ function ready(error, world, names) {
     .padAngle(0.01)
     .padRadius(innerRadius)
         // Add bars
-  graph.append("g")
+  let rateGraph=graph.append("g")
     .selectAll("path")
     .data(ratepie(rateData))
     .enter()
+    ;
+
+    rateGraph.append("circle")
+    .attr("r",400)
+    .attr("fill","black")
+    .attr("x",w/2)
+
+    rateGraph
     .append("path")
       .attr("fill", function(d){
-        // console.log(d);
+        // console.log(d["data"]["rate"]);
         return d["data"]["color"]
       })
       .attr("d",arcMaker )
-      .attr("stroke","black")
+      .attr("stroke","red")
+      // .text(function(d){
+      //   return d["data"]["rate"]
+      // })
       .on("mouseover",function(d,i){
         tooltip1.classed("hidden", false)
                .style("top", (d3.event.pageY) + "px")
                .style("left", (d3.event.pageX + 10) + "px")
-               .html(d["data"]["name"]+": "+d["data"]["mostListed"])
+               .html(d["data"]["name"]+": "+d["data"]["mostListed"]+" ("+d["data"]["mostNumber"]+"/"+d["data"]["total"]+")")
         // console.log(d3.mouse(rateviz.node()));
         let mouseInRate=d3.mouse(rateviz.node())
         // rateTextElement
@@ -1133,7 +1147,7 @@ function ready(error, world, names) {
         // // .text(d["data"]["name"]+": "+d["data"]["mostListed"])
         // .attr("x",1370)
         // .attr("y",820)
-        d3.select(this).select("path")
+        d3.select(this)
         .transition()
         .duration(500)
         // .attr("width",30)
@@ -1146,7 +1160,7 @@ function ready(error, world, names) {
         // textElement.text("")
         d3.select(this)
         .transition()
-        .select("path")
+        // .select("path")
         // .attr("width",20)
         // .attr("x",0)
         .attr("fill", function(d){
@@ -1157,6 +1171,19 @@ function ready(error, world, names) {
       })
 
       graph.attr("transform","translate("+w/2+","+420+")")
+
+      rateGraph.append("text")
+      .text(function(d){
+        console.log(d);
+        return d["data"]["rate"]
+      })
+      .attr("transform",function(d){
+        return "translate(" + arcMaker.centroid(d) + ")";
+      })
+      .attr("fill","white")
+      .style("text-anchor", "middle")
+      .style("font-family","'Bebas Neue', cursive")
+      .style("font-size",18)
 
 
 
