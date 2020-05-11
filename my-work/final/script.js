@@ -875,6 +875,8 @@ function ready(error, world, names) {
             let y=h/2;
             return "translate("+x+","+y+")"
           })
+
+          enteringElementGroups
           .on("mouseover",function(d,i){
             let mouseInYear=d3.mouse(yearviz.node())
             yearTextElement
@@ -1112,6 +1114,7 @@ function ready(error, world, names) {
       return d.endAngle ; })
     .padAngle(0.01)
     .padRadius(innerRadius)
+
         // Add bars
   let rateGraph=graph.append("g")
     .selectAll("path")
