@@ -458,13 +458,25 @@ for(country in madness){
     })
     .attr("stroke", "#333");
 
+// d.properties.name+": "+madness[d.properties.name]["name"]
+
+
     netflixCountry
             .on("mousemove",function(d){
               d3.select(this).attr("fill","grey").attr("stroke-width",2);
+              console.log(d);
+              if(madness[d.properties.name]["name"]=='undefined'){
+                tooltip.classed("hidden", false)
+                       .style("top", (d3.event.pageY) + "px")
+                       .style("left", (d3.event.pageX + 10) + "px")
+                       .html(d.properties.name)
+              }else{
                 tooltip.classed("hidden", false)
                        .style("top", (d3.event.pageY) + "px")
                        .style("left", (d3.event.pageX + 10) + "px")
                        .html(d.properties.name+": "+madness[d.properties.name]["name"])
+              }
+
                        // .text("hi")
             })
             .on("mouseout",function(d,i){
@@ -489,7 +501,7 @@ for(country in madness){
 
     // title
     worldviz.append("text")
-    .text("WORLD's favorite category")
+    .text("WORLD's favorite production category")
     .style("font-family","'Bebas Neue', cursive")
     .attr("x",20)
     .attr("y",820)
@@ -901,11 +913,12 @@ function ready(error, world, names) {
           })
           .on("mouseout",function(d,i){
             // textElement.text("")
-            tooltip2.classed("hidden", true);
+
             d3.select(this).select("circle")
             .transition()
             .attr("r",4)
             .attr("fill","white")
+              tooltip2.classed("hidden", true);
           })
       ;
 
@@ -1121,7 +1134,7 @@ function ready(error, world, names) {
     })
     .endAngle(function(d) {
       return d.endAngle ; })
-    .padAngle(0.01)
+    .padAngle(0)
     .padRadius(innerRadius)
 
         // Add bars
@@ -1149,6 +1162,7 @@ function ready(error, world, names) {
       })
       .attr("d",arcMaker )
       .attr("stroke","red")
+      .attr("stroke-width",0)
       // .text(function(d){
       //   return d["data"]["rate"]
       // })
@@ -1191,7 +1205,7 @@ function ready(error, world, names) {
 
       rateGraph.append("text")
       .text(function(d){
-        console.log(d);
+        // console.log(d);
         return d["data"]["rate"]
       })
       .attr("transform",function(d){
