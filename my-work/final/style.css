@@ -133,11 +133,45 @@ li.dropdown {
   position: absolute;
   top: 30px;
   z-index: 8;
+    filter: grayscale(90%);
 }
 
 .pageGuideImage:hover{
-  filter: grayscale(50%);
+  filter: grayscale(0%);
+  width:310px;
+  height:171px;
+  top: 25px;
+
 }
+
+/* .overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #008CBA;
+}
+
+.pageGuideImage:hover .overlay {
+  opacity: 1;
+}
+
+.overlayText {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+} */
 
 
 #pageGuide1{

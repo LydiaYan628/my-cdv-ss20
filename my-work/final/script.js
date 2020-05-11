@@ -1127,6 +1127,11 @@ function ready(error, world, names) {
     .attr("fill","black")
     .attr("x",w/2)
 
+    rateGraph.append("circle")
+    .attr("r",80)
+    .attr("fill","red")
+    .attr("x",w/2)
+
     rateGraph
     .append("path")
       .attr("fill", function(d){
@@ -1186,7 +1191,7 @@ function ready(error, world, names) {
       .attr("fill","white")
       .style("text-anchor", "middle")
       .style("font-family","'Bebas Neue', cursive")
-      .style("font-size",18)
+      .style("font-size",20)
 
 
 
