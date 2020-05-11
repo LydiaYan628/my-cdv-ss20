@@ -206,6 +206,7 @@ let yearTextElement=yearviz.append("text")
 .attr("fill","red")
 .style("z-index",7)
 .attr("class","yearTitle")
+.style("font-family","'Bebas Neue', cursive")
 // .style("font-size",18)
 
 let worldTextElement=worldviz.append("text")
@@ -506,6 +507,7 @@ for(country in madness){
 
     var tooltip = d3.select("div.tooltip");
     var tooltip1 = d3.select("div.tooltip1");
+    var tooltip2 = d3.select("div.tooltip2");
 
     d3.queue()
   .defer(d3.json, "data/countries.geojson")
@@ -674,7 +676,7 @@ function ready(error, world, names) {
           .attr("x",-80)
           .attr("y",34)
           .attr("transform","rotate(270)")
-          .style("font-family","'Montserrat', sans-serif")
+          .style("font-family","'Bebas Neue', cursive")
           .attr("fill","yellow")
 
         tvdatagroups.attr("transform",getTVGroupPosition)
@@ -875,15 +877,21 @@ function ready(error, world, names) {
             let y=h/2;
             return "translate("+x+","+y+")"
           })
+            // .text(d.listed_in+" --- "+d.title)
 
           enteringElementGroups
           .on("mouseover",function(d,i){
-            let mouseInYear=d3.mouse(yearviz.node())
-            yearTextElement
-            .transition()
-            .text(d.listed_in+" --- "+d.title)
-            .attr("x",200)
-            .attr("y",mouseInYear[1])
+            tooltip2.classed("hidden", false)
+                   .style("top", (d3.event.pageY) + "px")
+                   .style("left", (d3.event.pageX -10) + "px")
+                   .html(d.listed_in+" --- "+d.title)
+            // let mouseInYear=d3.mouse(yearviz.node())
+            // yearTextElement
+            // .transition()
+            // .text(d.listed_in+" --- "+d.title)
+            //
+            // .attr("x",200)
+            // .attr("y",mouseInYear[1])
 
             // datagroups.attr("opacity",0.1)
             d3.select(this).select("circle")
@@ -893,6 +901,7 @@ function ready(error, world, names) {
           })
           .on("mouseout",function(d,i){
             // textElement.text("")
+            tooltip2.classed("hidden", true);
             d3.select(this).select("circle")
             .transition()
             .attr("r",4)
@@ -1068,7 +1077,7 @@ function ready(error, world, names) {
 
 
     function outStrech(d,i){
-      console.log(d);
+      // console.log(d);
       return d["data"]["mostNumber"]/d["data"]["total"]*400
     }
 
@@ -1191,7 +1200,7 @@ function ready(error, world, names) {
       .attr("fill","white")
       .style("text-anchor", "middle")
       .style("font-family","'Bebas Neue', cursive")
-      .style("font-size",20)
+      .style("font-size",22)
 
 
 
