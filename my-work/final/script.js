@@ -501,7 +501,7 @@ for(country in madness){
 
     // title
     worldviz.append("text")
-    .text("WORLD's favorite production category")
+    .text("WORLD's favorite prodcategory")
     .style("font-family","'Bebas Neue', cursive")
     .attr("x",20)
     .attr("y",820)
@@ -894,8 +894,8 @@ function ready(error, world, names) {
           enteringElementGroups
           .on("mouseover",function(d,i){
             tooltip2.classed("hidden", false)
-                   .style("top", (d3.event.pageY) + "px")
-                   .style("left", (d3.event.pageX -10) + "px")
+                   .style("top", (d3.event.pageY+15) + "px")
+                   .style("left", (d3.event.pageX -115) + "px")
                    .html(d.listed_in+" --- "+d.title)
             // let mouseInYear=d3.mouse(yearviz.node())
             // yearTextElement
@@ -913,12 +913,11 @@ function ready(error, world, names) {
           })
           .on("mouseout",function(d,i){
             // textElement.text("")
-
+            tooltip2.classed("hidden", true);
             d3.select(this).select("circle")
             .transition()
             .attr("r",4)
             .attr("fill","white")
-              tooltip2.classed("hidden", true);
           })
       ;
 

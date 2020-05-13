@@ -338,8 +338,13 @@ div.tooltip1 {
       font-size:30px;
       color:red;
 }
-.hidden {
-      display: none;
+
+
+.unselected{
+  opacity:0;
+}
+.selected{
+  opacity:0;
 }
 div.tooltip2 {
       color: #222;
